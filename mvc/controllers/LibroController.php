@@ -1,8 +1,7 @@
 <?php
 class LibroController extends Controller{
     
-    
-    public function index() {
+    public function index(){
         return $this->list();
     }
     
@@ -11,7 +10,7 @@ class LibroController extends Controller{
         $libros = Libro::all();
         
         return view('libro/list', [
-           'libros' => $libros 
+            'libros'=>$libros
         ]);
     }
 }

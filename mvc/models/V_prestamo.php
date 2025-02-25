@@ -1,3 +1,2 @@
 <?php
-    class V_prestamo extends Model{        
-    }
+    class V_prestamo extends Model{}

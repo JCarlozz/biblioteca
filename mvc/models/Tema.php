@@ -1,3 +1,2 @@
 <?php
-    class Tema extends Model{        
-    }
+    class Tema extends Model{}
