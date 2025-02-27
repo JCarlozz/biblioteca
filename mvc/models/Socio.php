@@ -1,2 +1,2 @@
 <?php
-class Socio extends Model{}
+    class Socio extends Model{}

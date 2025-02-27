@@ -2,7 +2,7 @@
 <html lang="es">
 	<head>
 		<meta charset="UTF-8">
-		<title>Lista de libros - <?= APP_NAME ?></title>
+		<title>Lista de socios - <?= APP_NAME ?></title>
 		
 		<!-- META -->
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,38 +20,42 @@
 		<?= $template->header('Lista de libros') ?>
 		<?= $template->menu() ?>
 		<?= $template->breadCrumbs([
-		    'Libros'=> NULL
+		    'Socios'=> NULL
 		]) ?>
 		<?= $template->messages() ?>
 		
 		<main>
     		<h1><?= APP_NAME ?></h1>
-    		<h2>Lista completa de libros</h2>
+    		<h2>Lista completa de socios</h2>
 
-    		<?php if ($libros) { ?>
+    		<?php if ($socios) { ?>
     			<table class="table w100">
     				<tr>
-    					<th>ISBN</th>
-    					<th>Título</th>
-    					<th>Autor</th>
+    					<th>DNI</th>
+    					<th>Nombre</th>
+    					<th>Población</th>
+    					<th>Teléfono</th>
+    					<th>Email</th>
     					<th class="centrado">Operaciones</th>
     				</tr>
-    			<?php foreach ($libros as $libro){?>
+    			<?php foreach ($socios as $socio){?>
     				<tr>
-    					<td><?= $libro->isbn ?></td>
-    					<td><a href='/Libro/show/<?= $libro->id ?>'><?=$libro->titulo?></a></td>
-    					<td><?= $libro->autor ?></td>
+    					<td><?= $socio->dni ?></td>
+    					<td><a href='/Socio/show/<?= $socio->id ?>'><?=$socio->nombre?> <?=$socio->apellidos?></a></td>
+    					<td><?= $socio->poblacion ?></td>
+    					<td><?= $socio->telefono ?></td>
+    					<td><?= $socio->email ?></td>
     					<td class="centrado">
-    						<a href='/Libro/show/<?= $libro->id ?>'>Ver</a> -
-    						<a href='/Libro/edit/<?= $libro->id ?>'>Editar</a> -
-    						<a href='/Libro/delete/<?= $libro->id ?>'>Eliminar</a>
+    						<a href='/Socio/show/<?= $Socio->id ?>'>Ver</a> -
+    						<a href='/Socio/edit/<?= $socio->id ?>'>Editar</a> -
+    						<a href='/Socio/delete/<?= $socio->id ?>'>Eliminar</a>
     					</td>
     				</tr>
     			<?php } ?>    			
     			</table>
     			<?php }else{?>
     				<div class="danger p2">
-    					<p>No hay libros que mostrar.</p>
+    					<p>No hay socios que mostrar.</p>
     				</div>
     			<?php } ?>
     			

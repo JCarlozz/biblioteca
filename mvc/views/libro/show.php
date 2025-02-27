@@ -20,7 +20,7 @@
 		<?= $template->header('Lista de libros') ?>
 		<?= $template->menu() ?>
 		<?= $template->breadCrumbs([
-		    'Libros'=>'NULL'
+		    'Libros'=> NULL
 		]) ?>
 		<?= $template->messages() ?>
 		
@@ -42,12 +42,28 @@
     			<p><b>Año:</b><?=$libro->anyo ?? '--'?></p>
     			<p><b>Páginas:</b><?=$libro->paginas ?? '--'?></p>
     			<p><b>Características:</b><?=$libro->caracteristicas ?? '--'?></p>    		
+    			
     		</section>
     		
     		<section>
     			<h2>Sinosis</h2>
     			<p><?=$libro->sinopsis ? paragraph($libro->sinopsis) : 'SIN DETALLES'?></p>   		
     		</section>
+    		<section>
+    		<table class="bloquecentradow100">
+				<tr>			
+    				<h2>Ejemplares</h2>
+    				<th>ID</th><th>Estado</th><th>Precio</th></tr>
+    			
+        			<?php foreach ($ejemplares as $ejemplar){?>			     			     	
+        				<tr>
+        					<td><?=$ejemplar->id?></td>
+        					<td><?=$ejemplar->estado?></td>
+        					<td><?=$ejemplar->precio?></td>
+        				</tr>
+        			<?php } ?>		
+			</table>
+			</section>
     		
     		<div class="centrado">
     			<a class="button" onclick="history.back()">Atrás</a>

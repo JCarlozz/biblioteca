@@ -2,7 +2,7 @@
 <html lang="es">
 	<head>
 		<meta charset="UTF-8">
-		<title>Lista de libros - <?= APP_NAME ?></title>
+		<title>Lista de temas - <?= APP_NAME ?></title>
 		
 		<!-- META -->
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,41 +17,40 @@
 	</head>
 	<body>
 		<?= $template->login() ?>
-		<?= $template->header('Lista de libros') ?>
+		<?= $template->header('Lista de temas') ?>
 		<?= $template->menu() ?>
 		<?= $template->breadCrumbs([
-		    'Libros'=> NULL
+		    'Temas'=> NULL
 		]) ?>
 		<?= $template->messages() ?>
 		
 		<main>
     		<h1><?= APP_NAME ?></h1>
-    		<h2>Lista completa de libros</h2>
+    		<h2>Lista completa de temas</h2>
 
-    		<?php if ($libros) { ?>
+    		<?php if ($temas) { ?>
     			<table class="table w100">
     				<tr>
-    					<th>ISBN</th>
-    					<th>Título</th>
-    					<th>Autor</th>
+    					<th>Tema</th>
+    					<th>Descripción</th>
     					<th class="centrado">Operaciones</th>
     				</tr>
-    			<?php foreach ($libros as $libro){?>
+    			<?php foreach ($temas as $tema){?>
     				<tr>
-    					<td><?= $libro->isbn ?></td>
-    					<td><a href='/Libro/show/<?= $libro->id ?>'><?=$libro->titulo?></a></td>
-    					<td><?= $libro->autor ?></td>
+    					<td><?= $tema->tema ?></td>
+    					<td><a href='/Tema/show/<?= $tema->id ?>'><?=$tema->tema?></a></td>
+    					<td><?= $tema->descripcion ?></td>
     					<td class="centrado">
-    						<a href='/Libro/show/<?= $libro->id ?>'>Ver</a> -
-    						<a href='/Libro/edit/<?= $libro->id ?>'>Editar</a> -
-    						<a href='/Libro/delete/<?= $libro->id ?>'>Eliminar</a>
+    						<a href='/Tema/show/<?= $tema->id ?>'>Ver</a> -
+    						<a href='/Tema/edit/<?= $tema->id ?>'>Editar</a> -
+    						<a href='/Tema/delete/<?= $tema->id ?>'>Eliminar</a>
     					</td>
     				</tr>
     			<?php } ?>    			
     			</table>
     			<?php }else{?>
     				<div class="danger p2">
-    					<p>No hay libros que mostrar.</p>
+    					<p>No hay temas que mostrar.</p>
     				</div>
     			<?php } ?>
     			

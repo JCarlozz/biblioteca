@@ -20,7 +20,7 @@
 		<?= $template->header('Lista de libros') ?>
 		<?= $template->menu() ?>
 		<?= $template->breadCrumbs([
-		    'Libros'=>'NULL'
+		    'Libros'=> NULL
 		]) ?>
 		<?= $template->messages() ?>
 		

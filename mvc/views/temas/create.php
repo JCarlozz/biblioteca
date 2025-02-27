@@ -2,7 +2,7 @@
 <html lang="es">
 	<head>
 		<meta charset="UTF-8">
-		<title>Edición de libros - <?= APP_NAME ?></title>
+		<title>Lista de temas - <?= APP_NAME ?></title>
 		
 		<!-- META -->
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,7 +17,7 @@
 	</head>
 	<body>
 		<?= $template->login() ?>
-		<?= $template->header('Lista de libros') ?>
+		<?= $template->header('Lista de temas') ?>
 		<?= $template->menu() ?>
 		<?= $template->breadCrumbs([
 		    'Libros'=> NULL
@@ -26,20 +26,27 @@
 		
 		<main>
     		<h1><?= APP_NAME ?></h1>
-    		<h2>Borrar libro</h2>
-    		
-    		<form method="POST" class="centered m2" action="/Libro/destroy">
-				<p>Confirmar el borrado del libro <b><?=$libro->titulo?></b>.</p>
-    			    			
-    			<input type="hidden" name="id" value="<?=$libro->id?>">
-    			<input class="button-danger" type="submit" name="borrar" value="Borrar">
-    		</form>    	
-    				
+    		<h2>Nuevo tema</h2>
+			
+			<form method="POST" enctype="multipart/form-data" action="/Tema/store">
+				<div class="flex2">
+					<label>Tema</label>
+					<input type="text" name="tema" value="<?=old('tema')?>">
+					<br>
+					<label>Descripción</label>
+					<input type="text" name="descripcion" value="<?=old('descripcion')?>">
+					<br>
+					
+					<div class="centrado my2">
+						<input type="submit" class="button" name="guardar" value="Guardar">
+						<input type="reset" class="button" value="Reset">
+					</div>    
+				</div>
+			</div>			
+			</form>
 			<div class="centrado my2">
 				<a class="button" onclick="history.back()">Atrás</a>
-				<a class="button" href="/Libro/list">Lista de libros</a>
-				<a class="button" href="/Libro/show/<?=$libro->id?>">Detalles</a>
-				<a class="button" href="/Libro/edit/<?=$libro->id?>">Edición</a>
+				<a class="button" href="/Tema/list">Lista de temas</a>
 			</div>    		
 		</main>
 		<?php $template->footer()?>		
