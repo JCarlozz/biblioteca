@@ -36,7 +36,7 @@
                 <p><b>Email:</b>			<?=$socio->email?></p>
     			<p><b>Dirección:</b>		<?=$socio->direccion?></p>
                 <p><b>Codigo Postal:</b>	<?=$socio->cp?><p>
-                <p><b>Población:</b>		<?$socio->poblacion?><p>
+                <p><b>Población:</b>		<?=$socio->poblacion?><p>
                 <p><b>Provincia:</b>		<?=$socio->provincia?></p>
     			<p><b>Teléfono:</b>			<?=$socio->telefono?></p>
             </section>

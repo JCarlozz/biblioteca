@@ -28,7 +28,7 @@
     		<h1><?= APP_NAME ?></h1>
     		<h2>Edición de tema<?= $tema->tema?></h2>
     		
-    		<form method="POST" action="/Libro/update">
+    		<form method="POST" action="/tema/update">
 			
     			<!-- input oculto que contiene ID -->
     			<input type="hidden" name="id" value="<?=$tema->id?>">

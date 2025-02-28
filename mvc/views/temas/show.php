@@ -17,7 +17,7 @@
 	</head>
 	<body>
 		<?= $template->login() ?>
-		<?= $template->header('Lista de libros') ?>
+		<?= $template->header('Lista de temas') ?>
 		<?= $template->menu() ?>
 		<?= $template->breadCrumbs([
 		    'Temas'=> NULL

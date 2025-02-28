@@ -31,15 +31,15 @@
     		<form method="POST" class="centered m2" action="/tema/destroy">
 				<p>Confirmar el borrado del tema <b><?=$tema->tema?></b>.</p>
     			    			
-    			<input type="hidden" name="id" value="<?=$libro->id?>">
+    			<input type="hidden" name="id" value="<?=$tema->id?>">
     			<input class="button-danger" type="submit" name="borrar" value="Borrar">
     		</form>    	
     				
 			<div class="centrado my2">
 				<a class="button" onclick="history.back()">Atrás</a>
-				<a class="button" href="/Tema/list">Lista de temas</a>
-				<a class="button" href="/Tema/show/<?=$tema->id?>">Detalles</a>
-				<a class="button" href="/Tema/edit/<?=$tema->id?>">Edición</a>
+				<a class="button" href="/Temas/list">Lista de temas</a>
+				<a class="button" href="/Temas/show/<?=$tema->id?>">Detalles</a>
+				<a class="button" href="/Temas/edit/<?=$tema->id?>">Edición</a>
 			</div>    		
 		</main>
 		<?php $template->footer()?>		

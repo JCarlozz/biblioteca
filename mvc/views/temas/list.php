@@ -37,7 +37,6 @@
     				</tr>
     			<?php foreach ($temas as $tema){?>
     				<tr>
-    					<td><?= $tema->tema ?></td>
     					<td><a href='/Tema/show/<?= $tema->id ?>'><?=$tema->tema?></a></td>
     					<td><?= $tema->descripcion ?></td>
     					<td class="centrado">
