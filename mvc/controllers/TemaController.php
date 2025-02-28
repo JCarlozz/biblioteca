@@ -9,7 +9,7 @@ class TemaController extends Controller{
         
         $temas = Tema::orderBy('tema', 'ASC');
         
-        return view('temas/list', [
+        return view('tema/list', [
             'temas'=>$temas
         ]);
     }
@@ -134,8 +134,8 @@ class TemaController extends Controller{
             //si el tema tiene libros, no permetimos el borrado
             //más adelante ocultaremos el botón de "Borrar" en estos casos
             //para que no el usuario no llegue al formulario de confirmación
-            if ($tema->hasAny('Libro'))
-                throw new Exception("No se puede borrar el libro mientras tenga ejemplares.");
+            //if ($tema->hasAny('Libro'))
+                //throw new Exception("No se puede borrar el libro mientras tenga ejemplares.");
                 
                 try{
                     $tema->deleteObject();

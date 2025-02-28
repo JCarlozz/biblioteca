@@ -72,6 +72,7 @@
     			<a class="button" href="/libro/delete/<?= $libro->id?>">Borrar</a>    		
     		</div>
 		</main>
-		<?php $template->footer()?>		
+		<?= $template->footer() ?>
+		<?= $template->version() ?>		
 	</body>
 </html>

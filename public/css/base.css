@@ -383,6 +383,20 @@ span.path::before{
 	background: var(--primary-soft-color);
 }
 
+.button .derecha {
+  background: linear-gradient(var(--primary-soft-color), var(--primary-bg-color));
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;	
+}
+
+.button .derecha:hover {
+  background: var(--primary-soft-color);
+}
+
 .buttonLight, .button-light{
 	outline: solid 1px var(--primary-bg-color);
 	color: var(--primary-bg-color);
@@ -829,6 +843,8 @@ body>header p{
 .menu li:not(:first-of-type){
 	border-left: dotted 2px var(--primary-font-color);
 }
+
+
 
 
 /* Migas -----------------------------------------------------------*/

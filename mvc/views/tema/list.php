@@ -8,6 +8,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="description" content="Portada en <?= APP_NAME ?>">
 		<meta name="author" content="Robert Sallent">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 		
 		<!-- FAVICON -->
 		<link rel="shortcut icon" href="/favicon.ico" type="image/png">	
@@ -27,6 +28,8 @@
 		<main>
     		<h1><?= APP_NAME ?></h1>
     		<h2>Lista completa de temas</h2>
+    		
+    		<p><a class="button float-right" href="/Tema/create/">Nuevo tema</a></p>
 
     		<?php if ($temas) { ?>
     			<table class="table w100">
@@ -40,9 +43,12 @@
     					<td><a href='/Tema/show/<?= $tema->id ?>'><?=$tema->tema?></a></td>
     					<td><?= $tema->descripcion ?></td>
     					<td class="centrado">
-    						<a href='/Tema/show/<?= $tema->id ?>'>Ver</a> -
-    						<a href='/Tema/edit/<?= $tema->id ?>'>Editar</a> -
-    						<a href='/Tema/delete/<?= $tema->id ?>'>Eliminar</a>
+    						<a href='/Libro/show/<?= $libro->id ?>'tittle="Ver">
+    							<i class="fas fa-eye"></i></a> -
+    						<a href='/Libro/edit/<?= $libro->id ?>'tittle="Editar">
+    							<i class="fas fa-edit"></i></a> -
+    						<a href='/Libro/delete/<?= $libro->id ?>'tittle="Eliminar">
+    							<i class="fas fa-trash-alt"></i></a>
     					</td>
     				</tr>
     			<?php } ?>    			
@@ -57,6 +63,9 @@
     				<a class="button" onclick="history.back()">Atrás</a>
     			</div>
 		</main>
-		<?php $template->footer()?>		
+		
+		<?= $template->footer() ?>
+		<?= $template->version() ?>	
+			
 	</body>
 </html>

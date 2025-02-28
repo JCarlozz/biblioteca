@@ -80,7 +80,8 @@
 				<a class="button" href="/Libro/list">Lista de libros</a>
 			</div>    		
 		</main>
-		<?php $template->footer()?>		
+		<?= $template->footer() ?>
+		<?= $template->version() ?>		
 	</body>
 </html>
 

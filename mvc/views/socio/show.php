@@ -48,6 +48,7 @@
     			<a class="button" href="/socio/delete/<?= $socio->id?>">Borrar</a>    		
     		</div>
 		</main>
-		<?php $template->footer()?>		
+		<?= $template->footer() ?>
+		<?= $template->version() ?>		
 	</body>
 </html>

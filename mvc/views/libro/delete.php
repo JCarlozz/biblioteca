@@ -42,6 +42,8 @@
 				<a class="button" href="/Libro/edit/<?=$libro->id?>">Edición</a>
 			</div>    		
 		</main>
-		<?php $template->footer()?>		
+			
+		<?= $template->footer() ?>
+		<?= $template->version() ?>	
 	</body>
 </html>

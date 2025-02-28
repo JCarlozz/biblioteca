@@ -8,9 +8,10 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="description" content="Portada en <?= APP_NAME ?>">
 		<meta name="author" content="Robert Sallent">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 		
 		<!-- FAVICON -->
-		<link rel="shortcut icon" href="/favicon.ico" type="image/png">	
+		<link rel="shortcut icon" href="/favicon.png" type="image/png">	
 		
 		<!-- CSS -->
 		<?= $template->css() ?>
@@ -27,6 +28,8 @@
 		<main>
     		<h1><?= APP_NAME ?></h1>
     		<h2>Lista completa de socios</h2>
+    		
+    		<p><a class="button float-right" href="/Socio/create/">Nuevo socio</a></p>
 
     		<?php if ($socios) { ?>
     			<table class="table w100">
@@ -46,9 +49,12 @@
     					<td><?= $socio->telefono ?></td>
     					<td><?= $socio->email ?></td>
     					<td class="centrado">
-    						<a href='/Socio/show/<?= $Socio->id ?>'>Ver</a> -
-    						<a href='/Socio/edit/<?= $socio->id ?>'>Editar</a> -
-    						<a href='/Socio/delete/<?= $socio->id ?>'>Eliminar</a>
+    						<a href='/Libro/show/<?= $libro->id ?>'tittle="Ver">
+    							<i class="fas fa-eye"></i></a> -
+    						<a href='/Libro/edit/<?= $libro->id ?>'tittle="Editar">
+    							<i class="fas fa-edit"></i></a> -
+    						<a href='/Libro/delete/<?= $libro->id ?>'tittle="Eliminar">
+    							<i class="fas fa-trash-alt"></i></a>
     					</td>
     				</tr>
     			<?php } ?>    			
@@ -63,6 +69,7 @@
     				<a class="button" onclick="history.back()">Atrás</a>
     			</div>
 		</main>
-		<?php $template->footer()?>		
+		<?= $template->footer() ?>
+		<?= $template->version() ?>		
 	</body>
 </html>

@@ -27,7 +27,7 @@
 		<main>
     		<h1><?= APP_NAME ?></h1>
     		<section>
-    			<h2><?= tema->tema?></h2>
+    			<h2><?=$tema->tema?></h2>
     			
     			<p><b>Tema:</b>			<?=$tema->tema?></p>
     			<p><b>Descripción:</b>	<?=$tema->descripcion?></p>
@@ -41,6 +41,7 @@
     			<a class="button" href="/Tema/delete/<?= $tema->id?>">Borrar</a>    		
     		</div>
 		</main>
-		<?php $template->footer()?>		
+		<?= $template->footer() ?>
+		<?= $template->version() ?>		
 	</body>
 </html>

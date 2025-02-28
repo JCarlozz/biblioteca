@@ -52,7 +52,8 @@
 				<a class="button" href="/Tema/list">Lista de temas</a>
 			</div>    		
 		</main>
-		<?php $template->footer()?>		
+		<?= $template->footer() ?>
+		<?= $template->version() ?>		
 	</body>
 </html>
 

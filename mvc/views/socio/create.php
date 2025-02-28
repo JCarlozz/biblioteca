@@ -73,6 +73,7 @@
 				<a class="button" href="/Socio/list">Lista de socios</a>
 			</div>    		
 		</main>
-		<?php $template->footer()?>		
+		<?= $template->footer() ?>
+		<?= $template->version() ?>		
 	</body>
 </html>

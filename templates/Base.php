@@ -130,13 +130,14 @@ class Base implements TemplateInterface{
             <header>
                 <figure>
                     <a href='/'>
-                        <img alt='FastLight Logo' src='/images/template/fastlight_base.png'>
+                        <img alt='Biblioteca CIFO 2025' src='../public/logo.png'>
                     </a>
                 </figure>
                 <hgroup>
             	   <h1>".($title ?? 'Página sin título' )."<span class='small italic'> en ".APP_NAME."</span></h1>
                    ".($subtitle ? '<p>'.$subtitle.'</p>' : '')."
-                </hgroup>  
+                </hgroup> 
+                
             </header>
         ";
     }
@@ -158,17 +159,17 @@ class Base implements TemplateInterface{
         $html = "<menu class='menu'>";
         $html .=   "<li><a href='/'>Inicio</a></li>";
         
+        $html .=   "<li><a href='/Panel'>Panel de control</a></li>";
+        
         $html .=   "<li><a href='/Libro'>Libros</a></li>";
-        $html .=   "<li><a href='/Libro/create'>Nuevo libro</a></li>";
+        //$html .=   "<li><a href='/Libro/create'>Nuevo libro</a></li>";
         
         $html .=   "<li><a href='/Socio'>Socios</a></li>";
-        $html .=   "<li><a href='/Socio/create'>Nuevo socio</a></li>";
+       // $html .=   "<li><a href='/Socio/create'>Nuevo socio</a></li>";
         
         $html .=   "<li><a href='/Tema'>Temas</a></li>";
-        $html .=   "<li><a href='/Tema/create'>Nuevo tema</a></li>";
-        
-        $html .=   "<li><a href='/Example'>Ejemplos de maquetación</a></li>";
-          
+        //$html .=   "<li><a href='/Tema/create'>Nuevo tema</a></li>";
+              
         // parte derecha (solamente para usuarios concretos)
  
         // enlace a los tests de ejemplo (solamente administrador o rol de test)
@@ -183,10 +184,9 @@ class Base implements TemplateInterface{
         if((Login::oneRole(ERROR_ROLES)) && (DB_ERRORS || LOG_ERRORS || LOG_LOGIN_ERRORS))
             $html .=   "<li><a href='/Error/list'>Errores</a></li>";
           
-        $html .=   "<li><a href='https://github.com/robertsallent/fastlight'>GitHub</a></li>";
-            
+                    
         $html .= "</menu>";
-        $html .= "</nav>";
+        
         
         return $html;
     } 
