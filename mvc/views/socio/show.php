@@ -20,19 +20,20 @@
 		<?= $template->header('Lista de libros') ?>
 		<?= $template->menu() ?>
 		<?= $template->breadCrumbs([
-		    'Socios'=> NULL
+		    'Socios'=> '/socio',
+		    $socio->nombre =>NULL
 		]) ?>
 		<?= $template->messages() ?>
 		
 		<main>
     		<h1><?= APP_NAME ?></h1>
     		<section>
-    			<h2><?= $socio->nombre. $socio->apellidos?></h2>
+    			<h2><?= $socio->nombre.  $socio->apellidos?></h2>
     			
     			<p><b>DNI:</b>				<?=$socio->dni?></p>
     			<p><b>Nombre:</b>			<?=$socio->nombre?></p>
                 <p><b>Apellidos:</b>		<?=$socio->apellidos?><p>
-                <p><b>Fecha de nacimiento:</b><?$socio->nacimiento?><p>
+                <p><b>Fecha de nacimiento:</b><?=$socio->nacimiento?><p>
                 <p><b>Email:</b>			<?=$socio->email?></p>
     			<p><b>Dirección:</b>		<?=$socio->direccion?></p>
                 <p><b>Codigo Postal:</b>	<?=$socio->cp?><p>

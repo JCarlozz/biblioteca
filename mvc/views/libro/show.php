@@ -20,7 +20,8 @@
 		<?= $template->header('Lista de libros') ?>
 		<?= $template->menu() ?>
 		<?= $template->breadCrumbs([
-		    'Libros'=> NULL
+		    'Libros'=>'/libro',
+		    $libro->titulo=>NULL 
 		]) ?>
 		<?= $template->messages() ?>
 		
@@ -52,17 +53,30 @@
     		<section>
     		<table class="bloquecentradow100">
 				<tr>			
-    				<h2>Ejemplares</h2>
-    				<th>ID</th><th>Estado</th><th>Precio</th></tr>
-    			
-        			<?php foreach ($ejemplares as $ejemplar){?>			     			     	
+    				<h2>Ejemplares de <?= $libro->titulo?></h2>
+    				<?php 
+    				if (!$ejemplares){
+    				    echo "<div class='warning p2'><p>No hay ejemplares de este libro.</p></div>";
+    				}else{?>
+    				
+    				<table class="table w100 centered-block">
+    					<tr>    					
+    						<th>ID</th><th>Año</th><th>Precio</th><th>Estado</th>
+    					</tr>
+    					<?php
+    					foreach($ejemplares as $ejemplar){?>			     			     	
         				<tr>
         					<td><?=$ejemplar->id?></td>
-        					<td><?=$ejemplar->estado?></td>
+        					<td><?=$ejemplar->anyo?></td>
         					<td><?=$ejemplar->precio?></td>
+        					<td><?=$ejemplar->estado?></td>
         				</tr>
-        			<?php } ?>		
-			</table>
+        			<?php } ?>
+        			<div class="p1 right">
+        				Existen <?= sizeof($ejemplares)?> ejemplares de este libro.
+        			</div>		
+				</table>
+				<?php } ?>
 			</section>
     		
     		<div class="centrado">

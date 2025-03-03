@@ -169,6 +169,9 @@ class Base implements TemplateInterface{
         
         $html .=   "<li><a href='/Tema'>Temas</a></li>";
         //$html .=   "<li><a href='/Tema/create'>Nuevo tema</a></li>";
+        
+        $html .=   "<li><a href='/Prestamo'>Prestamos</a></li>";
+        //$html .=   "<li><a href='/Prestamo/create'>Nuevo prestamo</a></li>";
               
         // parte derecha (solamente para usuarios concretos)
  

@@ -18,8 +18,11 @@ class LibroController extends Controller{
         
         $libro = Libro::findOrFail($id, "No se encontró el libro indicado.");
         
+        $ejemplares= $libro->hasMany('Ejemplar');
+                
         return view('libro/show',[
-            'libro' => $libro
+            'libro'         => $libro,
+            'ejemplares'    => $ejemplares
         ]);
     }
     
@@ -86,9 +89,13 @@ class LibroController extends Controller{
         //busca el libro con ese ID
         $libro = Libro::findOrFail($id, "No se encontró el libro.");
         
+        $ejemplares= $libro->hasMany('Ejemplar');
+        
+        
         //retorna una ViewResponse con la vista con la vista con el formulario de edición
-        return view('libro/edit', [
-            'libro'=> $libro
+        return view('libro/edit',[
+            'libro'         => $libro,
+            'ejemplares'    => $ejemplares
         ]);
     }
     

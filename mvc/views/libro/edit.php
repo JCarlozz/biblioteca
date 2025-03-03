@@ -17,10 +17,11 @@
 	</head>
 	<body>
 		<?= $template->login() ?>
-		<?= $template->header('Lista de libros') ?>
+		<?= $template->header("Edicion del $libro->titulo") ?>
 		<?= $template->menu() ?>
 		<?= $template->breadCrumbs([
-		    'Libros'=> NULL
+		    'Libros'=>'/libro',
+		    $libro->titulo=>NULL
 		]) ?>
 		<?= $template->messages() ?>
 		
@@ -74,6 +75,46 @@
     				<input type="reset" class="button" value="Reset">
     			</div>
     		</form>
+    		<section>
+    			<script>
+    				function confirmar(id){
+    					if(confirm('Seguro que deseas eliminar?'))
+    						location.href='/Ejemplar/destroy/'+id
+    				}
+    			</script>
+    			    				
+    			<h2>Ejemplares de <?= $libro->titulo?></h2>
+    				
+    			<a class="button" href="/Ejemplar/create/<?=$libro->id?>">
+    				Nuevo Ejemplar
+    			</a>
+    			
+    			<?php 
+    			if (!$ejemplares){
+    			    echo "<div class='warning p2'><p>No hay ejemplares de este libro.</p></div>";
+    			}else{?>
+    				
+    				<table class="table w100 centered-block">
+    					<tr>    					
+    						<th>ID</th><th>Año</th><th>Precio</th><th>Estado</th><th>Operaciones</th>
+    					</tr>
+    					
+    				<?php foreach($ejemplares as $ejemplar){?>			     			     	
+        				<tr>
+        					<td><?=$ejemplar->id?></td>
+        					<td><?=$ejemplar->anyo?></td>
+        					<td><?=$ejemplar->precio?></td>
+        					<td><?=$ejemplar->estado?></td>
+        					<td class="centered">
+        					<?php if(!$ejemplar->hasAny('Prestamo')) { ?>
+        						<a onclick="confirmar(<?=$ejemplar->id?>)">Borrar</a>
+        					<?php } ?>
+        					</td>
+        				</tr>
+        			<?php } ?>		
+				</table>
+				<?php } ?>
+			</section>
     				
 			<div class="centrado my2">
 				<a class="button" onclick="history.back()">Atrás</a>
