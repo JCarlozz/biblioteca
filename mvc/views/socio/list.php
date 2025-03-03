@@ -17,8 +17,7 @@
 		<?= $template->css() ?>
 	</head>
 	<body>
-		<?= $template->login() ?>
-		<?= $template->header('Lista de libros') ?>
+		<?= $template->header('Lista de socioss')  ?>
 		<?= $template->menu() ?>
 		<?= $template->breadCrumbs([
 		    'Socios'=> NULL

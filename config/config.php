@@ -175,7 +175,7 @@ define('VIEWS_FOLDER', '../mvc/views');     // Carpeta para las vistas.
 
 // Template a usar en las vistas (en la carpeta templates).
 // Las opciones disponibles por defecto son Base, Dark, Neon o Retro.
-define('TEMPLATE', 'Base');
+define('TEMPLATE', 'Nuevo');
 
 
 

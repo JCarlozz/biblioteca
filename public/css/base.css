@@ -298,7 +298,7 @@ h2, h3{
 }
 
 h2:first-child, h3:first-child{
-	margin:  1em 0;
+	margin:  0;
 }
 
 p{
@@ -307,9 +307,13 @@ p{
 }
 
 a{
-	text-decoration: none;
+	text-decoration: underline;
 	cursor: pointer;
-	color: var(--a-color);
+	color: var(--primary-font-color);
+}
+
+a:hover{
+	color: var(--button-hover-bg-color);
 }
 
 pre{
@@ -376,15 +380,13 @@ span.path::before{
 	border: solid 2px var(--primary-bg-color);
 }
 
-.button{
-	background: linear-gradient(var(--primary-soft-color), var(--primary-bg-color));
-}
+
 .button:hover{
 	background: var(--primary-soft-color);
 }
 
 .button .derecha {
-  background: linear-gradient(var(--primary-soft-color), var(--primary-bg-color));
+  background: var(--primary-soft-color);
   color: white;
   padding: 10px 15px;
   border: none;
@@ -439,10 +441,10 @@ span.path::before{
 }
 
 .table th{
-	font-family: helvetica;
+	font-family: arial;
 	color: var(--th-font-color);
 	text-shadow: 2px 2px 2px var(--text-shadow);
-	background-color: var(--th-bg-color);
+	background-color: var(--primary-font-color);
 	padding: 10px;
 	font-size: 1.1rem;
 	text-align: left;
@@ -512,6 +514,10 @@ dd{
 figure{
 	text-align: center;
 	padding: 2%;
+}
+
+figure a{
+	color: rgb(255,255,255);
 }
 
 figure img{
@@ -622,7 +628,7 @@ label{
 	display: inline-block;
 	padding: 4px 6px;
 	min-width: 140px;
-	background: linear-gradient(var(--primary-soft-color), var(--primary-bg-color));
+	background:var(--primary-soft-color);
 	color: var(--primary-font-color);
 	border-radius: 3px;
 }
@@ -768,7 +774,7 @@ body>header{
 	display: flex;
 	flex-wrap: nowrap;
 	padding: 10px 2%;
-	background-image: url(../images/template/header_base.jpg);
+	/**background-image: url(../images/template/header_base.jpg);**/
 	background-size: cover;
 	align-items: center;
 }
@@ -790,11 +796,12 @@ body>header hgroup{
 	min-width: 40%;
 	max-width: 80%;
 	color: var(--primary-bg-color);
-	background-color: var(--primary-font-color);
+	
 	border-radius: 3px;	
 }
 
 body>header h1{
+	color:  #ffffff;
 	margin: 0px 10px;
 	font-size: 2.25em;
 	width: 100%;
@@ -810,8 +817,10 @@ body>header p{
 
 /* Menú -------------------------------------------------------- */
 .menu{
-	padding: 8px 20px;
-	background: linear-gradient(45deg, var(--primary-bg-color), var(--primary-soft-color));
+	background: var(--primary-bg-color);
+	/**padding: 8px 20px;
+	border-top: solid 15px var(--primary-bg-color);**/
+	border-bottom: solid 2px var(--primary-font-color);
 	color: var(--primary-font-color);
 	border-radius: 3px;
 	font-size: 0;
@@ -833,16 +842,17 @@ body>header p{
 	margin: 0;
 	transition: 0.4s;
 	color: var(--primary-font-color);
+	text-decoration: none;
 }
 
 .menu li a:hover{
-	background-color: var(--primary-font-color);
-	color: var(--primary-bg-color);
+	background-color: var(--button-hover-bg-color);
+	color: var(--button-font-color);
 }
 
-.menu li:not(:first-of-type){
-	border-left: dotted 2px var(--primary-font-color);
-}
+/**.menu li:not(:first-of-type){
+	border-bottom: solid 2px var(--primary-font-color);
+}**/
 
 
 
@@ -917,8 +927,8 @@ main{
 
 /* footer principal de la página (directamente dentro del body) ---- */
 body>footer{
-	background: linear-gradient(45deg, var(--primary-bg-color), var(--primary-soft-color));
-	color: var(--primary-font-color);
+	background: var(--primary-font-color);
+	color: var(--button-font-color);
 	border-radius: 3px;
 }
 
@@ -941,6 +951,10 @@ body>footer figure{
 
 body>footer img{
 	max-width: 50px;
+}
+
+body>footer a{
+	color: var(--button-font-color);
 }
 
 

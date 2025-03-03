@@ -16,7 +16,6 @@
 		<?= $template->css() ?>
 	</head>
 	<body>
-		<?= $template->login() ?>
 		<?= $template->header('Portada') ?>
 		<?= $template->menu() ?>
 		<?= $template->breadCrumbs() ?>

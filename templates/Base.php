@@ -130,13 +130,17 @@ class Base implements TemplateInterface{
             <header>
                 <figure>
                     <a href='/'>
-                        <img alt='Biblioteca CIFO 2025' src='../public/logo.png'>
+                        <img alt='Biblioteca CIFO 2025' src='/welcome/index'>
                     </a>
                 </figure>
                 <hgroup>
             	   <h1>".($title ?? 'Página sin título' )."<span class='small italic'> en ".APP_NAME."</span></h1>
                    ".($subtitle ? '<p>'.$subtitle.'</p>' : '')."
-                </hgroup> 
+                </hgroup>
+
+                <div class='derecha'>
+                    <a class='login button float-right' href='/Login'>LogIn</a>
+                </div>       
                 
             </header>
         ";

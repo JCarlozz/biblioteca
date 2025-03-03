@@ -16,36 +16,44 @@
 		<?= $template->css() ?>
 	</head>
 	<body>
-		<?= $template->login() ?>
-		<?= $template->header('Lista de libros') ?>
+		
+		<?= $template->header('Panel de control') ?>
 		<?= $template->menu() ?>
 		<?= $template->breadCrumbs([
-		    'Panel de contro'=> NULL
+		    'Panel de control'=> NULL
 		]) ?>
 		<?= $template->messages() ?>
 		
 		<main>
     		<h1><?= APP_NAME ?></h1>
-    		<h2>Panel de contro</h2>
-			
-			<section class="three-columns">
-				
-                <div class="p1 box-shadow">
-                    <h2>Libros</h2>
-                    <h3><a href="/Libro/list/">Lista de libros.</a></h3>
-                    <h3><a href="/Libro/create/">Nuevo libo.</a></h3>
+    		<h2>Panel de control</h2>
+    		
+    		<section class="three-columns">
+    		  <div>
+        		<div class="table w100">
+        			<ul>
+        				<h2>Libros</h2>    						
+    			        <li><a href="/Libro/list/">Lista de libros.</a></li>
+                        <li><a href="/Libro/create/">Nuevo libo.</a></li>
+                    </ul>
                 </div>
-                <div class="p1 box-shadow">
-                    <h2>Socios</h2>
-                    <h3><a href="/Socio/list/">Lista de socios.</a></h3>
-                    <h3><a href="/Socio/create/">Nuevo socio.</a></h3>
+            
+                <div class="table w100">	
+                    <ul>	
+                    	<h2>Socios</h2>    				
+                        <li><a href="/Socio/list/">Lista de socios.</a></li>
+                        <li><a href="/Socio/create/">Nuevo socio.</a></li>
+                    </ul>
                 </div>
-                <div class="p1 box-shadow">
-                    <h2>Temas</h2>
-                    <h3><a href="/Tema/list/">Lista de temas.</a></h3>
-                    <h3><a href="/Tema/create/">Nuevo tema.</a></h3>
+            
+                <div class="table w100">
+                    <ul>                    
+                        <h2>Temas</h2>    			                
+                        <li><a href="/Tema/list/">Lista de temas.</a></li>
+                        <li><a href="/Tema/create/">Nuevo tema.</a></li>
+                    </ul>                
                 </div>
-               
+              </div>
             </section>
             
             <div class="centred">

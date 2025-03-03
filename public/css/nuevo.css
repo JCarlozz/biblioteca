@@ -1,0 +1,141 @@
+@import 'base.css';
+
+/* --- VARIABLES DE COLORES --- */
+:root {
+  --primary-bg-color:  #faba26; /* Naranja UPF */
+  --primary-font-color: #808080; /* Gris oscuro */
+  --secondary-bg-color: #faba26; /* Gris claro */
+  --secondary-font-color: #faba26; /* Gris medio */
+  --link-color: #faba26; /* Azul para enlaces */
+  --link-hover-color: #e0a800; /* Azul más oscuro */
+  --border-color: #dddddd; /* Gris claro */
+  --button-bg-color: #808080; /* Botones naranja */
+  --button-font-color: #ffffff; /* Blanco */
+  --button-hover-bg-color: #e0a800; /* Naranja más oscuro */
+}
+
+/* --- ESTILOS GENERALES --- */
+body {
+  background-color: #ffffff; /* Fondo blanco */
+  color: var(--primary-font-color);
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* --- ENCABEZADO --- */
+header {
+  background-color: var(--primary-font-color);
+  padding: 15px;
+  text-align: center;
+}
+
+header h1 {
+  color: var(--button-font-color);
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0;
+}
+
+header .button {
+  background-color: var(--primary-bg-color);
+  padding: 15px;
+  text-align: center;
+  color:var(--primary-font-color);
+  border-radius: 5px;
+}
+
+header .derecha {
+  display: flex;
+  padding: 0 0 0 250px;
+  text-align: center;
+}
+
+/* --- MENÚ DE NAVEGACIÓN --- */
+nav {
+  text-align: left;
+  padding: 10px;
+}
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li {
+  display: inline-block;
+  margin: 0 15px;
+}
+
+nav ul li a {
+  color: var(--link-color);
+  text-decoration: none;
+  font-weight: bold;
+  padding: 10px;
+}
+
+nav ul li a:hover {
+  color: var(--link-hover-color);
+}
+
+/* --- CONTENEDOR PRINCIPAL --- */
+.contenedor {
+  display: flex;
+  justify-content: space-around;
+  padding: 20px;
+}
+
+.panel {
+  width: 30%;
+  background-color: var(--secondary-bg-color);
+  padding: 20px;
+  border-radius: 5px;
+  text-align: center;
+  border: 1px solid var(--border-color);
+}
+
+.panel h3 {
+  color: var(--primary-bg-color);
+  font-size: 18px;
+}
+
+/* --- BOTONES --- */
+.button {
+  background-color: var(--button-bg-color);
+  color: var(--button-font-color);
+  padding: 10px 20px;
+  border: none;
+  border-radius: 3px;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 5px 25px;
+}
+
+.button:hover {
+  background-color: var(--button-hover-bg-color);
+  color: var(--button-font-color);
+}
+
+.login {
+  background-color: var(--primary-bg-color);
+  color: var(--button-font-color);
+  padding: 10px 20px;
+  border: none;
+  border-radius: 3px;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 5px 25px;
+}
+
+/* --- PIE DE PÁGINA --- */
+footer {
+  background-color: #faba26;
+  color: var(--button-font-color);
+  text-align: center;
+  padding: 10px;
+  width: 100%;
+  bottom: 0;
+}

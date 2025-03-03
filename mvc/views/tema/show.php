@@ -16,7 +16,6 @@
 		<?= $template->css() ?>
 	</head>
 	<body>
-		<?= $template->login() ?>
 		<?= $template->header('Lista de temas') ?>
 		<?= $template->menu() ?>
 		<?= $template->breadCrumbs([
