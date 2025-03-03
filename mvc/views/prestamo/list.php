@@ -29,30 +29,23 @@
     		<h1><?= APP_NAME ?></h1>
     		<h2>Lista completa de préstamos</h2>
     		
-    		<p><a class="button float-right" href="/Prestamo/create/">Nuevo prestamo</a></p>
+    		<p><a class="button float-right" href="/Prestamo/create/">Nuevo préstamo</a></p>
 
     		<?php if ($prestamos) { ?>
     			<table class="table w100">
-    				<tr>    					
+    				<tr>
     					<th>Título</th>
     					<th>Nombre</th>
-    					<th>Apellidos</th>
-    					<th>Prestamo</th>
-    					<th>Devolución</th>
     					<th class="centrado">Operaciones</th>
     				</tr>
     			<?php foreach ($prestamos as $prestamo){?>
     				<tr>
-    					<td><?= $prestamo->titulo ?></td>
     					<td><a href='/Prestamo/show/<?= $prestamo->id ?>'><?=$prestamo->titulo?></a></td>
     					<td><?= $prestamo->nombre ?></td>
-    					<td><?= $prestamo->apellidos ?></td>
-    					<td><?= $prestamo->prestamo ?></td>
-    					<td><?= $prestamo->devolucion ?></td>
     					<td class="centrado">
     						<a href='/Prestamo/show/<?= $prestamo->id ?>'tittle="Ver">
     							<i class="fas fa-eye"></i></a> -
-    						<a href='/prestamo/edit/<?= $prestamo->id ?>'tittle="Editar">
+    						<a href='/Prestamo/edit/<?= $prestamo->id ?>'tittle="Editar">
     							<i class="fas fa-edit"></i></a> -
     						<a href='/Prestamo/delete/<?= $prestamo->id ?>'tittle="Eliminar">
     							<i class="fas fa-trash-alt"></i></a>
@@ -62,7 +55,7 @@
     			</table>
     			<?php }else{?>
     				<div class="danger p2">
-    					<p>No hay prestamos que mostrar.</p>
+    					<p>No hay préstamos que mostrar.</p>
     				</div>
     			<?php } ?>
     			

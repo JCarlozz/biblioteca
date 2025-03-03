@@ -7,16 +7,16 @@ class PrestamoController extends Controller{
     
     public function list(){
         
-        $presatmos = V_prestamo::orderBy('titulo', 'ASC');
+        $prestamos = V_prestamo::orderBy('prestamo','DESC');
         
         return view('prestamo/list', [
-            'presatmos'=>$prestamos
+            'presatmos' => $prestamos
         ]);
     }
     
     public function create(int $id= 0){
         
-        $prestamo = V_prestamo::findOrFail($idlibro);
+        $prestamo = V_prestamo::findOrFail($id);
         
         return view('prestamo/create', [
             'prestamo'=>$prestamo
@@ -32,10 +32,13 @@ class PrestamoController extends Controller{
             
             
             //toma los datos que llegan por POST
-            $ejemplar->idlibro      =intval(request()->post('idlibro'));
-            $ejemplar->anyo         =intval(request()->post('anyo'));
-            $ejemplar->precio       =floatval(request()->post('precio'));
-            $ejemplar->estado       =request()->post('estado');
+            $prestamo->id               =intval(request()->post('id'));
+            $prestamo->limite           =request()->post('limite');
+            $prestamo->devolucion       =request()->post('devolucion');
+            $prestamo->incidencia       =request()->post('incidencia');
+            $prestamo->nombre           =request()->post('nombre');
+            $prestamo->apellidos        =request()->post('apellidos');
+            $prestamo->titulo           =request()->post('titulo');
             
             //intenta guardar el libro, en caso que la inserción falle vamos a
             //evitar ir a la página de error y volver al formulario "nuevo libro"
@@ -55,7 +58,7 @@ class PrestamoController extends Controller{
             }catch (SQLException $e){
                 
                 //flashea un mensaje de error en sesión
-                Session::error("No se pudo añadir el ejemplar.");
+                Session::error("No se pudo añadir el prestamo.");
                 
                 //si está en modo DEBUG vuelve a lanzar la excepción
                 //esto hará que acabemos en la página de error
