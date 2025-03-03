@@ -41,6 +41,41 @@
                 <p><b>Provincia:</b>		<?=$socio->provincia?></p>
     			<p><b>Teléfono:</b>			<?=$socio->telefono?></p>
             </section>
+            <section>
+    		<table class="bloquecentradow100">
+				<tr>			
+    				<h2>Prestamos de <?= $socio->nombre?> <?= $socio->apellidos?></h2>
+    				<?php 
+    				if (!$prestamos){
+    				    echo "<div class='warning p2'><p>No hay prestamos de este socio.</p></div>";
+    				}else{?>
+    				
+    				<table class="table w100 centered-block">
+    					<tr>    					
+    						<th>ID</th><th>Limite</th><th>Devolución</th><th>Libro</th><th>Incidencia</th><th>Operaciones</th>
+    					</tr>
+    					<?php
+    					foreach($prestamos as $prestamo){?>			     			     	
+        				<tr>
+        					<td><?=$prestamo->id?></td>
+        					<td><?=$prestamo->limite?></td>
+        					<td><?=$prestamo->devolucion?></td>
+        					<td><?=$prestamo->titulo?></td>
+        					<td><?=$prestamo->incidencia?></td>
+        					<td class="centrado">
+    						<a href='/Prestamo/delete/<?= $prestamo->id ?>'tittle="Eliminar">
+    							<i class="fas fa-trash-alt"></i></a> -
+    						<a href='/Prestamo/edit/<?= $prestamo->id ?>'tittle="Editar">
+    							<i class="fas fa-edit"></i></a>    						
+    					</td>
+        				</tr>
+        			<?php } ?>
+        			<div class="p1 right">
+        				Existen <?= sizeof($prestamos)?> prestamos de este socio.
+        			</div>		
+				</table>
+				<?php } ?>
+			</section>
     		    		
     		<div class="centrado">
     			<a class="button" onclick="history.back()">Atrás</a>
