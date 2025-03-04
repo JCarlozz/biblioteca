@@ -5,13 +5,43 @@ class LibroController extends Controller{
         return $this->list();
     }
     
-    public function list(){
+    public function list(int $page = 1){
+        //analiza si hay filtro
+        $filtro = Filter::apply('libros');
         
-        $libros = Libro::orderBy('titulo', 'ASC');
+        //recupera el número de resultados por página
+        $limit = RESULTS_PER_PAGE;
         
-        return view('libro/list', [
-            'libros'=>$libros
-        ]);
+        //si hay filtro
+        if($filtro){
+            //recupera   de libros que cumplen los criterios del filtro
+            $total = V_libro::filteredResults($filtro);
+            
+            //crea el objeto paginador
+            $paginator = new Paginator('/Libro/list', $page, $limit, $total);
+            
+            //recupera los libros que cumplen los criterios del filtro
+            $libros = V_libro::filter($filtro, $limit, $paginator->getOffset());
+        
+        //si no hay filtro
+        }else{
+            
+            //recupera el total de libros
+            $total = V_libro::total();
+            
+            //crea el objeto paginador
+            $paginator = new Paginator('/Libro/list', $page, $limit, $total);
+            
+            //recupera todos los libros
+            $libros = V_libro::orderBy('titulo', 'ASC', $limit, $paginator->getOffset());
+            
+        }
+            //carga la vista
+            return view('libro/list', [
+                'libros'    => $libros,
+                'paginator' => $paginator,
+                'filtro'    => $filtro
+            ]);        
     }
     
     public function show(int $id=0){
@@ -30,8 +60,9 @@ class LibroController extends Controller{
     }
     
     public function create(){
-        return view('libro/create');
-        
+        return view('libro/create',[
+            'listaTemas' => Tema::orderBy('tema')
+        ]);        
     }
     
     public function store(){
@@ -56,6 +87,9 @@ class LibroController extends Controller{
             $libro->caracteristicas =request()->post('caracteristicas');
             $libro->sinopsis        =request()->post('sinopsis');
             
+            //recupera el idtema del desplegable
+            $idtema =   intval(request()->post('idtema'));
+            
             //intenta guardar el libro, en caso que la inserción falle vamos a
             //evitar ir a la página de error y volver al formulario "nuevo libro"
             
@@ -63,6 +97,7 @@ class LibroController extends Controller{
                 
                 //guarda el libro en la base de datos
                 $libro->save();
+                $libro->addTema($idtema);       //le pone el tema principal
                 
                 //flashea un mensaje de éxito en sesión
                 Session::success("Guardado del libro $libro->titulo correcto.");
@@ -96,7 +131,7 @@ class LibroController extends Controller{
         
         $temas = $libro->belongsToMany('Tema', 'temas_libros');
         
-        $listaTemas = Tema::orderBy('tema');
+        $listaTemas = array_diff(Tema::orderBy('tema'),$temas);
                
         //retorna una ViewResponse con la vista con la vista con el formulario de edición
         return view('libro/edit',[
@@ -185,5 +220,63 @@ class LibroController extends Controller{
                         return redirect("/Libro/delete/$id");
                         
                 }
+    }
+    
+    public function addtema(){
+        
+        if(empty(request()->post('add')))
+            throw new FormException("No se recibió el formulario");
+        
+        $idlibro = intval(request()->post('idlibro'));
+        $idtema  = intval(request()->post('idtema'));
+        
+        $libro   = Libro::findOrFail($idlibro, "No se encontró el libro");
+        
+        $tema    = Tema::findOrFail($idtema, "No se encontró el tema");
+        
+        try{
+            $libro->addTema($idtema);
+            
+            Session::success("Se ha añadido $tema->tema a $libro->titulo.");
+            return redirect("/Libro/edit/$idlibro");
+            
+        }catch(SQLException $e){
+            
+            Session::error("No se pudo añadir $tema->tema a $libro->titulo.");
+            
+            if(DEBUG)
+                throw new SQLException($e->getMessage());
+            
+            return redirect("/Libro/edit/$idlibro");
+        }
+    }
+    
+    public function removetema(){
+        
+        if(empty(request()->post('remove')))
+            throw new FormException("No se recibió el formulario");
+            
+            $idlibro = intval(request()->post('idlibro'));
+            $idtema  = intval(request()->post('idtema'));
+            
+            $libro   = Libro::findOrFail($idlibro, "No se encontró el libro");
+            
+            $tema    = Tema::findOrFail($idtema, "No se encontró el tema");
+            
+            try{
+                $libro->removetema($idtema);
+                
+                Session::success("Se ha eliminado el $tema->tema de $libro->titulo.");
+                return redirect("/Libro/edit/$idlibro");
+                
+            }catch(SQLException $e){
+                
+                Session::error("No se pudo eliminar $tema->tema a $libro->titulo.");
+                
+                if(DEBUG)
+                    throw new SQLException($e->getMessage());
+                    
+                    return redirect("/Libro/edit/$idlibro");
+            }
     }
 }

@@ -20,21 +20,23 @@
 		<?= $template->header('Lista de préstamos') ?>
 		<?= $template->menu() ?>
 		<?= $template->breadCrumbs([
-		    'Prestamos'=> NULL
+		    'Nuevo préstamo'=> NULL
 		]) ?>
 		<?= $template->messages() ?>
 		
 		<main>
     		<h1><?= APP_NAME ?></h1>
-    		<h2>Nuevo prestamos</h2>
+    		<h2>Nuevo préstamos</h2>
 			
 			<form method="POST" enctype="multipart/form-data" action="/Prestamo/store">
 				<div class="flex2">
 					<label>ID socio</label>
 					<input type="number" name="idsocio" value="<?=old('idsocio')?>">
+					
 					<br>
 					<label>ID Ejemplar</label>
 					<input type="number" name="idejemplar" value="<?=old('idejemplar')?>">
+					
 					<br>
 					<label>Fecha de devolución</label>
 					<input type="date" name="limite" value="">

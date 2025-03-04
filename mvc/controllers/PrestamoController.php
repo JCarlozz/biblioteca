@@ -5,14 +5,45 @@ class PrestamoController extends Controller{
         return $this->list();
     }
     
-    public function list(){
+    public function list(int $page = 1){
+        //analiza si hay filtro
+        $filtro = Filter::apply('prestamos');
         
-        $prestamos = V_prestamo::orderBy('devolucion', 'DESC');
+        //recupera el número de resultados por página
+        $limit = RESULTS_PER_PAGE;
         
+        //si hay filtro
+        if($filtro){
+            //recupera   de libros que cumplen los criterios del filtro
+            $total = V_prestamo::filteredResults($filtro);
+            
+            //crea el objeto paginador
+            $paginator = new Paginator('/Prestamo/list', $page, $limit, $total);
+            
+            //recupera los libros que cumplen los criterios del filtro
+            $prestamos = V_prestamo::filter($filtro, $limit, $paginator->getOffset());
+            
+            //si no hay filtro
+        }else{
+            
+            //recupera el total de libros
+            $total = V_prestamo::total();
+            
+            //crea el objeto paginador
+            $paginator = new Paginator('/Prestamo/list', $page, $limit, $total);
+            
+            //recupera todos los libros
+            $prestamos = V_prestamo::orderBy('titulo', 'ASC', $limit, $paginator->getOffset());
+            
+        }
+        //carga la vista
         return view('prestamo/list', [
-            'prestamos' => $prestamos
+            'prestamos'    => $prestamos,
+            'paginator' => $paginator,
+            'filtro'    => $filtro
         ]);
-    } 
+    }
+    
     
     public function create(){
         return view('prestamo/create');
@@ -64,4 +95,42 @@ class PrestamoController extends Controller{
                     return redirect("/Presatmo/create/");
             }
     }
+    
+    public function reminder($id){
+        
+        // Buscar los datos del préstamo en v_prestamo
+        $prestamo = V_prestamo::findOrFail($id);
+        
+        if (!$prestamo) {
+            Session::error("No se encontró el préstamo.");
+            return redirect("/Prestamo/list");
+        }
+        
+        // Mensaje
+        $subject = "Recordatorio de devolución de libro $prestamo->titulo";
+        $message = "Querido $prestamo->nombre $prestamo->apellidos,\n\n"
+        . "Le recordamos que el libro '$prestamo->titulo' debía ser devuelto el $prestamo->limite.\n"
+        . "Por favor, devuélvalo lo antes posible para evitar penalizaciones.\n\n"
+            . "Gracias,\nBiblioteca.";
+        
+        $socionombre = $prestamo->nombre.'\n'.$prestamo->apellidos;
+            
+            try {
+                $email = new Email(ADMIN_EMAIL, $prestamo->email, $socionombre, $subject, $message);
+                $email->send();
+                
+                Session::success("Mensaje enviado a $prestamo->nombre $prestamo->apellidos.");
+                return redirect("/Prestamo/list");
+                
+            } catch (EmailException $e) {
+                Session::error("No se pudo enviar el email.");
+                
+                if (DEBUG) {
+                    throw new EmailException($e->getMessage());
+                }
+                
+                return redirect("/Prestamo/list");
+            }
+    }
+    
 }

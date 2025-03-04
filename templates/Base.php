@@ -172,7 +172,9 @@ class Base implements TemplateInterface{
         
         $html .=   "<li><a href='/Prestamo'>Prestamos</a></li>";
         //$html .=   "<li><a href='/Prestamo/create'>Nuevo prestamo</a></li>";
-              
+        
+        $html .=   "<li><a href='/Contacto'>Contacto</a></li>";
+        
         // parte derecha (solamente para usuarios concretos)
  
         // enlace a los tests de ejemplo (solamente administrador o rol de test)

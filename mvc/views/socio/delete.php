@@ -20,7 +20,9 @@
 		<?= $template->header('Lista de libros') ?>
 		<?= $template->menu() ?>
 		<?= $template->breadCrumbs([
-		    'Socios'=> NULL
+		    'Socios'=> 'list',
+		    $socio->nombre."\n". $socio->apellidos =>'nombre, apellidos',
+		    'Borrar'=>NULL
 		]) ?>
 		<?= $template->messages() ?>
 		

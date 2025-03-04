@@ -5,15 +5,46 @@ class SocioController extends Controller{
         return $this->list();
     }
     
-    public function list(){
+    public function list(int $page = 1){
+        //analiza si hay filtro
+        $filtro = Filter::apply('socios');
         
-        $socios = Socio::orderBy('nombre', 'ASC');
+        //recupera el número de resultados por página
+        $limit = RESULTS_PER_PAGE;
         
+        //si hay filtro
+        if($filtro){
+            //recupera   de libros que cumplen los criterios del filtro
+            $total = Socio::filteredResults($filtro);
+            
+            //crea el objeto paginador
+            $paginator = new Paginator('/Socio/list', $page, $limit, $total);
+            
+            //recupera los libros que cumplen los criterios del filtro
+            $socios = Socio::filter($filtro, $limit, $paginator->getOffset());
+            
+            //si no hay filtro
+        }else{
+            
+            //recupera el total de libros
+            $total = Socio::total();
+            
+            //crea el objeto paginador
+            $paginator = new Paginator('/Socio/list', $page, $limit, $total);
+            
+            //recupera todos los libros
+            $socios = Socio::orderBy('nombre', 'ASC', $limit, $paginator->getOffset());
+            
+        }
+        //carga la vista
         return view('socio/list', [
-            'socios'=>$socios
+            'socios'    => $socios,
+            'paginator' => $paginator,
+            'filtro'    => $filtro
         ]);
     }
     
+            
     public function show(int $id=0){   
         
         

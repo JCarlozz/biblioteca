@@ -21,7 +21,8 @@
 		<?= $template->menu() ?>
 		<?= $template->breadCrumbs([
 		    'Libros'=>'/libro',
-		    $libro->titulo=>NULL
+		    $libro->titulo=>'titulo',
+		    'Edición'=>NULL
 		]) ?>
 		<?= $template->messages() ?>
 		
@@ -91,28 +92,34 @@
     			}else{ ?>
     				<table class="table w100">
     					<tr>
-    						<th>ID</th><td>Tema</td>
+    						<th>ID</th><th>Tema</th><th>Operaciones</th>
     					</tr>
     				<?php foreach($temas as $tema){?>
     					<tr>
     						<td><?=$tema->id ?></td>
     						<td><a href='/Tema/show/<?=$tema->id?>'>
     							<?=$tema->tema?></a>
+    						</td>
+    						<td class="centrado">
+    							<form method="POST" class="no-border" action="/Libro/removetema">
+    								<input type="hidden" name="idlibro" value="<?=$libro->id?>">
+    								<input type="hidden" name="idtema" value="<?=$tema->id?>">
+    								<input type="submit" class="button-danger" name="remove" value="Borrar">
+    							</form>
     						</td>	
     					</tr>
     				<?php }?>    				
     				</table>
     			<?php }?> 
     			<form class="w50 m0 no-border" method="POST" action="/Libro/addtema">
-    				<input type="hidden" name="idlibro" value"<?= $libro->id?>">
+    				<input type="hidden" name="idlibro" value="<?= $libro->id?>">
     				<select name="idtema">
     				<?php 
     				    foreach ($listaTemas as $nuevoTema)
     				        echo "<option value='$nuevoTema->id'>$nuevoTema->tema</option>\n";
     				?>
     				</select>
-    				<input class="button-success" type="submit" name="add" value"añadir-tema">
-    				   			
+    				<input class="button-success" type="submit" name="add" value="Añadir tema">
     			</form>   		
     		</section>
     		
@@ -130,7 +137,7 @@
     				
     				<table class="table w100 centered-block">
     					<tr>    					
-    						<th>ID</th><th>Año</th><th>Precio</th><th>Estado</th><th>Operaciones</th>
+    						<th>ID</th><th>Año</th><th>Precio</th><th>Estado</th>
     					</tr>
     					
     				<?php foreach($ejemplares as $ejemplar){?>			     			     	
@@ -139,37 +146,13 @@
         					<td><?=$ejemplar->anyo?></td>
         					<td><?=$ejemplar->precio?></td>
         					<td><?=$ejemplar->estado?></td>
-        					<td class="centered">
-        					<?php if(!$ejemplar->hasAny('Prestamo')) { ?>
-        						<a onclick="confirmar(<?=$ejemplar->id?>)">Borrar</a>
-        					<?php } ?>
-        					</td>
+        					
         				</tr>
         			<?php } ?>		
 				</table>
 				<?php } ?>
 			</section>
-			<section>
-    			<h2>Temas tratados en <?= $libro->titulo?></h2>
-    			<?php 
-    			if(!$temas){
-    			    echo "<div class='warning p2'><p>No se han indicado temas.</p></div>";
-    			}else{ ?>
-    				<table class="table w100">
-    					<tr>
-    						<th>ID</th><td>Tema</td>
-    					</tr>
-    				<?php foreach($temas as $tema){?>
-    					<tr>
-    						<td><?=$tema->id ?></td>
-    						<td><a href='/Tema/show/<?=$tema->id?>'>
-    							<?=$tema->tema?></a>
-    						</td>	
-    					</tr>
-    				<?php }?>    				
-    				</table>
-    			<?php }?>    		
-    		</section>		
+			
     				
 			<div class="centrado my2">
 				<a class="button" onclick="history.back()">Atrás</a>

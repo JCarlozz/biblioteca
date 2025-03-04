@@ -26,12 +26,41 @@
 		<?= $template->messages() ?>
 		
 		<main>
+		<div>
     		<h1><?= APP_NAME ?></h1>
-    		<h2>Lista completa de temas</h2>
-    		
-    		<p><a class="button float-right" href="/Tema/create/">Nuevo tema</a></p>
-
+    		<h2>Lista completa de temas</h2>    		
+    		<p><a class="button right" href="/Tema/create/">Nuevo tema</a></p>
+		</div>
     		<?php if ($temas) { ?>
+    		
+    		<div class="right">
+    			<?= $paginator->stats() ?>
+    		</div>
+    		
+    		<?php 
+    		if ($filtro){
+    		    echo $template->removeFilterForm($filtro, '/Tema/list');
+    		    
+    		}else{
+    		    echo $template->filterForm(
+    		        [
+    		            'Tema'=>'tema',
+                        'Descripción'=>'descripcion'    		              		            
+    		        ],
+    		        [
+    		            'Tema'=>'tema',
+    		            'Descripción'=>'descripcion'
+    		        ],
+    		        'Tema',
+    		        'Tema'    		        
+    		        );   		
+    		  } ?>
+    		
+    			<!-- Enlaces creados por el paginador -->
+    			<div class="right">
+    				<?= $paginator->stats() ?>
+    			</div>
+    			
     			<table class="table w100">
     				<tr>
     					<th>Tema</th>
@@ -43,16 +72,17 @@
     					<td><a href='/Tema/show/<?= $tema->id ?>'><?=$tema->tema?></a></td>
     					<td><?= $tema->descripcion ?></td>
     					<td class="centrado">
-    						<a class='button' href='/Libro/show/<?= $libro->id ?>'tittle="Ver">
+    						<a class='button' href='/Tema/show/<?= $tema->id ?>'tittle="Ver">
     							<i class="fas fa-eye"></i></a> -
-    						<a class='button' href='/Libro/edit/<?= $libro->id ?>'tittle="Editar">
+    						<a class='button' href='/Tema/edit/<?= $tema->id ?>'tittle="Editar">
     							<i class="fas fa-edit"></i></a> -
-    						<a class='button' href='/Libro/delete/<?= $libro->id ?>'tittle="Eliminar">
+    						<a class='button' href='/Tema/delete/<?= $tema->id ?>'tittle="Eliminar">
     							<i class="fas fa-trash-alt"></i></a>
     					</td>
     				</tr>
     			<?php } ?>    			
     			</table>
+    			<?= $paginator->ellipsisLinks() ?>
     			<?php }else{?>
     				<div class="danger p2">
     					<p>No hay temas que mostrar.</p>

@@ -20,7 +20,9 @@
 		<?= $template->header('Lista de libros') ?>
 		<?= $template->menu() ?>
 		<?= $template->breadCrumbs([
-		    'Libros'=> NULL
+		    'Libros'=>'/libro',
+		    $libro->titulo=>'titulo',
+		    'Borrar'=>NULL
 		]) ?>
 		<?= $template->messages() ?>
 		

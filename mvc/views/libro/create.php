@@ -69,6 +69,19 @@
 					<input type="text" name="caracteristicas" 
 							value"<?=old('caracteristicas')?>">
 					<br>
+					<label>Tema</label>
+					<select name="idtema">
+						<?php 
+						  foreach ($listaTemas as $nuevoTema)
+						      echo "<option value='$nuevoTema->id'>$nuevoTema->tema</option>";
+						?>
+					</select>
+					<p>Puedes añadir mñas temas posteriormente, desde la operación de edición del libro.</p>
+					
+					
+					
+					
+					
 					<label>Sinopsis</label>
 					<textarea name="sinopsis" class="w50"><?=old('sinopsis')?></textarea>
 					<br>

@@ -68,7 +68,7 @@ define('DEFAULT_CONTROLLER', 'WelcomeController');
 define('DEFAULT_METHOD', 'index');
    
 // Email del administrador, para la operación de "contacto"
-define('ADMIN_EMAIL', 'robert@juegayestudia.com');
+define('ADMIN_EMAIL', 'jz_blo@hotmail.com');
 
 // ¿Deben las cadenas vacías ser convertidas a NULL? 
 // se aplica al recuperar los datos de la petición mediante el objeto Request,
@@ -108,7 +108,7 @@ define('DB_NAME','biblioteca');  // Nombre de la base de datos.
 define('DB_PORT',  3306);       // Puerto.
 define('DB_CHARSET','utf8');    // Codificación de caracteres.
 
-define('DB_CLASS','DBPDO');     // Clase a usar, puede ser DBMysqli (mysqli) o DBPDO (PDO).
+define('DB_CLASS','DBMysqli');  // Clase a usar, puede ser DBMysqli (mysqli) o DBPDO (PDO).
 define('SGDB','mysql');         // Driver que debe usar PDO (solamente para PDO).
 
 

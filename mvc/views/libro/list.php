@@ -26,12 +26,47 @@
 		<?= $template->messages() ?>
 		
 		<main>
+		  <div>
     		<h1><?= APP_NAME ?></h1>
-    		<h2>Lista completa de libros</h2>
-    		
-    		<p><a class="button float-right" href="/Libro/create/">Nuevo libro</a></p>
-
+    		<h2>Lista completa de libros</h2>    		
+    		<p><a class="button right" href="/Libro/create/">Nuevo libro</a></p>
+		  </div>
+		  
     		<?php if ($libros) { ?>
+    		
+    		<div class="right">
+    			<?= $paginator->stats() ?>
+    		</div>
+    		
+    		<?php 
+    		if ($filtro){
+    		    echo $template->removeFilterForm($filtro, '/Libro/list');
+    		    
+    		}else{
+    		    echo $template->filterForm(
+    		        [
+    		            'Titulo'=>'titulo',
+                        'Editorial'=>'editorial',
+    		            'Autor'=>'autor',
+                        'ISBN'=>'isbn'    		            
+    		        ],
+    		        [
+    		            'Titulo'=>'titulo',
+    		            'Editorial'=>'editorial',
+    		            'Autor'=>'autor',
+    		            'ISBN'=>'isbn'
+    		        ],
+    		        'Titulo',
+    		        'Titulo'    		        
+    		        );   		
+    		  } ?>
+    		
+    			<!-- Enlaces creados por el paginador -->
+    			<div class="right">
+    				<?= $paginator->stats() ?>
+    			</div>
+    			
+    			<!-- Tabla con los resultados -->
     			<table class="table w100">
     				<tr>
     					<th>ISBN</th>
@@ -55,6 +90,7 @@
     				</tr>
     			<?php } ?>    			
     			</table>
+    			<?= $paginator->ellipsisLinks() ?>
     			<?php }else{?>
     				<div class="danger p2">
     					<p>No hay libros que mostrar.</p>

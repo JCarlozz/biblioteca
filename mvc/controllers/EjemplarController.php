@@ -1,60 +1,6 @@
 <?php
 class EjemplarController extends Controller{
-    
-    public function edit(int $id=0){
-        
-        //busca el libro con ese ID
-        $libro = Libro::findOrFail($id, "No se encontró el libro.");
-        
-        $ejemplares= $libro->hasMany('Ejemplar');
-        
-        
-        //retorna una ViewResponse con la vista con la vista con el formulario de edición
-        return view('libro/edit',[
-            'libro'         => $libro,
-            'ejemplares'    => $ejemplares
-        ]);
-    }
-    
-    public function update(){
-        
-        if (!request()->has('actualizar'))      //si no llega el formulario...
-            throw new FormException('No se recibieron datos');
-            
-            $id= intval(request()->post('id'));     //recuperar el ID vía POST
-            
-            $libro= Libro::findOrFail($id, "No se ha encontrado el libro.");
-            
-            $libro->isbn                =request()->post('isbn');
-            $libro->titulo              =request()->post('titulo');
-            $libro->editorial           =request()->post('editorial');
-            $libro->autor               =request()->post('autor');
-            $libro->idioma              =request()->post('idioma');
-            $libro->edicion             =request()->post('edicion');
-            $libro->anyo                =request()->post('anyo');
-            $libro->edadrecomendada     =request()->post('edadrecomendada');
-            $libro->paginas             =request()->post('paginas');
-            $libro->caracteristicas     =request()->post('caracteristicas');
-            $libro->sinopsis            =request()->post('sinopsis');
-            
-            //intenta actualizar el libro
-            try{
-                $libro->update();
-                Session::success("Actualización del libro $libro->titulo correcta.");
-                return redirect("/Libro/edit/$id");
-                
-                //si se produce un error al guardar el libro...
-            }catch (SQLException $e){
-                
-                Session::error("Hubo errores en la actualización del libro $libro->titulo.");
-                
-                if(DEBUG)
-                    throw new SQLException($e->getMessage());
                     
-                    return redirect("/Libro/edit/$id");
-            }
-    }
-            
     public function create(int $idlibro= 0){       
         
         return view('ejemplar/create');       

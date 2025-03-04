@@ -50,7 +50,8 @@
     			<h2>Sinosis</h2>
     			<p><?=$libro->sinopsis ? paragraph($libro->sinopsis) : 'SIN DETALLES'?></p>   		
     		</section>
-    		<section>
+    		
+    		<section id="temas">
     			<h2>Temas tratados en <?= $libro->titulo?></h2>
     			<?php 
     			if(!$temas){
@@ -63,9 +64,8 @@
     				<?php foreach($temas as $tema){?>
     					<tr>
     						<td><?=$tema->id ?></td>
-    						<td><a href='/Tema/show/<?=$tema->id?>'>
-    							<?=$tema->tema?></a>
-    						</td>	
+    						<td><a href='/Tema/show/<?=$tema->id?>'><?=$tema->tema?></a>
+    						</td>    							
     					</tr>
     				<?php }?>    				
     				</table>
@@ -94,11 +94,7 @@
         					<td><?=$ejemplar->id?></td>
         					<td><?=$ejemplar->anyo?></td>
         					<td><?=$ejemplar->precio?></td>
-        					<td><?=$ejemplar->estado?></td>
-        					<td class="centrado">
-        						<a class='button' href='/Ejemplar/edit/<?= $ejemplar->id ?>'tittle="Editar">
-    								<i class="fas fa-edit"></i></a>
-    						</td>
+        					<td><?=$ejemplar->estado?></td>        					
         				</tr>
         			<?php } ?>
         			<div class="p1 right">

@@ -26,12 +26,40 @@
 		<?= $template->messages() ?>
 		
 		<main>
+		<div>
     		<h1><?= APP_NAME ?></h1>
-    		<h2>Lista completa de socios</h2>
-    		
-    		<p><a class="button float-right" href="/Socio/create/">Nuevo socio</a></p>
-
+    		<h2>Lista completa de socios</h2>    		
+    		<p><a class="button right" href="/Socio/create/">Nuevo socio</a></p>
+		</div>
     		<?php if ($socios) { ?>
+    		
+    		<div class="right">
+    			<?= $paginator->stats() ?>
+    		</div>
+    		
+    		<?php 
+    		if ($filtro){
+    		    echo $template->removeFilterForm($filtro, '/Socio/list');
+    		    
+    		}else{
+    		    echo $template->filterForm(
+    		        [
+    		            'Nombre'=>'nombre',
+                        'Apellidos'=>'apellidos',
+    		            'Poblacion'=>'poblacion',
+                        'Email'=>'email'    		            
+    		        ],
+    		        [
+    		            'Nombre'=>'nombre',
+    		            'Apellidos'=>'apellidos',
+    		            'Poblacion'=>'poblacion',
+    		            'Email'=>'email'
+    		        ],
+    		        'Nombre',
+    		        'Nombre'    		        
+    		        );   		
+    		  } ?>
+    			
     			<table class="table w100">
     				<tr>
     					<th>DNI</th>
@@ -59,6 +87,7 @@
     				</tr>
     			<?php } ?>    			
     			</table>
+    			<?= $paginator->ellipsisLinks() ?>
     			<?php }else{?>
     				<div class="danger p2">
     					<p>No hay socios que mostrar.</p>

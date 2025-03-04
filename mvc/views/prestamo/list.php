@@ -26,12 +26,42 @@
 		<?= $template->messages() ?>
 		
 		<main>
+		<div>
     		<h1><?= APP_NAME ?></h1>
     		<h2>Lista completa de préstamos</h2>
     		
-    		<p><a class="button float-right" href="/Prestamo/create/">Nuevo préstamo</a></p>
-
+    		<p><a class="button right" href="/Prestamo/create/">Nuevo préstamo</a></p>
+		</div>
     		<?php if ($prestamos) { ?>
+    		
+    			<!-- Enlaces creados por el paginador -->
+    		<div class="right">
+    			<?= $paginator->stats() ?>
+    		</div>
+    		
+    		<?php 
+    		if ($filtro){
+    		    echo $template->removeFilterForm($filtro, '/Prestamo/list');
+    		    
+    		}else{
+    		    echo $template->filterForm(
+    		        [
+    		            'Titulo'=>'titulo',
+                        'Nombre'=>'nombre',
+    		            'Apellidos'=>'apellidos',
+    		            'Limite'=>'limite'
+    		        ],
+    		        [
+    		            'Titulo'=>'titulo',
+    		            'Nombre'=>'nombre',
+    		            'Apellidos'=>'apellidos',
+    		            'Limite'=>'limite'
+    		        ],
+    		        'Titulo',
+    		        'Titulo'    		        
+    		        );   		
+    		  } ?>
+    			
     			<table class="table w100">
     				<tr>
     					<th>ID</th>
@@ -40,20 +70,30 @@
     					<th>Apellidos</th>
     					<th>Préstamo</th>
     					<th>Devolución</th>
-    					<th>Limite</th>    					
+    					<th>Limite</th> 
+    					<th>Operación</th>   					
     				</tr>
     			<?php foreach ($prestamos as $prestamo){?>
     				<tr>
     					<td><?= $prestamo->id ?></td>
-    					<td><?=$prestamo->titulo?></td>
+    					<td><?= $prestamo->titulo?></td>
     					<td><?= $prestamo->nombre ?></td>
     					<td><?= $prestamo->apellidos ?></td>
     					<td><?= $prestamo->prestamo ?></td>
     					<td><?= $prestamo->devolucion ?></td>
-    					<td><?= $prestamo->limite ?></td>     					
+    					<td><?= $prestamo->limite ?></td>
+    					<td class="centered">
+    						<?php if (empty($prestamo->devolucion)) {?>    						  
+      						<a class="button-danger" href="/Prestamo/reminder/<?= $prestamo->id ?>">
+        						Recordar devolución</a>
+        				<?php } else { ?>
+        					<sapan class="button-success">Devuelto</sapan>
+        				<?php } ?>
+        				</td>  
     				</tr>
     			<?php } ?>    			
     			</table>
+    			<?= $paginator->ellipsisLinks() ?>
     			<?php }else{?>
     				<div class="danger p2">
     					<p>No hay préstamos que mostrar.</p>
