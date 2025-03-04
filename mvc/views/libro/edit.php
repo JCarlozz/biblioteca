@@ -111,7 +111,7 @@
     				        echo "<option value='$nuevoTema->id'>$nuevoTema->tema</option>\n";
     				?>
     				</select>
-    				<input class="button-succes" type="submit" name="add" value"añadir-tema">
+    				<input class="button-success" type="submit" name="add" value"añadir-tema">
     				   			
     			</form>   		
     		</section>
