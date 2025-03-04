@@ -49,11 +49,11 @@
     					<td><?= $socio->telefono ?></td>
     					<td><?= $socio->email ?></td>
     					<td class="centrado">
-    						<a href='/Libro/show/<?= $libro->id ?>'tittle="Ver">
+    						<a class='button'href='/Socio/show/<?= $socio->id ?>'tittle="Ver">
     							<i class="fas fa-eye"></i></a> -
-    						<a href='/Libro/edit/<?= $libro->id ?>'tittle="Editar">
+    						<a class='button' href='/Socio/edit/<?= $socio->id ?>'tittle="Editar">
     							<i class="fas fa-edit"></i></a> -
-    						<a href='/Libro/delete/<?= $libro->id ?>'tittle="Eliminar">
+    						<a class='button' href='/Socio/delete/<?= $socio->id ?>'tittle="Eliminar">
     							<i class="fas fa-trash-alt"></i></a>
     					</td>
     				</tr>

@@ -17,7 +17,7 @@
 	</head>
 	<body>
 		<?= $template->login() ?>
-		<?= $template->header('Lista de libros') ?>
+		<?= $template->header('Panel del bibliotecario') ?>
 		<?= $template->menu() ?>
 		<?= $template->breadCrumbs([
 		    'Panel de contro'=> NULL
@@ -28,7 +28,7 @@
     		<h1><?= APP_NAME ?></h1>
     		<h2>Panel de contro</h2>
 			
-			<section class="three-columns">
+			<section class="two-columns">
 				
                 <div class="p1 box-shadow">
                     <h2>Libros</h2>
@@ -44,6 +44,11 @@
                     <h2>Temas</h2>
                     <h3><a href="/Tema/list/">Lista de temas.</a></h3>
                     <h3><a href="/Tema/create/">Nuevo tema.</a></h3>
+                </div>
+                <div class="p1 box-shadow">
+                    <h2>Préstamos</h2>
+                    <h3><a href="/Prestamo/list/">Lista de préstamos.</a></h3>
+                    <h3><a href="/Prestamo/create/">Nuevo préstamo.</a></h3>
                 </div>
                
             </section>

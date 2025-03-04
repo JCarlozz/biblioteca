@@ -34,22 +34,23 @@
     		<?php if ($prestamos) { ?>
     			<table class="table w100">
     				<tr>
+    					<th>ID</th>
     					<th>Título</th>
     					<th>Nombre</th>
-    					<th class="centrado">Operaciones</th>
+    					<th>Apellidos</th>
+    					<th>Préstamo</th>
+    					<th>Devolución</th>
+    					<th>Limite</th>    					
     				</tr>
     			<?php foreach ($prestamos as $prestamo){?>
     				<tr>
-    					<td><a href='/Prestamo/show/<?= $prestamo->id ?>'><?=$prestamo->titulo?></a></td>
+    					<td><?= $prestamo->id ?></td>
+    					<td><?=$prestamo->titulo?></td>
     					<td><?= $prestamo->nombre ?></td>
-    					<td class="centrado">
-    						<a href='/Prestamo/show/<?= $prestamo->id ?>'tittle="Ver">
-    							<i class="fas fa-eye"></i></a> -
-    						<a href='/Prestamo/edit/<?= $prestamo->id ?>'tittle="Editar">
-    							<i class="fas fa-edit"></i></a> -
-    						<a href='/Prestamo/delete/<?= $prestamo->id ?>'tittle="Eliminar">
-    							<i class="fas fa-trash-alt"></i></a>
-    					</td>
+    					<td><?= $prestamo->apellidos ?></td>
+    					<td><?= $prestamo->prestamo ?></td>
+    					<td><?= $prestamo->devolucion ?></td>
+    					<td><?= $prestamo->limite ?></td>     					
     				</tr>
     			<?php } ?>    			
     			</table>

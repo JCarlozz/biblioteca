@@ -14,14 +14,16 @@ class SocioController extends Controller{
         ]);
     }
     
-    public function show(int $id=0){
+    public function show(int $id=0){   
+        
         
         $socio = Socio::findOrFail($id, "No se encontró el socio indicado.");
         
         $prestamos = $socio->hasMany('V_prestamo');
         
         return view('socio/show',[
-            'socio' => $socio
+            'socio' => $socio,
+            'prestamos'=>$prestamos
         ]);
     }
     

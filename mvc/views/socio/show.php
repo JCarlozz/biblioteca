@@ -21,14 +21,15 @@
 		<?= $template->menu() ?>
 		<?= $template->breadCrumbs([
 		    'Socios'=> '/socio',
-		    $socio->nombre =>NULL
+		    $socio->nombre. $socio->apellidos =>NULL
+		     
 		]) ?>
 		<?= $template->messages() ?>
 		
 		<main>
     		<h1><?= APP_NAME ?></h1>
     		<section>
-    			<h2><?= $socio->nombre.  $socio->apellidos?></h2>
+    			<h2><?=$socio->nombre?> <?=$socio->apellidos?></h2>
     			
     			<p><b>DNI:</b>				<?=$socio->dni?></p>
     			<p><b>Nombre:</b>			<?=$socio->nombre?></p>
@@ -45,6 +46,7 @@
     		<table class="bloquecentradow100">
 				<tr>			
     				<h2>Prestamos de <?= $socio->nombre?> <?= $socio->apellidos?></h2>
+    			</tr>
     				<?php 
     				if (!$prestamos){
     				    echo "<div class='warning p2'><p>No hay prestamos de este socio.</p></div>";
@@ -52,7 +54,7 @@
     				
     				<table class="table w100 centered-block">
     					<tr>    					
-    						<th>ID</th><th>Limite</th><th>Devolución</th><th>Libro</th><th>Incidencia</th><th>Operaciones</th>
+    						<th>ID</th><th>Limite</th><th>Devolución</th><th>Libro</th><th>Incidencia</th>
     					</tr>
     					<?php
     					foreach($prestamos as $prestamo){?>			     			     	
@@ -61,27 +63,26 @@
         					<td><?=$prestamo->limite?></td>
         					<td><?=$prestamo->devolucion?></td>
         					<td><?=$prestamo->titulo?></td>
-        					<td><?=$prestamo->incidencia?></td>
-        					<td class="centrado">
-    						<a href='/Prestamo/delete/<?= $prestamo->id ?>'tittle="Eliminar">
-    							<i class="fas fa-trash-alt"></i></a> -
-    						<a href='/Prestamo/edit/<?= $prestamo->id ?>'tittle="Editar">
-    							<i class="fas fa-edit"></i></a>    						
-    					</td>
+        					<td><?=$prestamo->incidencia?></td>        					
         				</tr>
         			<?php } ?>
         			<div class="p1 right">
         				Existen <?= sizeof($prestamos)?> prestamos de este socio.
-        			</div>		
-				</table>
+        			</div>
+        					
+					</table>
 				<?php } ?>
+				</table>				
 			</section>
-    		    		
+			
+			
+			
+    		
     		<div class="centrado">
     			<a class="button" onclick="history.back()">Atrás</a>
-    			<a class="button" href="/socio/list/">Lista de socios</a>
-    			<a class="button" href="/socio/edit/<?= $socio->id?>">Editar</a>
-    			<a class="button" href="/socio/delete/<?= $socio->id?>">Borrar</a>    		
+    			<a class="button" href="/Socio/list/">Lista de socios</a>
+    			<a class="button" href="/Socio/edit/<?= $socio->id?>">Editar</a>
+    			<a class="button" href="/Socio/delete/<?= $socio->id?>">Borrar</a>    		
     		</div>
 		</main>
 		<?= $template->footer() ?>

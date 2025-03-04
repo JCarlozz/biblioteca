@@ -67,7 +67,6 @@
     			<input type="text" name="caracteristicas" 
     					value="<?=old('caracteristicas', $libro->caracteristicas)?>">
     			<br>
-    			
     			<label>Sinopsis</label>
     			<textarea name="sinopsis" class="w50"><?=old('sinopsis', $libro->sinopsis)?></textarea>
     			<br>
@@ -83,39 +82,6 @@
     						location.href='/Ejemplar/destroy/'+id
     				}
     			</script>
-    			<section>
-    			<h2>Temas tratados en <?= $libro->titulo?></h2>
-    			<?php 
-    			if(!$temas){
-    			    echo "<div class='warning p2'><p>No se han indicado temas.</p></div>";
-    			}else{ ?>
-    				<table class="table w100">
-    					<tr>
-    						<th>ID</th><td>Tema</td>
-    					</tr>
-    				<?php foreach($temas as $tema){?>
-    					<tr>
-    						<td><?=$tema->id ?></td>
-    						<td><a href='/Tema/show/<?=$tema->id?>'>
-    							<?=$tema->tema?></a>
-    						</td>	
-    					</tr>
-    				<?php }?>    				
-    				</table>
-    			<?php }?> 
-    			<form class="w50 m0 no-border" method="POST" action="/Libro/addtema">
-    				<input type="hidden" name="idlibro" value"<?= $libro->id?>">
-    				<select name="idtema">
-    				<?php 
-    				    foreach ($listaTemas as $nuevoTema)
-    				        echo "<option value='$nuevoTema->id'>$nuevoTema->tema</option>\n";
-    				?>
-    				</select>
-    				<input class="button-succes" type="submit" name="add" value"añadir-tema">
-    				   			
-    			</form>   		
-    		</section>
-    		
     			    				
     			<h2>Ejemplares de <?= $libro->titulo?></h2>
     				
@@ -149,27 +115,6 @@
 				</table>
 				<?php } ?>
 			</section>
-			<section>
-    			<h2>Temas tratados en <?= $libro->titulo?></h2>
-    			<?php 
-    			if(!$temas){
-    			    echo "<div class='warning p2'><p>No se han indicado temas.</p></div>";
-    			}else{ ?>
-    				<table class="table w100">
-    					<tr>
-    						<th>ID</th><td>Tema</td>
-    					</tr>
-    				<?php foreach($temas as $tema){?>
-    					<tr>
-    						<td><?=$tema->id ?></td>
-    						<td><a href='/Tema/show/<?=$tema->id?>'>
-    							<?=$tema->tema?></a>
-    						</td>	
-    					</tr>
-    				<?php }?>    				
-    				</table>
-    			<?php }?>    		
-    		</section>		
     				
 			<div class="centrado my2">
 				<a class="button" onclick="history.back()">Atrás</a>

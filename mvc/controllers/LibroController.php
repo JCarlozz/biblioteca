@@ -19,10 +19,13 @@ class LibroController extends Controller{
         $libro = Libro::findOrFail($id, "No se encontró el libro indicado.");
         
         $ejemplares= $libro->hasMany('Ejemplar');
+        
+        $temas = $libro->belongsToMany('Tema', 'temas_libros');
                 
         return view('libro/show',[
             'libro'         => $libro,
-            'ejemplares'    => $ejemplares
+            'ejemplares'    => $ejemplares,
+            'temas'         => $temas
         ]);
     }
     
@@ -91,11 +94,16 @@ class LibroController extends Controller{
         
         $ejemplares= $libro->hasMany('Ejemplar');
         
+        $temas = $libro->belongsToMany('Tema', 'temas_libros');
         
+        $listaTemas = Tema::orderBy('tema');
+               
         //retorna una ViewResponse con la vista con la vista con el formulario de edición
         return view('libro/edit',[
             'libro'         => $libro,
-            'ejemplares'    => $ejemplares
+            'ejemplares'    => $ejemplares,
+            'temas'         => $temas,
+            'listaTemas'    => $listaTemas
         ]);
     }
     

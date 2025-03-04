@@ -51,9 +51,34 @@
     			<p><?=$libro->sinopsis ? paragraph($libro->sinopsis) : 'SIN DETALLES'?></p>   		
     		</section>
     		<section>
+    			<h2>Temas tratados en <?= $libro->titulo?></h2>
+    			<?php 
+    			if(!$temas){
+    			    echo "<div class='warning p2'><p>No se han indicado temas.</p></div>";
+    			}else{ ?>
+    				<table class="table w100">
+    					<tr>
+    						<th>ID</th><td>Tema</td>
+    					</tr>
+    				<?php foreach($temas as $tema){?>
+    					<tr>
+    						<td><?=$tema->id ?></td>
+    						<td><a href='/Tema/show/<?=$tema->id?>'>
+    							<?=$tema->tema?></a>
+    						</td>	
+    					</tr>
+    				<?php }?>    				
+    				</table>
+    			<?php }?>    		
+    		</section>		
+    		
+    		<section>
     		<table class="bloquecentradow100">
 				<tr>			
     				<h2>Ejemplares de <?= $libro->titulo?></h2>
+    				<div class="derecha">    			
+    					<a class="button" href="/Ejemplar/create/">Nuevo ejemplar</a>
+    				</div>
     				<?php 
     				if (!$ejemplares){
     				    echo "<div class='warning p2'><p>No hay ejemplares de este libro.</p></div>";
@@ -61,7 +86,7 @@
     				
     				<table class="table w100 centered-block">
     					<tr>    					
-    						<th>ID</th><th>Año</th><th>Precio</th><th>Estado</th>
+    						<th>ID</th><th>Año</th><th>Precio</th><th>Estado</th><th>Operaciones</th>
     					</tr>
     					<?php
     					foreach($ejemplares as $ejemplar){?>			     			     	
@@ -70,6 +95,10 @@
         					<td><?=$ejemplar->anyo?></td>
         					<td><?=$ejemplar->precio?></td>
         					<td><?=$ejemplar->estado?></td>
+        					<td class="centrado">
+        						<a class='button' href='/Ejemplar/edit/<?= $ejemplar->id ?>'tittle="Editar">
+    								<i class="fas fa-edit"></i></a>
+    						</td>
         				</tr>
         			<?php } ?>
         			<div class="p1 right">
