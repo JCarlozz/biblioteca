@@ -11,7 +11,7 @@
 		
 		<!-- FAVICON -->
 		<link rel="shortcut icon" href="/favicon.ico" type="image/png">	
-		
+		<script src="/js/Preview.js"></script>
 		<!-- CSS -->
 		<?= $template->css() ?>
 	</head>
@@ -21,7 +21,7 @@
 		<?= $template->menu() ?>
 		<?= $template->breadCrumbs([
 		    'Libros'=>'/libro',
-		    $libro->titulo=>'titulo',
+		    $libro->titulo=>"/Libro/show/$libro->id",
 		    'Edición'=>NULL
 		]) ?>
 		<?= $template->messages() ?>
@@ -29,8 +29,9 @@
 		<main>
     		<h1><?= APP_NAME ?></h1>
     		<h2>Edición de libro<?= $libro->titulo?></h2>
+    		<section class="flex-container gap2">
     		
-    		<form method="POST" action="/Libro/update">
+    		<form method="POST" action="/Libro/update" class="flex2 no-border" enctype="multipart/form-data">
 			
     			<!-- input oculto que contiene ID -->
     			<input type="hidden" name="id" value="<?=$libro->id?>">
@@ -47,6 +48,9 @@
     			<br>
     			<label>Autor</label>
     			<input type="text" name="autor" value="<?=old('autor', $libro->autor)?>">
+    			<br>
+    			<label>Portada</label>
+    			<input type="file" name="portada" accept="image/*" id="file-with-preview">
     			<br>
     			<label>Idioma</label>
     			<input type="text" name="idioma" value="<?=old('idioma',$libro->idioma)?>">
@@ -77,6 +81,18 @@
     				<input type="reset" class="button" value="Reset">
     			</div>
     		</form>
+    		<figure class="flex1 centrado p2">
+    			<img src="<?=BOOK_IMAGE_FOLDER.'/'.($libro->portada ?? DEFAULT_BOOK_IMAGE)?>"
+    				class="cover" id="preview-image" alt="Previsualización de la portada">
+    			<figcaption>Portada de <?="$libro->titulo, de $libro->autor"?></figcaption>
+    			<?php if($libro->portada) {?>
+    			<form method="POST" action="/Libro/dropcover" class="no-border">
+    				<input type="hidden" name="id" value="<?=$libro->id?>">
+    				<input type="submit" class="button-danger" name="borrar" value="Eliminar portada">
+    			</form>
+    			<?php } ?>	
+    		</figure>
+    		</section>
     		<section>
     			<script>
     				function confirmar(id){

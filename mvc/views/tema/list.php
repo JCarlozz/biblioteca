@@ -55,12 +55,7 @@
     		        'Tema'    		        
     		        );   		
     		  } ?>
-    		
-    			<!-- Enlaces creados por el paginador -->
-    			<div class="right">
-    				<?= $paginator->stats() ?>
-    			</div>
-    			
+    		 			
     			<table class="table w100">
     				<tr>
     					<th>Tema</th>

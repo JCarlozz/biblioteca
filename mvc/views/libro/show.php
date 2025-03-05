@@ -11,7 +11,7 @@
 		
 		<!-- FAVICON -->
 		<link rel="shortcut icon" href="/favicon.ico" type="image/png">	
-		
+		<script src="/js/BigPicture.js"></script>
 		<!-- CSS -->
 		<?= $template->css() ?>
 	</head>
@@ -27,23 +27,30 @@
 		
 		<main>
     		<h1><?= APP_NAME ?></h1>
-    		<section>
-    			<h2><?= $libro->titulo?></h2>
-    			
-    			<p><b>ISBN:</b>			<?=$libro->isbn?></p>
-    			<p><b>Título:</b>		<?=$libro->titulo?></p>
-    			<p><b>Editorial:</b>	<?=$libro->editorial?></p>
-    			<p><b>Autor:</b>		<?=$libro->autor?></p>
-    			<p><b>Idioma:</b>		<?=$libro->idioma?></p>
-    			<p><b>Edición:</b>		<?=$libro->edicion?></p>
-    			
-    			<p><b>Edad Recomendada:</b>
-    			<?=$libro->edadrecomendada ?? 'Pendiente de calificación';?></p>
-    		
-    			<p><b>Año:</b><?=$libro->anyo ?? '--'?></p>
-    			<p><b>Páginas:</b><?=$libro->paginas ?? '--'?></p>
-    			<p><b>Características:</b><?=$libro->caracteristicas ?? '--'?></p>    		
-    			
+    		<section id="detalles" class="flex-container gap2">
+    			<div class="flex2">
+        			<h2><?= $libro->titulo?></h2>
+        			
+        			<p><b>ISBN:</b>			<?=$libro->isbn?></p>
+        			<p><b>Título:</b>		<?=$libro->titulo?></p>
+        			<p><b>Editorial:</b>	<?=$libro->editorial?></p>
+        			<p><b>Autor:</b>		<?=$libro->autor?></p>
+        			<p><b>Idioma:</b>		<?=$libro->idioma?></p>
+        			<p><b>Edición:</b>		<?=$libro->edicion?></p>
+        			
+        			<p><b>Edad Recomendada:</b>
+        			<?=$libro->edadrecomendada ?? 'Pendiente de calificación';?></p>
+        		
+        			<p><b>Año:</b><?=$libro->anyo ?? '--'?></p>
+        			<p><b>Páginas:</b><?=$libro->paginas ?? '--'?></p>
+        			<p><b>Características:</b><?=$libro->caracteristicas ?? '--'?></p>    		
+    			</div>
+    			<figure class="flex1 centrado p2">
+    				<img src="<?=BOOK_IMAGE_FOLDER.'/'.($libro->portada ?? DEFAULT_BOOK_IMAGE)?>"
+    					class="cover enlarge-image"
+    					alt="Portada del libro <?=$libro->titulo?>">
+    				<figcaption>Portada de <?="$libro->titulo, de $libro->autor"?></figcaption>
+    			</figure>
     		</section>
     		
     		<section>
@@ -59,7 +66,7 @@
     			}else{ ?>
     				<table class="table w100">
     					<tr>
-    						<th>ID</th><td>Tema</td>
+    						<th>ID</th><th>Tema</th>
     					</tr>
     				<?php foreach($temas as $tema){?>
     					<tr>

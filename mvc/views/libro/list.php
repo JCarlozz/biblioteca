@@ -12,7 +12,7 @@
 		
 		<!-- FAVICON -->
 		<link rel="shortcut icon" href="/favicon.ico" type="image/png">	
-		
+		<script src="js/BigPicture.js"></script>
 		<!-- CSS -->
 		<?= $template->css() ?>
 	</head>
@@ -61,14 +61,11 @@
     		        );   		
     		  } ?>
     		
-    			<!-- Enlaces creados por el paginador -->
-    			<div class="right">
-    				<?= $paginator->stats() ?>
-    			</div>
     			
     			<!-- Tabla con los resultados -->
     			<table class="table w100">
     				<tr>
+    					<th>Portada</th>
     					<th>ISBN</th>
     					<th>Título</th>
     					<th>Autor</th>
@@ -76,6 +73,13 @@
     				</tr>
     			<?php foreach ($libros as $libro){?>
     				<tr>
+    					<td class="centrado">
+    						<a href='/Libro/show/<?=$libro->id?>'>
+    							<img src="<?=BOOK_IMAGE_FOLDER.'/'.($libro->portada ?? DEFAULT_BOOK_IMAGE)?>"
+    								class="table-image" alt="Portada de <?= $libro->titulo ?>"
+    								title="Portada de <?= $libro->titulo ?>">    						
+    						</a>
+    					</td>
     					<td><?= $libro->isbn ?></td>
     					<td><a href='/Libro/show/<?= $libro->id ?>'><?=$libro->titulo?></a></td>
     					<td><?= $libro->autor ?></td>

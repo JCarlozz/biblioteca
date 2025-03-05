@@ -11,7 +11,7 @@
 		
 		<!-- FAVICON -->
 		<link rel="shortcut icon" href="/favicon.ico" type="image/png">	
-		
+		<script src="/js/Preview.js"></script>
 		<!-- CSS -->
 		<?= $template->css() ?>
 	</head>
@@ -20,7 +20,8 @@
 		<?= $template->header('Lista de libros') ?>
 		<?= $template->menu() ?>
 		<?= $template->breadCrumbs([
-		    'Libros'=> NULL
+		    'Libros'=> '/libro',
+		    'Nuevo libro'=> NULL
 		]) ?>
 		<?= $template->messages() ?>
 		
@@ -28,7 +29,8 @@
     		<h1><?= APP_NAME ?></h1>
     		<h2>Nuevo libro</h2>
 			
-			<form method="POST" enctype="multipart/form-data" action="/Libro/store">
+			<form method="POST" class="flex-container gap2" enctype="multipart/form-data" action="/Libro/store">
+				
 				<div class="flex2">
 					<label>ISBN</label>
 					<input type="text" name="isbn" value="<?=old('isbn')?>">
@@ -41,6 +43,9 @@
 					<br>
 					<label>Autor</label>
 					<input type="text" name="autor" value="<?=old('autor')?>">
+					<br>
+					<label>Portada</label>
+					<input type="file" name="portada" acept="image/*" id="file-with-preview">
 					<br>
 					<label>Idioma</label>
 					<select name="idioma">
@@ -76,12 +81,8 @@
 						      echo "<option value='$nuevoTema->id'>$nuevoTema->tema</option>";
 						?>
 					</select>
-					<p>Puedes añadir mñas temas posteriormente, desde la operación de edición del libro.</p>
-					
-					
-					
-					
-					
+					<p>Puedes añadir más temas posteriormente, desde la operación de edición del libro.</p>
+										
 					<label>Sinopsis</label>
 					<textarea name="sinopsis" class="w50"><?=old('sinopsis')?></textarea>
 					<br>
@@ -90,7 +91,11 @@
 						<input type="reset" class="button" value="Reset">
 					</div>    
 				</div>
-			</div>			
+				<figure class="flex1 centrado p2">
+    				<img src="<?=BOOK_IMAGE_FOLDER.'/'.($libro->portada ?? DEFAULT_BOOK_IMAGE)?>"
+    					class="cover" id="preview-image" alt="Previsualización de la portada">
+    				<figcaption>Previsualización de la portada</figcaption>
+    			</figure>		
 			</form>
 			<div class="centrado my2">
 				<a class="button" onclick="history.back()">Atrás</a>
