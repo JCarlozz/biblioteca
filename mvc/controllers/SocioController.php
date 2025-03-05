@@ -92,6 +92,19 @@ class SocioController extends Controller{
                 //guarda el libro en la base de datos
                 $socio->save();
                 
+                //recupera la portada como objeto UploadFile es null si no llega)
+                $file = request()->file(
+                    'foto',
+                    8000000,
+                    ['image/png', 'image/jpeg', 'image/gif', 'image/webp']
+                    );
+                
+                //si hay fichero, lo guardo y actualizamos el campo "portada"
+                if ($file){
+                    $socio->foto = $file->store('../public/'.MEMBERS_IMAGE_FOLDER, 'MEMBER_');
+                    $socio->update();
+                }                
+                
                 //flashea un mensaje de éxito en sesión
                 Session::success("Guardado el socio $socio->nombre $socio->apellidos correcto.");
                 
@@ -112,6 +125,16 @@ class SocioController extends Controller{
                     //regresa al formulario de creación de libro
                     //los valores no deberián haberse borrado si usamos los helpers old()
                     return redirect("/Socio/create");
+                    
+            }catch(UploadException $e){
+                
+                Session::warning("El socio se guardó correctamente, pero no se pudo
+                                subir el fichero de imagen.");
+                
+                if(DEBUG)
+                    throw new UploadException($e->getMessage());
+                    
+                    redirect("/Socio/edit/$socio->id");
             }
     }
     
@@ -149,6 +172,22 @@ class SocioController extends Controller{
             //intenta actualizar el socio
             try{
                 $socio->update();
+                
+                $file = request()->file(
+                    'foto',
+                    8000000,
+                    ['image/png', 'image/jpeg', 'image/gif', 'image/webp']
+                    );
+                
+                //si hay fichero, lo guardo y actualizamos el campo "portada"
+                if ($file){
+                    if ($socio->foto)    //elimina el fichero anterior (si lo hay)
+                        File::remove('../public/'.MEMBERS_IMAGE_FOLDER.'/'.$socio->foto);
+                        
+                        $socio->foto = $file->store('../public/'.MEMBERS_IMAGE_FOLDER, 'MEMBER_');
+                        $socio->update();
+                }                     
+                
                 Session::success("Actualización del socio $socio->nombre $socio->apellidos correcta.");
                 return redirect("/Socio/show/$id");
                 
@@ -159,6 +198,14 @@ class SocioController extends Controller{
                 
                 if(DEBUG)
                     throw new SQLException($e->getMessage());
+                    
+                    return redirect("/Socio/edit/$id");
+                    
+            }catch (UploadException $e){
+                Session::warning("Cambios guardados, pero no se modificó la portada.");
+                
+                if(DEBUG)
+                    throw new UploadException($e->getMessage());
                     
                     return redirect("/Socio/edit/$id");
             }
@@ -190,6 +237,11 @@ class SocioController extends Controller{
                 
                 try{
                     $socio->deleteObject();
+                    
+                    if ($socio->foto)
+                        File::remove('../public/'.MEMBERS_IMAGE_FOLDER.'/'.$socio->foto, true);
+                        
+                        
                     Session::success("Se ha borrado de el socio $socio->nombre.");
                     return view("/Socio/list");
                     
@@ -202,6 +254,54 @@ class SocioController extends Controller{
                         
                         return redirect("/Socio/delete/$id");
                         
+                }catch (FileException $e){
+                    Session::warning("Se eliminó el socio pero no se pudo eliminar el fichero del disco.");
+                    
+                    if (DEBUG)
+                        throw new FileException($e->getMessage());
+                        
+                        return redirect("/Socio");
+                        
                 }
     }
+    public function dropcover(){
+        
+        if (!request()->has('borrar'))
+            throw new FormException('Faltan datos para completar la operación');
+            
+            
+            $id = request()->post('id');
+            $socio = Socio::findOrFail($id, "No se ha encontrado el socio.");
+            
+            $tmp = $socio->foto;
+            $socio->foto = NULL;
+            
+            try{
+                $socio->update();
+                File::remove('../public/'.MEMBERS_IMAGE_FOLDER.'/'.$tmp, true);
+                
+                Session::success("Borrado de la foto del $socio->nombre $socio->apellidos realizada.");
+                return redirect("/Socio/edit/$id");
+                
+            }catch (SQLException $e){
+                Session::error("No se pudo eliminar la portada");
+                
+                if (DEBUG)
+                    throw new SQLException($e->getMessage());
+                    
+                    return redirect("/Socio/edit/$id");
+                    
+            }catch (FileException $e){
+                Session::warning("No se pudo eliminar el fichero del disco");
+                
+                if (DEBUG)
+                    throw new FileException($e->getMessage());
+                    
+                    return redirect("/Socio/edit/$socio->id");
+                    
+            }
+            
+    }
+    
+    
 }

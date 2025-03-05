@@ -11,7 +11,7 @@
 		
 		<!-- FAVICON -->
 		<link rel="shortcut icon" href="/favicon.ico" type="image/png">	
-		
+		<script src="/js/Preview.js"></script>
 		<!-- CSS -->
 		<?= $template->css() ?>
 	</head>
@@ -28,7 +28,7 @@
     		<h1><?= APP_NAME ?></h1>
     		<h2>Nuevo socio</h2>
 			
-			<form method="POST" enctype="multipart/form-data" action="/Socio/store">
+			<form method="POST" class="flex-container gap2" enctype="multipart/form-data" action="/Socio/store">
 				<div class="flex2">
 					<label>DNI</label>
             			<input type="text" name="dni" value="<?=old('dni')?>">
@@ -45,6 +45,9 @@
             			<label>Email</label>
             			<input type="text" name="email" value="<?=old('email')?>">
             			<br>
+            			<label>Foto</label>
+    					<input type="file" name="foto" acept="image/*" id="file-with-preview">
+    					<br>
             			<label>Dirección</label>
             			<input type="text" name="direccion" value="<?=old('direccion')?>">
             			<br>
@@ -61,12 +64,17 @@
             			<input type="number" name="telefono" 
             					value="<?=old('telefono')?>">
             			<br>
+            			
 					<div class="centrado my2">
 						<input type="submit" class="button" name="guardar" value="Guardar">
 						<input type="reset" class="button" value="Reset">
-					</div>    
+					</div>										   
 				</div>
-			</div>			
+				<figure class="flex1 centrado derecha p2">
+            		<img src="<?=MEMBERS_IMAGE_FOLDER.'/'.($socio->foto ?? DEFAULT_MEMBERS_IMAGE)?>"
+            			class="cover" id="preview-image" alt="Previsualización de la foto">
+        			<figcaption>Previsualización de la foto</figcaption>
+    			</figure>							
 			</form>
 			<div class="centrado my2">
 				<a class="button" onclick="history.back()">Atrás</a>

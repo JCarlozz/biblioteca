@@ -11,7 +11,7 @@
 		
 		<!-- FAVICON -->
 		<link rel="shortcut icon" href="/favicon.ico" type="image/png">	
-		
+		<script src="/js/BigPicture.js"></script>
 		<!-- CSS -->
 		<?= $template->css() ?>
 	</head>
@@ -27,20 +27,33 @@
 		<?= $template->messages() ?>
 		
 		<main>
-    		<h1><?= APP_NAME ?></h1>
-    		<section>
-    			<h2><?=$socio->nombre?> <?=$socio->apellidos?></h2>
-    			
-    			<p><b>DNI:</b>				<?=$socio->dni?></p>
-    			<p><b>Nombre:</b>			<?=$socio->nombre?></p>
-                <p><b>Apellidos:</b>		<?=$socio->apellidos?><p>
-                <p><b>Fecha de nacimiento:</b><?=$socio->nacimiento?><p>
-                <p><b>Email:</b>			<?=$socio->email?></p>
-    			<p><b>Dirección:</b>		<?=$socio->direccion?></p>
-                <p><b>Codigo Postal:</b>	<?=$socio->cp?><p>
-                <p><b>Población:</b>		<?=$socio->poblacion?><p>
-                <p><b>Provincia:</b>		<?=$socio->provincia?></p>
-    			<p><b>Teléfono:</b>			<?=$socio->telefono?></p>
+			<div class=flex-container></div>
+        		<h1 class="flex2"><?= APP_NAME ?></h1>
+        		<div class="flex2 derecha">    			
+        			<a class="button" href="/Socio/edit/<?= $socio->id?>">Editar</a>   			    		
+        		</div>
+    		</div>
+    		<section id="detalles" class="flex-container gap2">
+    			<div class="flex2">
+        			<h2><?=$socio->nombre?> <?=$socio->apellidos?></h2>
+        			
+        			<p><b>DNI:</b>				<?=$socio->dni?></p>
+        			<p><b>Nombre:</b>			<?=$socio->nombre?></p>
+                    <p><b>Apellidos:</b>		<?=$socio->apellidos?><p>
+                    <p><b>Fecha de nacimiento:</b><?=$socio->nacimiento?><p>
+                    <p><b>Email:</b>			<?=$socio->email?></p>
+        			<p><b>Dirección:</b>		<?=$socio->direccion?></p>
+                    <p><b>Codigo Postal:</b>	<?=$socio->cp?><p>
+                    <p><b>Población:</b>		<?=$socio->poblacion?><p>
+                    <p><b>Provincia:</b>		<?=$socio->provincia?></p>
+        			<p><b>Teléfono:</b>			<?=$socio->telefono?></p>
+    			</div>
+    			<figure class="flex1 centrado p2">
+    				<img src="<?=MEMBERS_IMAGE_FOLDER.'/'.($socio->foto ?? DEFAULT_MEMBERS_IMAGE)?>"
+    					class="cover enlarge-image"
+    					alt="Foto del socio <?=$socio->nombre.' '. $socio->apellidos?>">
+    				<figcaption>Foto del socio <?="$socio->nombre $socio->apellidos"?></figcaption>
+    			</figure>
             </section>
             <section>
     		<table class="bloquecentradow100">
@@ -72,7 +85,7 @@
         					
 					</table>
 				<?php } ?>
-				</table>				
+				</table>								
 			</section>
 			
 			

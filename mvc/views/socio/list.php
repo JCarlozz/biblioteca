@@ -12,7 +12,7 @@
 		
 		<!-- FAVICON -->
 		<link rel="shortcut icon" href="/favicon.png" type="image/png">	
-		
+		<script src="js/BigPicture.js"></script>
 		<!-- CSS -->
 		<?= $template->css() ?>
 	</head>
@@ -62,6 +62,7 @@
     			
     			<table class="table w100">
     				<tr>
+    					<th>Foto</th>
     					<th>DNI</th>
     					<th>Nombre</th>
     					<th>Población</th>
@@ -71,6 +72,13 @@
     				</tr>
     			<?php foreach ($socios as $socio){?>
     				<tr>
+    					<td class="centrado">
+    						<a href='/Socio/show/<?=$socio->id?>'>
+    							<img src="<?=MEMBERS_IMAGE_FOLDER.'/'.($socio->foto ?? DEFAULT_MEMBERS_IMAGE)?>"
+    								class="table-image" alt="Foto del socio <?= $socio->nombre.' '. $socio->apellidos ?>"
+    								title="Foto del socio <?= $socio->nombre. $socio->apellidos ?>">    						
+    						</a>
+    					</td>
     					<td><?= $socio->dni ?></td>
     					<td><a href='/Socio/show/<?= $socio->id ?>'><?=$socio->nombre?> <?=$socio->apellidos?></a></td>
     					<td><?= $socio->poblacion ?></td>

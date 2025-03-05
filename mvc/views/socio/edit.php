@@ -11,7 +11,7 @@
 		
 		<!-- FAVICON -->
 		<link rel="shortcut icon" href="/favicon.ico" type="image/png">	
-		
+		<script src="/js/Preview.js"></script>
 		<!-- CSS -->
 		<?= $template->css() ?>
 	</head>
@@ -29,8 +29,9 @@
 		<main>
     		<h1><?= APP_NAME ?></h1>
     		<h2>Editar el socio ID <?= $socio->id?></h2>
+    		<section class="flex-container gap2">
     		
-    		<form method="POST" action="/Socio/update">
+    		<form method="POST" action="/Socio/update" class="flex2 no-border" enctype="multipart/form-data">
 			
     			<!-- input oculto que contiene ID -->
     			<input type="hidden" name="id" value="<?=$socio->id?>">
@@ -50,6 +51,9 @@
     			<br>
     			<label>Email</label>
     			<input type="text" name="email" value="<?=old('email',$socio->email)?>">
+    			<br>
+    			<label>Foto</label>
+    			<input type="file" name="foto" accept="image/*" id="file-with-preview">
     			<br>
     			<label>Dirección</label>
     			<input type="text" name="direccion" value="<?=old('direccion', $socio->direccion)?>">
@@ -73,6 +77,18 @@
     				<input type="reset" class="button" value="Reset">
     			</div>
     		</form>
+    		<figure class="flex1 centrado p2">
+    			<img src="<?=MEMBERS_IMAGE_FOLDER.'/'.($socio->foto ?? DEFAULT_MEMBERS_IMAGE)?>"
+    				class="cover" id="preview-image" alt="Previsualización de la foto">
+    			<figcaption>Foto del socio <?="$socio->nombre $socio->apellidos"?></figcaption>
+    			<?php if($socio->foto) {?>
+    			<form method="POST" action="/Socio/dropcover" class="no-border">
+    				<input type="hidden" name="id" value="<?=$socio->id?>">
+    				<input type="submit" class="button-danger" name="borrar" value="Eliminar portada">
+    			</form>
+    			<?php } ?>	
+    		</figure>
+    		</section>
     				
 			<div class="centrado my2">
 				<a class="button" onclick="history.back()">Atrás</a>

@@ -99,7 +99,7 @@ class LibroController extends Controller{
                 $libro->save();
                 $libro->addTema($idtema);       //le pone el tema principal
                 
-                //recupera la portada como objeto UploadFile 8o null si no llega)
+                //recupera la portada como objeto UploadFile es null si no llega)
                 $file = request()->file(
                         'portada',
                         8000000,

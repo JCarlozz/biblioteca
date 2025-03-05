@@ -193,8 +193,12 @@ define('RESULTS_PER_PAGE', 10);  // Número de resultados por página
 
 define('UPLOAD_FOLDER', '../storage'); // carpeta por defecto para las subidas de ficheros
 define('UPLOAD_MAX_SIZE', 0);          // tamaño máximo para las subidas, en bytes (0 sin límite)
+
 define('BOOK_IMAGE_FOLDER','/images/books');    //carpeta para las imágenes de las portadas de los libros 
-define('DEFAULT_BOOK_IMAGE', 'cover.png');      //imagen por defecto para los libros que no tengan portada 
+define('DEFAULT_BOOK_IMAGE', 'cover.png');      //imagen por defecto para los libros que no tengan portada
+
+define('MEMBERS_IMAGE_FOLDER','/images/members');    //carpeta para las imágenes de las portadas de los socios
+define('DEFAULT_MEMBERS_IMAGE', 'cover.png');      //imagen por defecto para los socios que no tengan portada
 
 /* -------------------------------------------------------------
  * MENSAJE DE "ACEPTAR COOKIES"
