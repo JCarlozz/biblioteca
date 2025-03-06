@@ -31,16 +31,17 @@
 			<form method="POST" enctype="multipart/form-data" action="/Prestamo/store">
 				<div class="flex2">
 					<label>ID socio</label>
-					<input type="number" name="idsocio" value="<?=old('idsocio')?>">
-					
-					<br>
+					<input type="number" name="idsocio" value="<?=old('idsocio')?>"><h3><?="$socio->nombre $socio->apellidos"?></h3>					
+					<br>					
+										
 					<label>ID Ejemplar</label>
-					<input type="number" name="idejemplar" value="<?=old('idejemplar')?>">
-					
+					<input type="number" name="idejemplar" value="<?=old('idejemplar')?>">					
 					<br>
+					
 					<label>Fecha de devolución</label>
 					<input type="date" name="limite" value="">
-					<br>					
+					<br>
+										
 					<div class="centrado my2">
 						<input type="submit" class="button" name="guardar" value="Guardar">
 						<input type="reset" class="button" value="Reset">

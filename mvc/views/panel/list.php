@@ -2,7 +2,7 @@
 <html lang="es">
 	<head>
 		<meta charset="UTF-8">
-		<title>Panel de control - <?= APP_NAME ?></title>
+		<title>Panel del bibliotecario - <?= APP_NAME ?></title>
 		
 		<!-- META -->
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,13 +20,13 @@
 		<?= $template->header('Panel del bibliotecario') ?>
 		<?= $template->menu() ?>
 		<?= $template->breadCrumbs([
-		    'Panel de contro'=> NULL
+		    'Panel del bibliotecario'=> NULL
 		]) ?>
 		<?= $template->messages() ?>
 		
 		<main>
     		<h1><?= APP_NAME ?></h1>
-    		<h2>Panel de contro</h2>
+    		<h2>Panel del bibliotecario</h2>
 			
 			<section class="two-columns">
 				

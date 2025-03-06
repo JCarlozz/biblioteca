@@ -144,7 +144,7 @@ define('ADMIN_ROLE', 'ROLE_ADMIN');
  * LOGIN
  * -------------------------------------------------------------*/
 
-define('REDIRECT_AFTER_LOGIN', '/');                // Redirección tras login.
+define('REDIRECT_AFTER_LOGIN', '/User/home');                // Redirección tras login.
 
 define('LOG_LOGIN_ERRORS', false);                 // Guardar errores de login en fichero de log.
 define('LOGIN_ERRORS_FILE', '../logs/login.log');  // Nombre del fichero para los errores de login.
@@ -175,7 +175,7 @@ define('VIEWS_FOLDER', '../mvc/views');     // Carpeta para las vistas.
 
 // Template a usar en las vistas (en la carpeta templates).
 // Las opciones disponibles por defecto son Base, Dark, Neon o Retro.
-define('TEMPLATE', 'Nuevo');
+define('TEMPLATE', 'Base');
 
 
 
@@ -199,6 +199,9 @@ define('DEFAULT_BOOK_IMAGE', 'cover.png');      //imagen por defecto para los li
 
 define('MEMBERS_IMAGE_FOLDER','/images/members');    //carpeta para las imágenes de las portadas de los socios
 define('DEFAULT_MEMBERS_IMAGE', 'cover.png');      //imagen por defecto para los socios que no tengan portada
+
+define('USERS_IMAGE_FOLDER','/images/users');    //carpeta para las imágenes de las portadas de los socios
+define('DEFAULT_USERS_IMAGE', 'default.png');      //imagen por defecto para los socios que no tengan portada
 
 /* -------------------------------------------------------------
  * MENSAJE DE "ACEPTAR COOKIES"

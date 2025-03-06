@@ -101,8 +101,15 @@
         					<td><?=$ejemplar->id?></td>
         					<td><?=$ejemplar->anyo?></td>
         					<td><?=$ejemplar->precio?></td>
-        					<td><?=$ejemplar->estado?></td>        					
+        					<td><?=$ejemplar->estado?></td>
+        					<td class="centrado">        						
+        						<a class='button' href='/Ejemplar/edit/<?= $ejemplar->id ?>'tittle="Editar">
+        							<i class="fas fa-edit"></i></a> -
+        						<a class='button' href='/Libro/delete/<?= $ejemplar->id ?>'tittle="Eliminar">
+        							<i class="fas fa-trash-alt"></i></a>
+        					</td>
         				</tr>
+        			
         			<?php } ?>
         			<div class="p1 right">
         				Existen <?= sizeof($ejemplares)?> ejemplares de este libro.
