@@ -12,7 +12,7 @@
 		
 		<!-- FAVICON -->
 		<link rel="shortcut icon" href="/favicon.ico" type="image/png">	
-		<script src="/js/BigPicture.js"></script>
+		<script src="/js/Preview.js"></script>
 		<!-- CSS -->
 		<?= $template->css() ?>
 	</head>
@@ -70,22 +70,12 @@
     					
     					<figure class="flex1 centrado">
     						<img src="<?=USERS_IMAGE_FOLDER.'/'.($user->picture ?? DEFAULT_USERS_IMAGE)?>"
-    							class="cover" alt="Previsualización de la imagen de perfil">
+    							class="cover" id="preview-image" alt="Previsualización de la imagen de perfil">
     						<figcaption>Previsualización de la imagen de perfil</figcaption>    						
     					</figure>
     				</section>
-    					
-    				
-    				
-    			</div>
-    			<!-- Esta parte solamente si creáis la carpeta para las fotos de perfil-->
-    			<figure class="flex1 centrado">
-    				<img src="<?=USERS_IMAGE_FOLDER.'/'.($user->picture ?? DEFAULT_USERS_IMAGE)?>"
-    					class="cover enlarge-image" alt="Imagen de perfil de <?= $user->displayname ?>">
-    				<figcaption>Imagen de perfil de <?=$user->displayname?></figcaption>    						
-    			</figure>    		
-    		</section>
-		  
+    			   				
+    					  
 		</main>
 		<?= $template->footer() ?>
 		<?= $template->version() ?>		

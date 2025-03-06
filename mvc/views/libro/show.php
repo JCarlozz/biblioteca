@@ -102,12 +102,12 @@
         					<td><?=$ejemplar->anyo?></td>
         					<td><?=$ejemplar->precio?></td>
         					<td><?=$ejemplar->estado?></td>
-        					<td class="centrado">        						
-        						<a class='button' href='/Ejemplar/edit/<?= $ejemplar->id ?>'tittle="Editar">
-        							<i class="fas fa-edit"></i></a> -
-        						<a class='button' href='/Libro/delete/<?= $ejemplar->id ?>'tittle="Eliminar">
-        							<i class="fas fa-trash-alt"></i></a>
-        					</td>
+        					<td class="centrado">
+    						<a class='button' href='/Ejemplar/edit/<?= $ejemplar->id ?>'tittle="Editar">
+    							<i class="fas fa-edit"></i></a> -
+    						<a class='button' href='/Ejemplar/delete/<?= $ejemplar->id ?>'tittle="Eliminar">
+    							<i class="fas fa-trash-alt"></i></a>
+    					</td>
         				</tr>
         			
         			<?php } ?>
