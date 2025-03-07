@@ -38,7 +38,7 @@
                             
             $user->addRole('ROLE_USER', $this->request->post('roles'));
             
-            $user->picture('', 'default.png' ?? request()->post('picture'));
+            //$user->picture(request()->post('picture') ?? 'DEFAULT_USERS_IMAGE');
             
             try{
                 $user->save();
@@ -156,14 +156,14 @@
               $user->displayname           =request()->post('displayname');
               $user->email                 =request()->post('email');
               $user->phone                 =request()->post('phone');
-              $user->roles                 =request()->post('roles');
+              
               
               //intenta actualizar el usuario
               try{
                   $user->update();
                   
                   $file = request()->file(
-                      'portada',
+                      'picture',
                       8000000,
                       ['image/png', 'image/jpeg', 'image/gif', 'image/webp']
                       );
@@ -173,11 +173,12 @@
                       if ($user->picture)    //elimina el fichero anterior (si lo hay)
                           File::remove('../public/'.USERS_IMAGE_FOLDER.'/'.$user->picture);
                           
-                          $user->portada = $file->store('../public/'.USERS_IMAGE_FOLDER, 'USER_');
+                          $user->picture = $file->store('../public/'.USERS_IMAGE_FOLDER, 'USER_');
+                          $user->addRole(request()->post('roles'));
                           $user->update();
                   }
                   Session::success("Actualización del usuario $user->displayname correcta.");
-                  return redirect("/User/edit/$id");
+                  return redirect("/User/list");
                   
                   //si se produce un error al guardar el libro...
               }catch (SQLException $e){
@@ -197,7 +198,108 @@
                       
                       return redirect("/User/edit/$id");
               }
-      }      
+      }  
+      
+      public function delete(int $id = 0){
+          
+          $user = User::findOrFail($id, "No existe el usuario.");
+          
+          return view('user/delete', [
+              'user'=>$user
+          ]);
+      }
+      
+      public function addrole(){
+          
+          if(empty(request()->post('add')))
+              throw new FormException("No se recibió el formulario");
+              
+              $id = intval(request()->post('id'));            
+              
+              $users   = User::findOrFail($id, "No se encontró el usuario");              
+              
+              try{
+                  $users->addRole($id);
+                  
+                  Session::success("Se ha añadido $users->roles al $users->displayname.");
+                  return redirect("/User/list/");
+                  
+              }catch(SQLException $e){
+                  
+                  Session::error("No se pudo añadir el $users->roles al $users->displayname.");
+                  
+                  if(DEBUG)
+                      throw new SQLException($e->getMessage());
+                      
+                      return redirect("/User/edit/$id");
+              }
+      }
+      
+      public function removerole(){
+          
+          if(empty(request()->post('remove')))
+              throw new FormException("No se recibió el formulario");
+              
+              $id = intval(request()->post('id'));
+              
+              $users   = User::findOrFail($id, "No se encontró el usuario");
+              
+              
+              try{
+                  $users->removerole($id);
+                  
+                  Session::success("Se ha eliminado el $users->roles de $users->displayname.");
+                  return redirect("/User/list/");
+                  
+              }catch(SQLException $e){
+                  
+                  Session::error("No se pudo eliminar $users->roles de $users->displayname.");
+                  
+                  if(DEBUG)
+                      throw new SQLException($e->getMessage());
+                      
+                      return redirect("/User/edit/$id");
+              }
+      }
+            
+      public function dropcover(){
+          
+          if (!request()->has('borrar'))
+              throw new FormException('Faltan datos para completar la operación');
+              
+              
+              $id = request()->post('id');
+              $user = User::findOrFail($id, "No se ha encontrado el usuario.");
+              
+              $tmp = $user->picture;
+              $user->picture = NULL;
+              
+              try{
+                  $user->update();
+                  File::remove('../public/'.USERS_IMAGE_FOLDER.'/'.$tmp, true);
+                  
+                  Session::success("Borrado de la foto del $user->displayname realizada.");
+                  return redirect("/User/edit/$id");
+                  
+              }catch (SQLException $e){
+                  Session::error("No se pudo eliminar la portada");
+                  
+                  if (DEBUG)
+                      throw new SQLException($e->getMessage());
+                      
+                      return redirect("/User/edit/$id");
+                      
+              }catch (FileException $e){
+                  Session::warning("No se pudo eliminar el fichero del disco");
+                  
+                  if (DEBUG)
+                      throw new FileException($e->getMessage());
+                      
+                      return redirect("/User/edit/$user->id");
+                      
+              }
+              
+      }
       
 }
      

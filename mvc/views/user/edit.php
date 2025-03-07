@@ -45,27 +45,10 @@
     			<br>
     			<label>Teléfono</label>
     			<input type="text" name="phone" value="<?=old('phone', $user->phone)?>">
-    			<br>
-    			<label>Bloquear usuario</label>
-    				<select name="bloqueo" id="bloqueo">
-  				      <option value="">No bloquear</option>
-        			  <option value="<?= time(); ?>">Bloquear</option>
-    				</select>
-    			<br>
-    			<label>Teléfono</label>
-    			<input type="text" name="phone" value="<?=old('phone', $user->phone)?>">
-    			<br>
+    			<br>    			
     			<label>Imagen de perfil</label>
     			<input type="file" name="picture" accept="image/*" id="file-with-preview">
-    			<br>
-    					
-    			<label>Rol</label>
-    					
-    			<select name="roles">
-    				<?php foreach (USER_ROLES as $roleName =>$roleValue){ ?>
-    					<option value="<?=$roleValue ?>"><?=$roleName?></option>
-    				<?php } ?>
-    			</select>
+    			<br>    			
     			
     			<div class="centrado my2">
     				<input type="submit" class="button" name="actualizar" value="Actualizar">
@@ -84,10 +67,52 @@
     			<?php } ?>	
     		</figure>
     		</section>
+    		<section>
+    			<script>
+    				function confirmar(id){
+    					if(confirm('Seguro que deseas eliminar?'))
+    						location.href='/Ejemplar/destroy/'+id
+    				}
+    			</script>
+    			<section>
+                    <h2>Roles de <?= $user->displayname ?></h2>
+                
+                
+                    <?php if(empty($user->roles)) { ?>
+                        <div class='warning p2'><p>No se han indicado roles.</p></div>
+                    <?php } else { ?>
+                        <table class="table w100">
+                            <tr>
+                                <th>Rol</th><th>Operaciones</th>
+                            </tr>
+                            <?php foreach($users as $u) { ?>
+                                <tr>    						
+                                    <td><?= arrayToString($u->roles) ?></td>
+                                    <td class="centrado">
+                                        <form method="POST" class="no-border" action="/User/removerole">
+                                            <input type="hidden" name="id" value="<?= $u->id ?>">
+                                            <input type="submit" class="button-danger" name="remove" value="Borrar">
+                                        </form>
+                                    </td>	
+                                </tr>
+                            <?php } ?>
+                        </table>
+                    <?php } ?>
+                
+                    <form class="w50 m0 no-border" method="POST" action="/User/addrole">
+                        <input type="hidden" name="id" value="<?= $user->id ?>">    						
+                        <select name="roles">
+                            <?php foreach (USER_ROLES as $roleName) { ?>
+                                <option value="<?= $roleName ?>"><?= $roleName ?></option>
+                            <?php } ?>
+                        </select>
+                        <input class="button-success" type="submit" name="add" value="Añadir rol">
+                    </form>   		
+                </section>
     				
 			<div class="centrado my2">
 				<a class="button" onclick="history.back()">Atrás</a>
-				<a class="button" href="/Socio/list">Lista de socios</a>
+				<a class="button" href="/User/list">Lista de usuarios</a>
 			</div>    		
 		</main>
 		<?= $template->footer() ?>

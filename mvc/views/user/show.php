@@ -11,7 +11,7 @@
 		
 		<!-- FAVICON -->
 		<link rel="shortcut icon" href="/favicon.ico" type="image/png">	
-		
+		<script src="/js/BigPicture.js"></script>
 		<!-- CSS -->
 		<?= $template->css() ?>
 	</head>

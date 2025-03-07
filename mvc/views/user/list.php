@@ -64,6 +64,7 @@
     		 			
     			<table class="table w100">
     				<tr>
+    					<th>Imagen</th>
     					<th>Nombre</th>
     					<th>Email</th>
     					<th>Teléfono</th>
@@ -73,10 +74,17 @@
     				</tr>
     			<?php foreach ($users as $user){?>
     				<tr>
+    					<td class="centrado">
+    						<a href='/User/show/<?=$user->id?>'>
+    							<img src="<?=USERS_IMAGE_FOLDER.'/'.($user->picture ?? DEFAULT_USERS_IMAGE)?>"
+    								class="table-image" alt="Portada de <?= $user->displayname ?>"
+    								title="Portada de <?= $user->displayname ?>">    						
+    						</a>
+    					</td>
     					<td><a href='/User/show/<?= $user->id ?>'><?=$user->displayname?></a></td>
     					<td><?= $user->email ?></td>
     					<td><?= $user->phone ?></td>
-    					<td><?= $user->roles ?></td>
+    					<td><?= implode(', ', $user->roles); ?></td>
     					<td><?= $user->blocked_at ?></td>
     					<td class="centrado">
     						<a class='button' href='/User/show/<?= $user->id ?>'tittle="Ver">
