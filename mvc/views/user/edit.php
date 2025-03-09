@@ -20,8 +20,8 @@
 		<?= $template->header('Edición del usuario') ?>
 		<?= $template->menu() ?>
 		<?= $template->breadCrumbs([
-		    'Usuario'=> '/list',
-		    $user->displayname =>'/show',
+		    'Usuario'=> 'User/list',
+		    "$user->displayname" => "User/show/",
 		    'Editar usuario'=>NULL
 		]) ?>
 		<?= $template->messages() ?>
@@ -75,22 +75,22 @@
     				}
     			</script>
     			<section>
-                    <h2>Roles de <?= $user->displayname ?></h2>
+                    <h2>Roles de <?= htmlspecialchars($user->displayname) ?></h2>
                 
-                
-                    <?php if(empty($user->roles)) { ?>
+                    <?php if (empty($user->roles)) { ?>
                         <div class='warning p2'><p>No se han indicado roles.</p></div>
                     <?php } else { ?>
                         <table class="table w100">
                             <tr>
                                 <th>Rol</th><th>Operaciones</th>
                             </tr>
-                            <?php foreach($users as $u) { ?>
+                            <?php foreach ($user->roles as $role) { ?> <!-- Iteramos sobre los roles del usuario actual -->
                                 <tr>    						
-                                    <td><?= arrayToString($u->roles) ?></td>
+                                    <td><?= $role ?></td>
                                     <td class="centrado">
                                         <form method="POST" class="no-border" action="/User/removerole">
-                                            <input type="hidden" name="id" value="<?= $u->id ?>">
+                                            <input type="hidden" name="id" value="<?= $user->id ?>">
+                                            <input type="hidden" name="role" value="<?= $role ?>">
                                             <input type="submit" class="button-danger" name="remove" value="Borrar">
                                         </form>
                                     </td>	
@@ -99,9 +99,10 @@
                         </table>
                     <?php } ?>
                 
+                    <!-- Formulario para agregar roles -->
                     <form class="w50 m0 no-border" method="POST" action="/User/addrole">
                         <input type="hidden" name="id" value="<?= $user->id ?>">    						
-                        <select name="roles">
+                        <select name="role">
                             <?php foreach (USER_ROLES as $roleName) { ?>
                                 <option value="<?= $roleName ?>"><?= $roleName ?></option>
                             <?php } ?>
@@ -109,6 +110,7 @@
                         <input class="button-success" type="submit" name="add" value="Añadir rol">
                     </form>   		
                 </section>
+               </section>
     				
 			<div class="centrado my2">
 				<a class="button" onclick="history.back()">Atrás</a>

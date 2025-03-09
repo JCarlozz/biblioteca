@@ -29,7 +29,7 @@
     		<h1><?= APP_NAME ?></h1>
     		<h2>Nuevo ejemplar</h2>
     		
-    		<p>Está a punto de crear un nuevo ejemplar para el libro.
+    		<p>Estás a punto de crear un nuevo ejemplar para el libro
     			<b><?=$libro->titulo?></b>.
     		</p>
 			
@@ -40,15 +40,15 @@
 				<input type="text" name="anyo" value="<?=old('anyo')?>">
 				<br>
 				<label>Precio</label>
-				<input type="number" name="precio" value="<?=old('precio')?>">
+				<input type="number" step="0.01" name="precio" value="<?=old('precio')?>">
 				<br>
 				<label>Estado</label>
 				<input type="text" name="estado" value="<?=old('estado')?>">
 				<br>
 				<input type="submit" class="button" name="guardar" value="Guardar">
 			</form>	
-				<div class="centrado">
-					<a class="button" onclick="history.back()">Atrás</a>
+			<div class="centrado">
+				<a class="button" onclick="history.back()">Atrás</a>
 			</div>    		
 		</main>
 		<?= $template->footer() ?>

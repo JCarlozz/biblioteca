@@ -125,6 +125,7 @@ define('USER_PROVIDER', 'User');   // La única opción incluida es User.
 
 // Roles para los usuarios. Podemos crear o eliminar roles según las necesidades.
 define('USER_ROLES', [
+    'Bibliotecario' => 'ROLE_LIBRARIAN',
     'Usuario'       => 'ROLE_USER',
     'Administrador' => 'ROLE_ADMIN',
     'Supervisor'    => 'ROLE_SUPERVISOR',
@@ -207,7 +208,7 @@ define('DEFAULT_USERS_IMAGE', 'default.png');      //imagen por defecto para los
  * MENSAJE DE "ACEPTAR COOKIES"
  * -------------------------------------------------------------*/
 
-define('ACCEPT_COOKIES', true);    // habilita el mensaje de "aceptar cookies"
+define('ACCEPT_COOKIES', false);    // habilita el mensaje de "aceptar cookies"
 
 // mensaje que aparece en el formulario de "aceptar cookies"
 // los saltos de línea en el mensaje se convertirán en cambio de párrafo

@@ -48,12 +48,18 @@ class TemaController extends Controller{
         
         $tema = Tema::findOrFail($id, "No se encontró el tema indicado.");
         
+        $libros = $tema->belongsToMany('Libro', 'temas_libros');
+        
         return view('tema/show',[
-            'tema' => $tema
+            'tema' => $tema, 
+            'libros'=> $libros
         ]);
     }
     
     public function create(){
+        
+        Auth::role(ROLE_BIBLARIAN);
+        
         return view('tema/create');
         
     }

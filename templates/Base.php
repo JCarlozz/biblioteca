@@ -19,7 +19,7 @@ class Base implements TemplateInterface{
      *    
      * */
     protected array $css = [
-        'standard'  => '/css/base.css',         // hoja de estilo para PC
+        'standard'  => '/css/propio.css',         // hoja de estilo para PC
         'tablet'    => '/css/base_tablet.css',  // hoja de estilo para tablet
         'phone'     => '/css/base_phone.css',   // hoja de estilo para teléfono
         'printer'   => '/css/base_printer.css'  // hoja de estilo para impresora    
@@ -132,7 +132,7 @@ class Base implements TemplateInterface{
             <header>
                 <figure>
                     <a href='/'>
-                        <img alt='Biblioteca CIFO 2025' src='../public/logo.png'>
+                        <img alt='Biblioteca CIFO 2025' src=''>
                     </a>
                 </figure>
                 <hgroup>
@@ -163,17 +163,17 @@ class Base implements TemplateInterface{
         
         $html .=   "<li><a href='/Libro'>Libros</a></li>";
         //$html .=   "<li><a href='/Libro/create'>Nuevo libro</a></li>";
-        
+        if(Login::oneRole(['ROLE_LIBRARIAN','ROLE_ADMIN']))
         $html .=   "<li><a href='/Socio'>Socios</a></li>";
         // $html .=   "<li><a href='/Socio/create'>Nuevo socio</a></li>";
         
         $html .=   "<li><a href='/Tema'>Temas</a></li>";
         //$html .=   "<li><a href='/Tema/create'>Nuevo tema</a></li>";
-        
+        if(Login::role('ROLE_LIBRARIAN'))
         $html .=   "<li><a href='/Prestamo'>Prestamos</a></li>";
         //$html .=   "<li><a href='/Prestamo/create'>Nuevo prestamo</a></li>";
                         
-        $html .=   "<li><a href='/Contacto'>Contacto</a></li>";
+        
         
         // parte derecha (solamente para usuarios concretos)
  

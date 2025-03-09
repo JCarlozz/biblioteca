@@ -1,11 +1,20 @@
 <?php
 class EjemplarController extends Controller{
-                    
-    public function create(int $idlibro= 0){       
+                        
+    public function create(int $idlibro= 0){
         
-        return view('ejemplar/create');       
+        Auth::role(ROLE_LIBRARIAN);
+        
+        $libro = Libro::findOrFail($idlibro);
+        
+        return view('ejemplar/create',[
+            'libro' =>$libro
+            ]);            
     }
+    
     public function store(){
+        
+        Auth::role(ROLE_LIBRARIAN);
         
         //comprueba que la petición venga del formulario
         if (!request()->has('guardar'))
@@ -15,11 +24,11 @@ class EjemplarController extends Controller{
             
             
             //toma los datos que llegan por POST
-            $ejemplar->idlibro      =request()->post('idlibro');
-            $ejemplar->anyo         =request()->post('anyo');
-            $ejemplar->precio       =floatval(request()->post('precio'));
-            $ejemplar->estado       =request()->post('estado');
-                        
+            $ejemplar->idlibro  =intval(request()->post('idlibro'));
+            $ejemplar->anyo     =intval(request()->post('anyo'));
+            $ejemplar->precio   =floatval(request()->post('precio'));
+            $ejemplar->estado   =request()->post('estado');
+            
             //intenta guardar el libro, en caso que la inserción falle vamos a
             //evitar ir a la página de error y volver al formulario "nuevo libro"
             
@@ -32,7 +41,7 @@ class EjemplarController extends Controller{
                 Session::success("Ejemplar añadido correctamente.");
                 
                 //redirecciona a los detalles del nuevo libro
-                return redirect("/Libro/edit/");
+                return redirect("/Libro/edit/$ejemplar->idlibro");
                 
                 //si falla el guardado del libro
             }catch (SQLException $e){
@@ -47,10 +56,12 @@ class EjemplarController extends Controller{
                     
                     //regresa al formulario de creación de libro
                     //los valores no deberián haberse borrado si usamos los helpers old()
-                    return redirect("/Ejemplar/create/");
+                    return redirect("/Ejemplar/create/$ejemplar->idlibro");
             }
     }
     public function destroy(int $id=0){
+        
+        Auth::role(ROLE_LIBRARIAN);
         
         $ejemplar = Ejemplar::findOrFail($id, "No se encontró el ejemplar.");
         
@@ -72,6 +83,7 @@ class EjemplarController extends Controller{
                         
                 return redirect("/Libro/edit/$ejemplar->idlibro");
                         
-                }
+         }
     }
+         
 }

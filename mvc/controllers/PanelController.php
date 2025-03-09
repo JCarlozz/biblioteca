@@ -10,7 +10,7 @@ class PanelController extends Controller{
     
     public function admin(){
         
-        Auth::role('ROLE_ADMIN');
+        Auth::admin();
         
         return view('panel/paneladmin');
     }    

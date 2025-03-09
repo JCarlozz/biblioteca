@@ -6,6 +6,9 @@ class PrestamoController extends Controller{
     }
     
     public function list(int $page = 1){
+        
+        Auth::role(ROLE_LIBRARIAN);
+        
         //analiza si hay filtro
         $filtro = Filter::apply('prestamos');
         
@@ -46,11 +49,16 @@ class PrestamoController extends Controller{
     
     
     public function create(){
+        
+        Auth::role(ROLE_LIBRARIAN);
+        
         return view('prestamo/create');
         
     }
     
     public function store(){
+        
+        Auth::role(ROLE_LIBRARIAN);
         
         //comprueba que la petición venga del formulario
         if (!request()->has('guardar'))
@@ -97,6 +105,8 @@ class PrestamoController extends Controller{
     }
     
     public function reminder($id){
+        
+        Auth::role(ROLE_LIBRARIAN);
         
         // Buscar los datos del préstamo en v_prestamo
         $prestamo = V_prestamo::findOrFail($id);

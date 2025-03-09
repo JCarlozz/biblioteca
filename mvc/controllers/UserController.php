@@ -1,6 +1,79 @@
 <?php
     class UserController extends Controller {
         
+        public function index(){
+            
+            Login::isAdmin();
+            
+            return $this->list();
+        }
+        
+        public function list(int $page = 1){
+                        
+            Login::isAdmin();
+            
+            //analiza si hay filtro
+            $filtro = Filter::apply('users');
+            
+            //recupera el número de resultados por página
+            $limit = RESULTS_PER_PAGE;
+            
+            //si hay filtro
+            if($filtro){
+                //recupera   de libros que cumplen los criterios del filtro
+                $total = User::filteredResults($filtro);
+                
+                //crea el objeto paginador
+                $paginator = new Paginator('/User/list', $page, $limit, $total);
+                
+                //recupera los libros que cumplen los criterios del filtro
+                $users = User::filter($filtro, $limit, $paginator->getOffset());
+                
+                //si no hay filtro
+            }else{
+                
+                //recupera el total de libros
+                $total = User::total();
+                
+                //crea el objeto paginador
+                $paginator = new Paginator('/User/list', $page, $limit, $total);
+                
+                //recupera todos los libros
+                $users = User::orderBy('displayname', 'ASC', $limit, $paginator->getOffset());
+                
+            }
+            //carga la vista
+            return view('user/list', [
+                'users'    => $users,
+                'paginator' => $paginator,
+                'filtro'    => $filtro
+            ]);
+        }
+        
+        public function show(int $id=0){
+            
+            Login::isAdmin();
+            
+            $user = User::findOrFail($id, "No se encontró el usuario indicado.");
+            
+            return view('user/show',[
+                'user'         => $user
+            ]);
+        }
+        
+        public function edit(int $id=0){
+            
+            Login::isAdmin();
+            
+            //busca del usuario con ese ID
+            $user = User::findOrFail($id, "No se encontró el usuario.");
+            
+            //retorna una ViewResponse con la vista con la vista con el formulario de edición
+            return view('user/edit',[
+                'user'      => $user
+            ]);
+        }
+        
         public function home(){
             
             Auth::check();
@@ -12,14 +85,14 @@
         
         public function create(){
             
-            Auth::admin();
+            Login::isAdmin();
             
             return view('user/create');
         }
         
         public function store(){
             
-            Auth::admin();
+            Login::isAdmin();
             
             if(!request()->has('guardar'))
                 throw new FormException('No se recibió el formulario');
@@ -81,70 +154,9 @@
             }
       }
       
-      public function index(){
-          return $this->list();
-      }
-      
-      public function list(int $page = 1){
-          //analiza si hay filtro
-          $filtro = Filter::apply('users');
-          
-          //recupera el número de resultados por página
-          $limit = RESULTS_PER_PAGE;
-          
-          //si hay filtro
-          if($filtro){
-              //recupera   de libros que cumplen los criterios del filtro
-              $total = User::filteredResults($filtro);
-              
-              //crea el objeto paginador
-              $paginator = new Paginator('/User/list', $page, $limit, $total);
-              
-              //recupera los libros que cumplen los criterios del filtro
-              $users = User::filter($filtro, $limit, $paginator->getOffset());
-              
-              //si no hay filtro
-          }else{
-              
-              //recupera el total de libros
-              $total = User::total();
-              
-              //crea el objeto paginador
-              $paginator = new Paginator('/User/list', $page, $limit, $total);
-              
-              //recupera todos los libros
-              $users = User::orderBy('displayname', 'ASC', $limit, $paginator->getOffset());
-              
-          }
-          //carga la vista
-          return view('user/list', [
-              'users'    => $users,
-              'paginator' => $paginator,
-              'filtro'    => $filtro
-          ]);
-      }
-      
-      public function show(int $id=0){
-          
-          $user = User::findOrFail($id, "No se encontró el usuario indicado.");
-          
-          return view('user/show',[
-              'user'         => $user
-          ]);
-      }
-      
-      public function edit(int $id=0){
-          
-          //busca del usuario con ese ID
-          $user = User::findOrFail($id, "No se encontró el usuario.");
-                              
-          //retorna una ViewResponse con la vista con la vista con el formulario de edición
-          return view('user/edit',[
-              'user'      => $user              
-          ]);
-      }
-      
       public function update(){
+          
+          Login::isAdmin();
           
           if (!request()->has('actualizar'))      //si no llega el formulario...
               throw new FormException('No se recibieron datos');
@@ -174,7 +186,6 @@
                           File::remove('../public/'.USERS_IMAGE_FOLDER.'/'.$user->picture);
                           
                           $user->picture = $file->store('../public/'.USERS_IMAGE_FOLDER, 'USER_');
-                          $user->addRole(request()->post('roles'));
                           $user->update();
                   }
                   Session::success("Actualización del usuario $user->displayname correcta.");
@@ -202,6 +213,8 @@
       
       public function delete(int $id = 0){
           
+          Login::isAdmin();
+          
           $user = User::findOrFail($id, "No existe el usuario.");
           
           return view('user/delete', [
@@ -209,24 +222,69 @@
           ]);
       }
       
+      public function destroy(){
+          
+          Auth::oneRole(['ROLE_ADMIN']);
+          
+          //comprueba que llega el formulario de confirmación
+          if (!request()->has('borrar'))
+              throw new FormException('No se recibió la confirmación.');
+              
+              $id = intval(request()->post('id'));        //recupera el identificador
+              $user = User::findOrFail($id);            //recupera el socio
+              
+                  try{
+                      $user->deleteObject();
+                      
+                      if ($user->picture)
+                          File::remove('../public/'.USERS_IMAGE_FOLDER.'/'.$user->picture, true);
+                          
+                          
+                          Session::success("Se ha borrado de el usuario $user->displayname.");
+                          return view("/User/list");
+                          
+                  }catch (SQLException $e){
+                      
+                      Session::error("No se pudo borrar el usuario $user->displayname.");
+                      
+                      if (DEBUG)
+                          throw new SQLException($e->getMessage());
+                          
+                          return redirect("/User/delete/$id");
+                          
+                  }catch (FileException $e){
+                      Session::warning("Se eliminó el usuario pero no se pudo eliminar el fichero del disco.");
+                      
+                      if (DEBUG)
+                          throw new FileException($e->getMessage());
+                          
+                          return redirect("/User");
+                          
+                  }
+      }
+      
       public function addrole(){
+          
+          Login::isAdmin();
           
           if(empty(request()->post('add')))
               throw new FormException("No se recibió el formulario");
               
-              $id = intval(request()->post('id'));            
+              $role = request()->post('role'); 
+              $id = request()->post('id');;            
               
-              $users   = User::findOrFail($id, "No se encontró el usuario");              
+              $user   = User::findOrFail($id, "No se encontró el usuario");              
               
               try{
-                  $users->addRole($id);
+                  $user->roles[] = $role;
+                  $user->update();
                   
-                  Session::success("Se ha añadido $users->roles al $users->displayname.");
+                  Session::success("Se ha añadido '$role' al $user->displayname.");
                   return redirect("/User/list/");
                   
               }catch(SQLException $e){
                   
-                  Session::error("No se pudo añadir el $users->roles al $users->displayname.");
+                  Session::error("No se pudo añadir el $user->roles al $user->displayname.");
                   
                   if(DEBUG)
                       throw new SQLException($e->getMessage());
@@ -235,34 +293,53 @@
               }
       }
       
-      public function removerole(){
+      public function removerole() {
           
-          if(empty(request()->post('remove')))
+          Login::isAdmin();
+          
+          if (empty(request()->post('remove'))) {
               throw new FormException("No se recibió el formulario");
+          }
+          
+          $role = request()->post('role'); // Rol a eliminar
+          $id = request()->post('id'); // ID del usuario
+          
+          // Buscar el usuario por ID
+          $user = User::findOrFail($id);
+          
+          if (!$user) {
+              throw new FormException("No se encontró el usuario.");
+          }
+          
+          // Verificar si el usuario tiene el rol
+          if (!in_array($role, $user->roles)) {
+              throw new FormException("El usuario no tiene el rol especificado.");
+          }
+          
+          try {
+              // Eliminar el rol del array de roles
+              $user->roles = array_values(array_diff($user->roles, [$role]));
               
-              $id = intval(request()->post('id'));
+              // Guardar cambios en la base de datos
+              $user->update();
               
-              $users   = User::findOrFail($id, "No se encontró el usuario");
+              Session::success("Se ha eliminado el rol '$role' de {$user->displayname}.");
+              return redirect("/User/list/");
+          } catch (SQLException $e) {
+              Session::error("No se pudo eliminar el rol '$role' de {$user->displayname}.");
               
-              
-              try{
-                  $users->removerole($id);
-                  
-                  Session::success("Se ha eliminado el $users->roles de $users->displayname.");
-                  return redirect("/User/list/");
-                  
-              }catch(SQLException $e){
-                  
-                  Session::error("No se pudo eliminar $users->roles de $users->displayname.");
-                  
-                  if(DEBUG)
-                      throw new SQLException($e->getMessage());
-                      
-                      return redirect("/User/edit/$id");
+              if (DEBUG) {
+                  throw new SQLException($e->getMessage());
               }
+              
+              return redirect("/User/edit/$userId");
+          }
       }
+      
             
       public function dropcover(){
+          
+          Login::isAdmin();
           
           if (!request()->has('borrar'))
               throw new FormException('Faltan datos para completar la operación');

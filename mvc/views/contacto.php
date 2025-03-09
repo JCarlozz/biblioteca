@@ -50,6 +50,7 @@
     			</section>
     			<section class="flex1">
     				<h2>Ubicación y mapa</h2>
+    				<div class="centrado big-card">
     				<iframe class="centrado" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2985.
     				6611261392572!2d2.058092!3d41.554934!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.
     				1!3m3!1m2!1s0x12a493650ae03931%3A0xee4ac6c8e8372532!2sCentre%20d&#39;
@@ -57,6 +58,7 @@
     				5e0!3m2!1ses!2ses!4v1741106854028!5m2!1ses!2ses" style="border:0;" 
     				loading="lazy" referrerpolicy="no-referrer-when-downgrade">
     				</iframe>
+    				</div>
     				
     				<h3>Datos</h3>
     				<p><b>Centre d'Innovació i Formació Ocupacional (CIFO) de Sabadell</b>

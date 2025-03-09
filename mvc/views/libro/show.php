@@ -80,49 +80,52 @@
     		</section>		
     		
     		<section>
-    		<table class="bloquecentradow100">
-				<tr>			
-    				<h2>Ejemplares de <?= $libro->titulo?></h2>
-    				<div class="derecha">    			
-    					<a class="button" href="/Ejemplar/create/">Nuevo ejemplar</a>
-    				</div>
+    			<script>
+    				function confirmar(id){
+    					if(confirm('Seguro que deseas eliminar?'))
+    						location.href ='/Ejemplar/destroy/'+id
+    				}
+    			</script> 		
+							
+    			<h2>Ejemplares de <?= $libro->titulo?></h2>
+    				<?php if(Login::oneRole(['ROLE_LIBRARIAN'])){?>    			
+    				<a class="button" href="/Ejemplar/create/<?=$libro->id?>">
+    					Nuevo ejemplar
+    				</a>
+    				<?php } ?>
     				<?php 
-    				if (!$ejemplares){
+    			 	if (!$ejemplares){
     				    echo "<div class='warning p2'><p>No hay ejemplares de este libro.</p></div>";
-    				}else{?>
-    				
-    				<table class="table w100 centered-block">
-    					<tr>    					
-    						<th>ID</th><th>Año</th><th>Precio</th><th>Estado</th><th>Operaciones</th>
-    					</tr>
-    					<?php
-    					foreach($ejemplares as $ejemplar){?>			     			     	
-        				<tr>
-        					<td><?=$ejemplar->id?></td>
-        					<td><?=$ejemplar->anyo?></td>
-        					<td><?=$ejemplar->precio?></td>
-        					<td><?=$ejemplar->estado?></td>
-        					<td class="centrado">
-    						<a class='button' href='/Ejemplar/edit/<?= $ejemplar->id ?>'tittle="Editar">
-    							<i class="fas fa-edit"></i></a> -
-    						<a class='button' href='/Ejemplar/delete/<?= $ejemplar->id ?>'tittle="Eliminar">
-    							<i class="fas fa-trash-alt"></i></a>
-    					</td>
-        				</tr>
-        			
-        			<?php } ?>
-        			<div class="p1 right">
-        				Existen <?= sizeof($ejemplares)?> ejemplares de este libro.
-        			</div>		
-				</table>
-				<?php } ?>
-			</section>
+    				}else{ ?>    				
+        				<table class="table w100 centered-block">
+        					<tr>    					
+        						<th>ID</th><th>Año</th><th>Precio</th><th>Estado</th><th>Operaciones</th>
+        					</tr>        					
+        				<?php foreach($ejemplares as $ejemplar){ ?>			     			     	
+            				<tr>
+            					<td><?=$ejemplar->id?></td>
+            					<td><?=$ejemplar->anyo?></td>
+            					<td><?=$ejemplar->precio?></td>
+            					<td><?=$ejemplar->estado?></td>
+            					<td class="centered">
+            					<?php if(!$ejemplar->hasAny('Prestamo')) { ?>
+        							<a  class="button" onclick="confirmar(<?= $ejemplar->id ?>)">Borrar</a>
+        						<?php } ?>        						
+        						</td>
+            				</tr>            			
+            			<?php } ?>
+            			</table>
+            		<?php } ?>
+            	</section>
+			
     		
     		<div class="centrado">
     			<a class="button" onclick="history.back()">Atrás</a>
+    			<?php if(Login::oneRole(['ROLE_LIBRARIAN'])){?>
     			<a class="button" href="/libro/list/">Lista de libros</a>
     			<a class="button" href="/libro/edit/<?= $libro->id?>">Editar</a>
-    			<a class="button" href="/libro/delete/<?= $libro->id?>">Borrar</a>    		
+    			<a class="button" href="/libro/delete/<?= $libro->id?>">Borrar</a> 
+    			<?php } ?>   		
     		</div>
 		</main>
 		<?= $template->footer() ?>

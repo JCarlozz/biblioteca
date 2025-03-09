@@ -60,12 +60,17 @@ class LibroController extends Controller{
     }
     
     public function create(){
+        
+        Auth::role(ROLE_LIBRARIAN);
+        
         return view('libro/create',[
             'listaTemas' => Tema::orderBy('tema')
         ]);        
     }
     
     public function store(){
+        
+        Auth::role(ROLE_LIBRARIAN);
         
         //comprueba que la petición venga del formulario
         if (!request()->has('guardar'))
@@ -146,6 +151,8 @@ class LibroController extends Controller{
     
     public function edit(int $id=0){
         
+        Auth::role(ROLE_LIBRARIAN);
+        
         //busca el libro con ese ID
         $libro = Libro::findOrFail($id, "No se encontró el libro.");
         
@@ -165,6 +172,8 @@ class LibroController extends Controller{
     }
     
     public function update(){
+        
+        Auth::role(ROLE_LIBRARIAN);
         
         if (!request()->has('actualizar'))      //si no llega el formulario...
             throw new FormException('No se recibieron datos');
@@ -228,6 +237,8 @@ class LibroController extends Controller{
     
     public function delete(int $id = 0){
         
+        Auth::role(ROLE_LIBRARIAN);
+        
         $libro = Libro::findOrFail($id, "No existe el libro.");
         
         return view('libro/delete', [
@@ -236,6 +247,8 @@ class LibroController extends Controller{
     }
     
     public function destroy(){
+        
+        Auth::role(ROLE_LIBRARIAN);
         
         //comprueba que llega el formulario de confirmación
         if (!request()->has('borrar'))
@@ -282,6 +295,8 @@ class LibroController extends Controller{
     
     public function addtema(){
         
+        Auth::role(ROLE_LIBRARIAN);
+        
         if(empty(request()->post('add')))
             throw new FormException("No se recibió el formulario");
         
@@ -311,6 +326,8 @@ class LibroController extends Controller{
     
     public function removetema(){
         
+        Auth::role(ROLE_LIBRARIAN);
+        
         if(empty(request()->post('remove')))
             throw new FormException("No se recibió el formulario");
             
@@ -339,6 +356,8 @@ class LibroController extends Controller{
       }
             
             public function dropcover(){
+                
+                Auth::role(ROLE_LIBRARIAN);
                 
                 if (!request()->has('borrar'))
                     throw new FormException('Faltan datos para completar la operación');

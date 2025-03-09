@@ -85,11 +85,13 @@
     					<td><?= $libro->autor ?></td>
     					<td class="centrado">
     						<a class='button' href='/Libro/show/<?= $libro->id ?>'tittle="Ver">
-    							<i class="fas fa-eye"></i></a> -
+    							<i class="fas fa-eye"></i></a> 
+    						<?php if(Login::oneRole(['ROLE_LIBRARIAN'])){?>-
     						<a class='button' href='/Libro/edit/<?= $libro->id ?>'tittle="Editar">
     							<i class="fas fa-edit"></i></a> -
     						<a class='button' href='/Libro/delete/<?= $libro->id ?>'tittle="Eliminar">
     							<i class="fas fa-trash-alt"></i></a>
+    						<?php } ?>
     					</td>
     				</tr>
     			<?php } ?>    			

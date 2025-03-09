@@ -6,6 +6,9 @@ class SocioController extends Controller{
     }
     
     public function list(int $page = 1){
+        
+        Auth::oneRole(['ROLE_LIBRARIAN','ROLE_ADMIN']);
+        
         //analiza si hay filtro
         $filtro = Filter::apply('socios');
         
@@ -45,8 +48,9 @@ class SocioController extends Controller{
     }
     
             
-    public function show(int $id=0){   
+    public function show(int $id=0){
         
+        Auth::oneRole(['ROLE_LIBRARIAN','ROLE_ADMIN']);        
         
         $socio = Socio::findOrFail($id, "No se encontró el socio indicado.");
         
@@ -59,11 +63,16 @@ class SocioController extends Controller{
     }
     
     public function create(){
+        
+        Auth::oneRole(['ROLE_LIBRARIAN','ROLE_ADMIN']);
+        
         return view('socio/create');
         
     }
     
     public function store(){
+        
+        Auth::oneRole(['ROLE_LIBRARIAN','ROLE_ADMIN']);
         
         //comprueba que la petición venga del formulario
         if (!request()->has('guardar'))
@@ -140,6 +149,8 @@ class SocioController extends Controller{
     
     public function edit(int $id=0){
         
+        Auth::oneRole(['ROLE_LIBRARIAN','ROLE_ADMIN']);
+        
         //busca el socio con ese ID
         $socio = Socio::findOrFail($id, "No se encontró el socio.");
         
@@ -150,6 +161,8 @@ class SocioController extends Controller{
     }
     
     public function update(){
+        
+        Auth::oneRole(['ROLE_LIBRARIAN','ROLE_ADMIN']);
         
         if (!request()->has('actualizar'))      //si no llega el formulario...
             throw new FormException('No se recibieron datos');
@@ -213,6 +226,8 @@ class SocioController extends Controller{
     
     public function delete(int $id = 0){
         
+        Auth::oneRole(['ROLE_LIBRARIAN','ROLE_ADMIN']);
+        
         $socio = Socio::findOrFail($id, "No existe el socio.");
         
         return view('socio/delete', [
@@ -221,6 +236,8 @@ class SocioController extends Controller{
     }
     
     public function destroy(){
+        
+        Auth::oneRole(['ROLE_LIBRARIAN','ROLE_ADMIN']);
         
         //comprueba que llega el formulario de confirmación
         if (!request()->has('borrar'))
@@ -265,6 +282,8 @@ class SocioController extends Controller{
                 }
     }
     public function dropcover(){
+        
+        Auth::oneRole(['ROLE_LIBRARIAN','ROLE_ADMIN']);
         
         if (!request()->has('borrar'))
             throw new FormException('Faltan datos para completar la operación');

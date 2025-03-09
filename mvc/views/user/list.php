@@ -90,7 +90,9 @@
     						<a class='button' href='/User/show/<?= $user->id ?>'tittle="Ver">
     							<i class="fas fa-eye"></i></a> -
     						<a class='button' href='/User/edit/<?= $user->id ?>'tittle="Editar">
-    							<i class="fas fa-edit"></i></a>
+    							<i class="fas fa-edit"></i></a> -
+    						<a class='button' href='/User/delete/<?= $user->id ?>'tittle="Borrar">
+    							<i class="fas fa-trash-alt"></i></a>
     					</td>
     				</tr>
     			<?php } ?>    			

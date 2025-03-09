@@ -33,6 +33,34 @@
     			<p><b>Tema:</b>			<?=$tema->tema?></p>
     			<p><b>Descripción:</b>	<?=$tema->descripcion?></p>
     		</section>
+    		<section>
+    			<h2>Libros que tratados del tema <?= $tema->tema?></h2>
+    			<?php 
+    			if(!$libros){
+    			    echo "<div class='warning p2'><p>No se han indicado temas.</p></div>";
+    			}else{ ?>
+    				<table class="table w100">
+    					<tr>
+    						<th>Titulo</th><th>Tema</th><th>Operaciones</th>
+    					</tr>
+    				<?php foreach($libros as $libro){?>
+    					<tr>
+    						<td><?=$libro->titulo ?></td>
+    						<td><a href='/Tema/show/<?=$libro->id?>'>
+    							<?=$tema->tema?></a>
+    						</td>
+    						<td class="centrado">
+    							<form method="POST" class="no-border" action="/Libro/removetema">
+    								<input type="hidden" name="idlibro" value="<?=$libro->id?>">
+    								<input type="hidden" name="idtema" value="<?=$tema->id?>">
+    								<input type="submit" class="button-danger" name="remove" value="Borrar">
+    							</form>
+    						</td>	
+    					</tr>
+    				<?php }?>    				
+    				</table>
+    			<?php }?>    			  		
+    		</section>
     		
     		    		
     		<div class="centrado">
