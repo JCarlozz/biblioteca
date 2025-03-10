@@ -83,13 +83,17 @@
     					<td><?= $prestamo->devolucion ?></td>
     					<td><?= $prestamo->limite ?></td>
     					<td class="centered">
-    						<?php if (empty($prestamo->devolucion)) {?>    						  
-      						<a class="button-danger" href="/Prestamo/reminder/<?= $prestamo->id ?>">
-        						Recordar devolución</a>
-        				<?php } else { ?>
-        					<sapan class="button-success">Devuelto</sapan>
-        				<?php } ?>
-        				</td>  
+                            <?php if (empty($prestamo->devolucion)) { ?>
+                                <form method="POST" action="/Prestamo/update">
+                                    <input type="hidden" name="actualizar" value="1">
+                                    <input type="hidden" name="id" value="<?= $prestamo->id ?>">
+                                    <button type="submit" class="button" name="devuelto">Devuelto</button>
+                                    <button type="submit" class="button" name="mas_tiempo">Más tiempo</button>
+                                </form>
+                            <?php } else { ?>
+                                <span class="button-success">Devuelto</span>
+                            <?php } ?>
+                        </td>	 
     				</tr>
     			<?php } ?>    			
     			</table>

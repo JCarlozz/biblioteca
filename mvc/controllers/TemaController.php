@@ -58,13 +58,15 @@ class TemaController extends Controller{
     
     public function create(){
         
-        Auth::role(ROLE_BIBLARIAN);
+        Auth::role('ROLE_LIBRARIAN');
         
         return view('tema/create');
         
     }
     
     public function store(){
+        
+        Auth::role('ROLE_LIBRARIAN');
         
         //comprueba que la petición venga del formulario
         if (!request()->has('guardar'))
@@ -110,6 +112,8 @@ class TemaController extends Controller{
     
     public function edit(int $id=0){
         
+        Auth::role('ROLE_LIBRARIAN');
+        
         //busca el tema con ese ID
         $tema = Tema::findOrFail($id, "No se encontró el tema.");
         
@@ -120,6 +124,8 @@ class TemaController extends Controller{
     }
     
     public function update(){
+        
+        Auth::role('ROLE_LIBRARIAN');
         
         if (!request()->has('actualizar'))      //si no llega el formulario...
             throw new FormException('No se recibieron datos');
@@ -151,6 +157,8 @@ class TemaController extends Controller{
     
     public function delete(int $id = 0){
         
+        Auth::role('ROLE_LIBRARIAN');
+        
         $tema = Tema::findOrFail($id, "No existe el tema.");
         
         return view('tema/delete', [
@@ -159,6 +167,8 @@ class TemaController extends Controller{
     }
     
     public function destroy(){
+        
+        Auth::role('ROLE_LIBRARIAN');
         
         //comprueba que llega el formulario de confirmación
         if (!request()->has('borrar'))

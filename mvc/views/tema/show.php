@@ -53,7 +53,9 @@
     							<form method="POST" class="no-border" action="/Libro/removetema">
     								<input type="hidden" name="idlibro" value="<?=$libro->id?>">
     								<input type="hidden" name="idtema" value="<?=$tema->id?>">
+    								<?php if(Login::oneRole(['ROLE_LIBRARIAN'])){?>
     								<input type="submit" class="button-danger" name="remove" value="Borrar">
+    								<?php } ?>
     							</form>
     						</td>	
     					</tr>

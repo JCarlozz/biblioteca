@@ -572,7 +572,7 @@ img.text-top	{ vertical-align: text-top }
 form{
 	padding: 2%;
 	margin: 5px auto;
-	border: 1px solid var(--border-color);
+	/*border: 1px solid var(--border-color);*/
 	border-radius: 5px;
 	box-shadow: 1px 1px 2px var(--shadow-color);
 	background-color: var(--form-bg-color);

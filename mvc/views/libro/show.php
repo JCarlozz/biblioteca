@@ -78,7 +78,7 @@
     				</table>
     			<?php }?>    		
     		</section>		
-    		
+    		<?php if(Login::oneRole(['ROLE_LIBRARIAN'])){?>
     		<section>
     			<script>
     				function confirmar(id){
@@ -108,16 +108,18 @@
             					<td><?=$ejemplar->precio?></td>
             					<td><?=$ejemplar->estado?></td>
             					<td class="centered">
-            					<?php if(!$ejemplar->hasAny('Prestamo')) { ?>
-        							<a  class="button" onclick="confirmar(<?= $ejemplar->id ?>)">Borrar</a>
-        						<?php } ?>        						
-        						</td>
+                                    <?php if (!$ejemplar->hasAny('Prestamo')) { ?>
+                                        <a class="button" onclick="confirmar(<?= $ejemplar->id ?>)">Borrar</a>
+                                    <?php } else { ?>
+                                        <a class="button-warning" href="/Ejemplar/incidencia/<?= $ejemplar->id ?>">Incidencia</a>
+                                    <?php } ?>
+                                </td>
             				</tr>            			
             			<?php } ?>
             			</table>
             		<?php } ?>
             	</section>
-			
+				<?php } ?>
     		
     		<div class="centrado">
     			<a class="button" onclick="history.back()">Atrás</a>

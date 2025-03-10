@@ -31,7 +31,7 @@
 			<form method="POST" enctype="multipart/form-data" action="/Prestamo/store">
 				<div class="flex2">
 					<label>ID socio</label>
-					<input type="number" name="idsocio" value="<?=old('idsocio')?>"><h3><?="$socio->nombre $socio->apellidos"?></h3>					
+					<input type="number" name="idsocio" value="<?=old('idsocio')?>">					
 					<br>					
 										
 					<label>ID Ejemplar</label>
@@ -39,7 +39,7 @@
 					<br>
 					
 					<label>Fecha de devolución</label>
-					<input type="date" name="limite" value="">
+					<input type="date" name="limite" value="<?= date('Y-m-d', strtotime('+15 days')) ?>">
 					<br>
 										
 					<div class="centrado my2">

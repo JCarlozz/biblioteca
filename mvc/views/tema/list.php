@@ -71,11 +71,13 @@
     					<td><?= $tema->descripcion ?></td>
     					<td class="centrado">
     						<a class='button' href='/Tema/show/<?= $tema->id ?>'tittle="Ver">
-    							<i class="fas fa-eye"></i></a> -
+    							<i class="fas fa-eye"></i></a>
+    							<?php if(Login::oneRole(['ROLE_LIBRARIAN', 'ROLE_ADMIN'])){?> -
     						<a class='button' href='/Tema/edit/<?= $tema->id ?>'tittle="Editar">
     							<i class="fas fa-edit"></i></a> -
     						<a class='button' href='/Tema/delete/<?= $tema->id ?>'tittle="Eliminar">
     							<i class="fas fa-trash-alt"></i></a>
+    							<?php }?>
     					</td>
     				</tr>
     			<?php } ?>    			

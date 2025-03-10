@@ -85,5 +85,46 @@ class EjemplarController extends Controller{
                         
          }
     }
+    
+    public function incidencia(int $id){
+    
+        Auth::role('ROLE_LIBRARIAN');
+        
+        $ejemplar = Ejemplar::findOrFail($id, "No se ha encontrado el ejemplar.");
+        
+        return view('ejemplar/edit', [
+            'ejemplar' => $ejemplar
+        ]);
+    }
+    
+    public function guardarIncidencia()
+    {
+        Auth::role('ROLE_LIBRARIAN');
+        
+        if (!request()->has('id')) {
+            throw new FormException('Faltan datos para registrar la incidencia.');
+        }
+        
+        $id = intval(request()->post('id'));
+        $descripcion = trim(request()->post('descripcion'));
+        
+        $ejemplar = Ejemplar::findOrFail($id, "No se ha encontrado el ejemplar.");
+        
+        try {
+            $ejemplar->estado = $descripcion;  // Guardar la incidencia
+            $ejemplar->update();
+            
+            Session::success("Se ha registrado la incidencia en el ejemplar $ejemplar->id.");
+            return redirect("/Libro/show/");
+            
+        } catch (SQLException $e) {
+            Session::error("Error al registrar la incidencia.");
+            
+            if (DEBUG) throw new SQLException($e->getMessage());
+            
+            return redirect("/Ejemplar/incidencia/$id");
+        }
+    }
+    
          
 }

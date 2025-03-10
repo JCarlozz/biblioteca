@@ -7,7 +7,7 @@ class PrestamoController extends Controller{
     
     public function list(int $page = 1){
         
-        Auth::role('ROLE_LIBRARIAN');
+        Auth::oneRole(['ROLE_LIBRARIAN','ROLE_ADMIN']);
         
         //analiza si hay filtro
         $filtro = Filter::apply('prestamos');
@@ -50,7 +50,7 @@ class PrestamoController extends Controller{
     
     public function create(){
         
-        Auth::role('ROLE_LIBRARIAN');
+        Auth::oneRole(['ROLE_LIBRARIAN','ROLE_ADMIN']);
         
         return view('prestamo/create');
         
@@ -58,7 +58,7 @@ class PrestamoController extends Controller{
     
     public function store(){
         
-        Auth::role('ROLE_LIBRARIAN');
+        Auth::oneRole(['ROLE_LIBRARIAN','ROLE_ADMIN']);
         
         //comprueba que la petición venga del formulario
         if (!request()->has('guardar'))
@@ -106,7 +106,7 @@ class PrestamoController extends Controller{
     
     public function reminder($id){
         
-        Auth::role('ROLE_LIBRARIAN');
+        Auth::oneRole(['ROLE_LIBRARIAN','ROLE_ADMIN']);
         
         // Buscar los datos del préstamo en v_prestamo
         $prestamo = V_prestamo::findOrFail($id);
@@ -143,4 +143,40 @@ class PrestamoController extends Controller{
             }
     }
     
+    public function update(){
+    
+        Auth::oneRole(['ROLE_LIBRARIAN','ROLE_ADMIN']);
+        
+        if (!request()->has('actualizar')) // Si no llega el formulario...
+            throw new FormException('No se recibieron datos');
+            
+            $id = intval(request()->post('id')); // Recuperar el ID vía POST
+            
+            $prestamo = Prestamo::findOrFail($id, "No se ha encontrado el préstamo.");
+            
+            try {
+                // Botón "Devuelto"
+                if (request()->has('devuelto')) {
+                    $prestamo->devolucion = date('Y-m-d'); // Fecha actual devolución
+                }
+                
+                // Botón más tiempo extiende 7 días
+                if (request()->has('mastiempo')) {
+                    $nuevaFecha = date('Y-m-d', strtotime($prestamo->limite . ' +7 days'));
+                    $prestamo->limite = $nuevaFecha;
+                }
+                
+                $prestamo->update();
+                
+                Session::success("Actualización del préstamo correcta.");
+                return redirect("/Prestamo/list");
+                
+            } catch (SQLException $e) {
+                Session::error("Hubo errores en la actualización del préstamo.");
+                
+                if (DEBUG) throw new SQLException($e->getMessage());
+                
+                return redirect("/Prestamo/edit/$id");
+            }
+    }    
 }
