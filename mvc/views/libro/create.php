@@ -58,21 +58,21 @@
 					</select>
 					<br>
 					<label>Edición</label>
-					<input type="number" name="edicion" value"<?=old('edicion')?>">
+					<input type="number" name="edicion" value="<?=old('edicion')?>">
 					<br>
 					<label>Año</label>
-					<input type="number" name="anyo" value"<?=old('anyo')?>">
+					<input type="number" name="anyo" value="<?=old('anyo')?>">
 					<br>
 					<label>Edad rec.</label>
 					<input type="number" name="edadrecomendada"
-							value"<?=old('edadrecomendado')?>">
+							value="<?=old('edadrecomendada')?>">
 					<br>
 					<label>Páginas</label>
-					<input type="number" name="paginas" value"<?=old('paginas')?>">
+					<input type="number" name="paginas" value="<?=old('paginas')?>">
 					<br>
 					<label>Caracte.</label>
 					<input type="text" name="caracteristicas" 
-							value"<?=old('caracteristicas')?>">
+							value="<?=old('caracteristicas')?>">
 					<br>
 					<label>Tema</label>
 					<select name="idtema">

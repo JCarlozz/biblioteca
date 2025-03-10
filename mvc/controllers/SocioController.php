@@ -97,6 +97,10 @@ class SocioController extends Controller{
             //evitar ir a la página de error y volver al formulario "nuevo socio"
             
             try{
+                if ($errores = $socio->validate())
+                    throw new ValidationException(
+                        "<br>".arrayToString($errores, false, false, ".<br>")
+                        );
                 
                 //guarda el libro en la base de datos
                 $socio->save();
@@ -119,6 +123,13 @@ class SocioController extends Controller{
                 
                 //redirecciona a los detalles del nuevo socio
                 return redirect("/Socio/show/$socio->id");
+                
+            }catch (ValidationException $e){
+                
+                Session::error("Errores de validación.".$e->getMessage());
+                
+                //regresa al formulario de ceación del libro
+                return redirect("/Socio/create");
                 
                 //si falla el guardado del nuevo socio
             }catch (SQLException $e){

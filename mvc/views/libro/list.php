@@ -28,9 +28,12 @@
 		<main>
 		  <div>
     		<h1><?= APP_NAME ?></h1>
-    		<h2>Lista completa de libros</h2>    		
+    		<h2>Lista completa de libros</h2>
+    		 
+    		<?php if(Login::oneRole(['ROLE_LIBRARIAN'])){?>   		
     		<p><a class="button right" href="/Libro/create/">Nuevo libro</a></p>
 		  </div>
+		  	<?php }?>
 		  
     		<?php if ($libros) { ?>
     		

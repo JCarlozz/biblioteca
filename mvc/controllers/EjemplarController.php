@@ -3,7 +3,7 @@ class EjemplarController extends Controller{
                         
     public function create(int $idlibro= 0){
         
-        Auth::role(ROLE_LIBRARIAN);
+        Auth::role('ROLE_LIBRARIAN');
         
         $libro = Libro::findOrFail($idlibro);
         
@@ -14,7 +14,7 @@ class EjemplarController extends Controller{
     
     public function store(){
         
-        Auth::role(ROLE_LIBRARIAN);
+        Auth::role('ROLE_LIBRARIAN');
         
         //comprueba que la petición venga del formulario
         if (!request()->has('guardar'))
@@ -61,7 +61,7 @@ class EjemplarController extends Controller{
     }
     public function destroy(int $id=0){
         
-        Auth::role(ROLE_LIBRARIAN);
+        Auth::role('ROLE_LIBRARIAN');
         
         $ejemplar = Ejemplar::findOrFail($id, "No se encontró el ejemplar.");
         

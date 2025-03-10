@@ -3,14 +3,14 @@
         
         public function index(){
             
-            Login::isAdmin();
+            Auth::admin();
             
             return $this->list();
         }
         
         public function list(int $page = 1){
                         
-            Login::isAdmin();
+            Auth::admin();
             
             //analiza si hay filtro
             $filtro = Filter::apply('users');
@@ -52,7 +52,7 @@
         
         public function show(int $id=0){
             
-            Login::isAdmin();
+            Auth::admin();
             
             $user = User::findOrFail($id, "No se encontró el usuario indicado.");
             
@@ -63,7 +63,7 @@
         
         public function edit(int $id=0){
             
-            Login::isAdmin();
+            Auth::admin();
             
             //busca del usuario con ese ID
             $user = User::findOrFail($id, "No se encontró el usuario.");
@@ -85,14 +85,14 @@
         
         public function create(){
             
-            Login::isAdmin();
+            Auth::admin();
             
             return view('user/create');
         }
         
         public function store(){
             
-            Login::isAdmin();
+            Auth::admin();
             
             if(!request()->has('guardar'))
                 throw new FormException('No se recibió el formulario');
@@ -156,7 +156,7 @@
       
       public function update(){
           
-          Login::isAdmin();
+          Auth::admin();
           
           if (!request()->has('actualizar'))      //si no llega el formulario...
               throw new FormException('No se recibieron datos');
@@ -213,7 +213,7 @@
       
       public function delete(int $id = 0){
           
-          Login::isAdmin();
+          Auth::admin();
           
           $user = User::findOrFail($id, "No existe el usuario.");
           
@@ -265,7 +265,7 @@
       
       public function addrole(){
           
-          Login::isAdmin();
+          Auth::admin();
           
           if(empty(request()->post('add')))
               throw new FormException("No se recibió el formulario");
@@ -276,7 +276,7 @@
               $user   = User::findOrFail($id, "No se encontró el usuario");              
               
               try{
-                  $user->roles[] = $role;
+                  $user->addRole($role);
                   $user->update();
                   
                   Session::success("Se ha añadido '$role' al $user->displayname.");
@@ -295,7 +295,7 @@
       
       public function removerole() {
           
-          Login::isAdmin();
+          Auth::admin();
           
           if (empty(request()->post('remove'))) {
               throw new FormException("No se recibió el formulario");
@@ -339,7 +339,7 @@
             
       public function dropcover(){
           
-          Login::isAdmin();
+          Auth::admin();
           
           if (!request()->has('borrar'))
               throw new FormException('Faltan datos para completar la operación');

@@ -28,9 +28,13 @@
 		<main>
 		<div>
     		<h1><?= APP_NAME ?></h1>
-    		<h2>Lista completa de socios</h2>    		
+    		<h2>Lista completa de socios</h2>
+    		
+    		<?php if(Login::oneRole(['ROLE_LIBRARIAN', 'ROLE_ADMIN'])){?>    		
     		<p><a class="button right" href="/Socio/create/">Nuevo socio</a></p>
 		</div>
+			<?php }?>
+			
     		<?php if ($socios) { ?>
     		
     		<div class="right">

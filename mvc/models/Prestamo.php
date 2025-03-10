@@ -1,3 +1,5 @@
 <?php
-    class Prestamo extends Model{}
+class Prestamo extends Model{}
+        
+    
     

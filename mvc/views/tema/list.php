@@ -28,9 +28,12 @@
 		<main>
 		<div>
     		<h1><?= APP_NAME ?></h1>
-    		<h2>Lista completa de temas</h2>    		
+    		<h2>Lista completa de temas</h2>
+    		
+    		<?php if(Login::oneRole(['ROLE_LIBRARIAN', 'ROLE_ADMIN'])){?>    		
     		<p><a class="button right" href="/Tema/create/">Nuevo tema</a></p>
 		</div>
+			<?php }?>
     		<?php if ($temas) { ?>
     		
     		<div class="right">

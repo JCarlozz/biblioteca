@@ -7,7 +7,7 @@ class PrestamoController extends Controller{
     
     public function list(int $page = 1){
         
-        Auth::role(ROLE_LIBRARIAN);
+        Auth::role('ROLE_LIBRARIAN');
         
         //analiza si hay filtro
         $filtro = Filter::apply('prestamos');
@@ -50,7 +50,7 @@ class PrestamoController extends Controller{
     
     public function create(){
         
-        Auth::role(ROLE_LIBRARIAN);
+        Auth::role('ROLE_LIBRARIAN');
         
         return view('prestamo/create');
         
@@ -58,7 +58,7 @@ class PrestamoController extends Controller{
     
     public function store(){
         
-        Auth::role(ROLE_LIBRARIAN);
+        Auth::role('ROLE_LIBRARIAN');
         
         //comprueba que la petición venga del formulario
         if (!request()->has('guardar'))
@@ -77,7 +77,6 @@ class PrestamoController extends Controller{
             //evitar ir a la página de error y volver al formulario "nuevo libro"
             
             try{
-                
                 //guarda el libro en la base de datos
                 $prestamo->save();
                 
@@ -85,7 +84,8 @@ class PrestamoController extends Controller{
                 Session::success("Prestamo añadido correctamente.");
                 
                 //redirecciona a los detalles del nuevo libro
-                return redirect("/Prestamo/list/");
+                return redirect("/Prestamo/list/");                
+           
                 
                 //si falla el guardado del libro
             }catch (SQLException $e){
@@ -106,7 +106,7 @@ class PrestamoController extends Controller{
     
     public function reminder($id){
         
-        Auth::role(ROLE_LIBRARIAN);
+        Auth::role('ROLE_LIBRARIAN');
         
         // Buscar los datos del préstamo en v_prestamo
         $prestamo = V_prestamo::findOrFail($id);

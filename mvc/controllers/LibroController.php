@@ -61,7 +61,7 @@ class LibroController extends Controller{
     
     public function create(){
         
-        Auth::role(ROLE_LIBRARIAN);
+        Auth::role('ROLE_LIBRARIAN');
         
         return view('libro/create',[
             'listaTemas' => Tema::orderBy('tema')
@@ -70,7 +70,7 @@ class LibroController extends Controller{
     
     public function store(){
         
-        Auth::role(ROLE_LIBRARIAN);
+        Auth::role('ROLE_LIBRARIAN');
         
         //comprueba que la petición venga del formulario
         if (!request()->has('guardar'))
@@ -100,6 +100,11 @@ class LibroController extends Controller{
             
             try{
                 
+                if ($errores = $libro->validate())
+                    throw new ValidationException(
+                        "<br>".arrayToString($errores, false, false, ".<br>")
+                    );
+                
                 //guarda el libro en la base de datos
                 $libro->save();
                 $libro->addTema($idtema);       //le pone el tema principal
@@ -121,8 +126,16 @@ class LibroController extends Controller{
                 
                 //redirecciona a los detalles del nuevo libro
                 return redirect("/Libro/show/$libro->id");
+            
+            //si hay un problema de validación...    
+            }catch (ValidationException $e){
                 
-                //si falla el guardado del libro
+                Session::error("Errores de validación.".$e->getMessage());
+                
+                //regresa al formulario de ceación del libro
+                return redirect("/Libro/create");
+                
+            //si falla el guardado del libro
             }catch (SQLException $e){
                 
                 //flashea un mensaje de error en sesión
@@ -151,7 +164,7 @@ class LibroController extends Controller{
     
     public function edit(int $id=0){
         
-        Auth::role(ROLE_LIBRARIAN);
+        Auth::role('ROLE_LIBRARIAN');
         
         //busca el libro con ese ID
         $libro = Libro::findOrFail($id, "No se encontró el libro.");
@@ -173,7 +186,7 @@ class LibroController extends Controller{
     
     public function update(){
         
-        Auth::role(ROLE_LIBRARIAN);
+        Auth::role('ROLE_LIBRARIAN');
         
         if (!request()->has('actualizar'))      //si no llega el formulario...
             throw new FormException('No se recibieron datos');
@@ -237,7 +250,7 @@ class LibroController extends Controller{
     
     public function delete(int $id = 0){
         
-        Auth::role(ROLE_LIBRARIAN);
+        Auth::role('ROLE_LIBRARIAN');
         
         $libro = Libro::findOrFail($id, "No existe el libro.");
         
@@ -248,7 +261,7 @@ class LibroController extends Controller{
     
     public function destroy(){
         
-        Auth::role(ROLE_LIBRARIAN);
+        Auth::role('ROLE_LIBRARIAN');
         
         //comprueba que llega el formulario de confirmación
         if (!request()->has('borrar'))
@@ -295,7 +308,7 @@ class LibroController extends Controller{
     
     public function addtema(){
         
-        Auth::role(ROLE_LIBRARIAN);
+        Auth::role('ROLE_LIBRARIAN');
         
         if(empty(request()->post('add')))
             throw new FormException("No se recibió el formulario");
@@ -326,7 +339,7 @@ class LibroController extends Controller{
     
     public function removetema(){
         
-        Auth::role(ROLE_LIBRARIAN);
+        Auth::role('ROLE_LIBRARIAN');
         
         if(empty(request()->post('remove')))
             throw new FormException("No se recibió el formulario");
@@ -357,7 +370,7 @@ class LibroController extends Controller{
             
             public function dropcover(){
                 
-                Auth::role(ROLE_LIBRARIAN);
+                Auth::role('ROLE_LIBRARIAN');
                 
                 if (!request()->has('borrar'))
                     throw new FormException('Faltan datos para completar la operación');
