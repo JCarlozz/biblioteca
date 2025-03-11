@@ -132,7 +132,7 @@ class Base implements TemplateInterface{
             <header>
                 <figure>
                     <a href='/'>
-                        <img alt='Biblioteca CIFO 2025' src=''>
+                        <img alt='Biblioteca CIFO 2025' src='../public/images/template/BWStamp.png'>
                     </a>
                 </figure>
                 <hgroup>

@@ -14,6 +14,25 @@
 		<script src="/js/Preview.js"></script>
 		<!-- CSS -->
 		<?= $template->css() ?>
+		<script>
+    			window.addEventListener('load', function(){	
+    				isbn.addEventListener('change', function(){
+    					fetch("/User/checkisbn/"+this.value,{
+    						"method":"GET"
+    					})
+    					.then(function(respuesta){
+                			return respuesta.json();
+                		})
+                		.then(function(json){
+                			if(json.status == 'OK')
+                				comprobacionisbn.innerHTML =
+                					json.data.found ? 'Este número de ISBN ya está registrado' :'';
+    						else
+    							comprobacionisbn.innerHTML = 'No se pudo comprobar.';
+        					});
+        				});
+        			});		
+       	</script>
 	</head>
 	<body>
 		<?= $template->login() ?>
@@ -33,7 +52,8 @@
 				
 				<div class="flex2">
 					<label>ISBN</label>
-					<input type="text" name="isbn" value="<?=old('isbn')?>">
+					<input type="text" name="isbn" id="isbn" value="<?=old('isbn')?>">
+					<output id="comprobacionisbn" class="mini"></output>
 					<br>
 					<label>Título</label>
 					<input type="text" name="titulo" value="<?=old('titulo')?>">
