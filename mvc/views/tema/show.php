@@ -68,8 +68,10 @@
     		<div class="centrado">
     			<a class="button" onclick="history.back()">Atrás</a>
     			<a class="button" href="/Tema/list/">Lista de temas</a>
+    			<?php if(Login::oneRole(['ROLE_LIBRARIAN', 'ROLE_ADMIN'])){?> -
     			<a class="button" href="/Tema/edit/<?= $tema->id?>">Editar</a>
-    			<a class="button" href="/Tema/delete/<?= $tema->id?>">Borrar</a>    		
+    			<a class="button" href="/Tema/delete/<?= $tema->id?>">Borrar</a>
+    			<?php }?>    		
     		</div>
 		</main>
 		<?= $template->footer() ?>

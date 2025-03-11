@@ -15,6 +15,44 @@
 		<script src="/js/Preview.js"></script>
 		<!-- CSS -->
 		<?= $template->css() ?>
+		<script>
+			window.addEventListener('load', function(){	
+				email.addEventListener('change', function(){
+					fetch("/User/checkemail/"+this.value,{
+						"method":"GET"
+					})
+					.then(function(respuesta){
+            			return respuesta.json();
+            		})
+            		.then(function(json){
+            			if(json.status == 'OK')
+            				comprobacion.innerHTML =
+            					json.data.found ? 'Este email ya está registrado' :'';
+						else
+							comprobacion.innerHTML = 'No se pudo comprobar.';
+    					});
+    				});
+    			});		
+    		</script>
+    		<script>
+    			window.addEventListener('load', function(){	
+    				phone.addEventListener('change', function(){
+    					fetch("/User/checkphone/"+this.value,{
+    						"method":"GET"
+    					})
+    					.then(function(respuesta){
+                			return respuesta.json();
+                		})
+                		.then(function(json){
+                			if(json.status == 'OK')
+                				comprobacionphone.innerHTML =
+                					json.data.found ? 'Este número de teléfono ya está registrado' :'';
+    						else
+    							comprobacionphone.innerHTML = 'No se pudo comprobar.';
+        					});
+        				});
+        			});		
+        		</script>
 	</head>
 	<body>
 		<?= $template->login() ?>
@@ -36,20 +74,21 @@
     					class="flex2 no-border">
     					
     					<label>Nombre</label>
-    					<input type="text" name="displayname">
+    					<input type="text" name="displayname" value="<?= old('displayname')?>">
     					<br>
     					<label>Email</label>
-    					<input type="email" name="email" id="inputEmail">
-    					<span id="comprobacion" class="info"></span>
+    					<input type="email" name="email" id="email" value="<?= old('email')?>">
+    					<output id="comprobacion" class="mini"></output>
     					<br>
-    					<label>Phone</label>
-    					<input type="text" name="phone">
+    					<label>Teléfono</label>
+    					<input type="text" name="phone" id="phone" value="<?= old('phone')?>">
+    					<output id="comprobacionphone" class="mini"></output>
     					<br>
     					<label>Password</label>
-    					<input type="password" name="password">
+    					<input type="password" name="password" value="<?= old('password')?>">
     					<br>
     					<label>Repetir</label>
-    					<input type="password" name="repeatpassword">
+    					<input type="password" name="repeatpassword" value="<?= old('repeatpassword')?>">
     					<br>
     					<label>Imagen de perfil</label>
     					<input type="file" name="picture" accept="image/*" id="file-with-preview">
@@ -67,6 +106,7 @@
     							<input type="reset" class="button" value="Reset">
     						</div>
     					</form>
+    				</div>
     					
     					<figure class="flex1 centrado">
     						<img src="<?=USERS_IMAGE_FOLDER.'/'.($user->picture ?? DEFAULT_USERS_IMAGE)?>"

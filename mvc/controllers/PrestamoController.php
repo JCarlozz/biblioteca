@@ -178,5 +178,56 @@ class PrestamoController extends Controller{
                 
                 return redirect("/Prestamo/edit/$id");
             }
-    }    
+    }
+    
+    public function checkidsocio(int $idsocio):JsonResponse{
+        
+        //esta operación solamente la puedes hacer el administrador, si el usuario
+        //no tiene permiso para hacerla, retornaremos una JsonResponse de error
+        if(!Login::isAdmin()){
+            return new JsonResponse(
+                ['status' => 'ERROR'],        //array con los datos
+                'Operación no autorizada',    //mensaje adicional
+                401,                          //código HTTP
+                'NOT AUTHORIZED'              //mensaje HTTP
+                );
+        }
+        
+        //recupera el susuario con ese email
+        $socio = V_prestamo::findOrFail($idsocio);
+        
+        //retorna una nueva JsonResponse con el campo "found" a
+        //true o false dependiendo de si lo ha encontrado o no
+        return new JsonResponse([
+            'found' => $socio ? true : false,
+            'nombre' => $socio->nombre,
+            'apellidos' => $socio->apellidos// Enviar el nombre del socio
+        ], 200);
+    
+    }
+    
+    public function checkidejemplar(int $idejemplar):JsonResponse{
+        
+        //esta operación solamente la puedes hacer el administrador, si el usuario
+        //no tiene permiso para hacerla, retornaremos una JsonResponse de error
+        if(!Login::isAdmin()){
+            return new JsonResponse(
+                ['status' => 'ERROR'],        //array con los datos
+                'Operación no autorizada',    //mensaje adicional
+                401,                          //código HTTP
+                'NOT AUTHORIZED'              //mensaje HTTP
+                );
+        }
+        
+        //recupera el susuario con ese email
+        $ejemplar = V_prestamo::findOrFail($idejemplar);
+        
+        //retorna una nueva JsonResponse con el campo "found" a
+        //true o false dependiendo de si lo ha encontrado o no
+        return new JsonResponse([
+            'found'  => $ejemplar ? true : false,
+            'titulo' => $ejemplar->titulo // Enviar el titulo
+        ], 200);
+        
+    }
 }

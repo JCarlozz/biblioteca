@@ -14,6 +14,46 @@
 		
 		<!-- CSS -->
 		<?= $template->css() ?>
+		<script>
+    			window.addEventListener('load', function () {
+                    idsocio.addEventListener('change', function () {
+                        fetch("/Prestamo/checkidsocio/" + this.value, {
+                            method: "GET"
+                            })
+    					.then(function(respuesta){
+                			return respuesta.json();
+                		})
+                		.then(function(json){
+                			if(json.status == 'OK')
+                				comprobacionidsocio.innerHTML =
+                					json.data.found ? `${json.data.nombre} ${json.data.apellidos}` : '';
+    						else
+    							comprobacionidsocio.innerHTML = 'No se pudo comprobar.';
+        					});
+        				});
+        			});		
+       	</script>
+       	<script>
+    			window.addEventListener('load', function () {
+                    idejemplar.addEventListener('change', function () {
+                        fetch("/Prestamo/checkidejemplar/" + this.value, {
+                            method: "GET"
+                            })
+    					.then(function(respuesta){
+                			return respuesta.json();
+                			
+                			
+                		})
+                		.then(function(json){
+                             if(json.status == 'OK')
+                        	     comprobacionidejemplar.innerHTML =
+                            	     json.data.found ? `${json.data.titulo}` : '';
+                             else
+                                 comprobacionidejemplar.innerHTML = 'No se pudo comprobar.';
+                            });
+        				});
+        			});		
+       	</script>
 	</head>
 	<body>
 		<?= $template->login() ?>
@@ -31,11 +71,13 @@
 			<form method="POST" enctype="multipart/form-data" action="/Prestamo/store">
 				<div class="flex2">
 					<label>ID socio</label>
-					<input type="number" name="idsocio" value="<?=old('idsocio')?>">					
+					<input type="number" name="idsocio" id="idsocio" value="<?=old('idsocio')?>">
+					<output id="comprobacionidsocio" class="mini"></output>					
 					<br>					
 										
 					<label>ID Ejemplar</label>
-					<input type="number" name="idejemplar" value="<?=old('idejemplar')?>">					
+					<input type="number" name="idejemplar" id="idejemplar" value="<?=old('idejemplar')?>">					
+					<output id="comprobacionidejemplar" class="mini"></output>
 					<br>
 					
 					<label>Fecha de devolución</label>

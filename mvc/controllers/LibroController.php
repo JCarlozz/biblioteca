@@ -408,6 +408,29 @@ class LibroController extends Controller{
                     }
                     
           }
-            
+          
+          public function checkisbn(string $isbn = ''):JsonResponse{
+                           
+              //esta operación solamente la puedes hacer el administrador, si el usuario
+              //no tiene permiso para hacerla, retornaremos una JsonResponse de error
+              if(!Auth::oneRole(['ROLE_LIBRARIAN','ROLE_ADMIN'])){
+                  return new JsonResponse(
+                     ['status' => 'ERROR'],        //array con los datos
+                     'Operación no autorizada',    //mensaje adicional
+                     401,                          //código HTTP
+                     'NOT AUTHORIZED'              //mensaje HTTP
+                      );
+              }
+              
+              //recupera el libro con ese isbn
+              $libro = Libro::where([$isbn => 'isbn']);
+              
+              //retorna una nueva JsonResponse con el campo "found" a
+              //true o false dependiendo de si lo ha encontrado o no
+              return new JsonResponse([
+                  'found' => $libro ? true : false,
+                  'isbn'  => $libro->isbn
+              ]);
+          }           
     
 }

@@ -333,5 +333,30 @@ class SocioController extends Controller{
             
     }
     
+    public function checkdni(string $dni):JsonResponse{
+        
+        //esta operación solamente la puedes hacer el administrador, si el usuario
+        //no tiene permiso para hacerla, retornaremos una JsonResponse de error
+        if(!Auth::oneRole(['ROLE_LIBRARIAN','ROLE_ADMIN'])){
+            return new JsonResponse(
+                ['status' => 'ERROR'],        //array con los datos
+                'Operación no autorizada',    //mensaje adicional
+                401,                          //código HTTP
+                'NOT AUTHORIZED'              //mensaje HTTP
+                );
+        }
+        
+        //recupera el susuario con ese email
+        $socio = Socio::where(['dni'=> $dni]);
+        
+        //retorna una nueva JsonResponse con el campo "found" a
+        //true o false dependiendo de si lo ha encontrado o no
+        return new JsonResponse([
+            'found'  => $socio ? true : false,
+            'dni'    => $socio->dni // Enviar el titulo
+        ], 200);
+        
+    }
+    
     
 }

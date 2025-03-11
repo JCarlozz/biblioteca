@@ -14,6 +14,25 @@
 		<script src="/js/Preview.js"></script>
 		<!-- CSS -->
 		<?= $template->css() ?>
+		<script>
+    			window.addEventListener('load', function () {
+                    dni.addEventListener('change', function () {
+                        fetch("/Libro/checkdni/" + this.value, {
+                            method: "GET"
+                            })
+    					.then(function(respuesta){
+                			return respuesta.json();
+                		})
+                		.then(function(json){
+                			if(json.status == 'OK')
+                				comprobaciondni.innerHTML =
+                					json.data.found ? 'Este número de DNI ya está registrado' :'';
+    						else
+    							comprobaciondni.innerHTML = 'No se pudo comprobar.';
+        					});
+        				});
+        			});		
+       	</script>
 	</head>
 	<body>
 		<?= $template->login() ?>
@@ -32,6 +51,7 @@
 				<div class="flex2">
 					<label>DNI</label>
             			<input type="text" name="dni" value="<?=old('dni')?>">
+            			<output id="comprobaciondni" class="mini"></output>
             			<br>
             			<label>Nombre</label>
             			<input type="text" name="nombre" value="<?=old('nombre')?>">
