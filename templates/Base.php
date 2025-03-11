@@ -19,7 +19,7 @@ class Base implements TemplateInterface{
      *    
      * */
     protected array $css = [
-        'standard'  => '/css/propio.css',         // hoja de estilo para PC
+        'standard'  => '/css/base.css',         // hoja de estilo para PC
         'tablet'    => '/css/base_tablet.css',  // hoja de estilo para tablet
         'phone'     => '/css/base_phone.css',   // hoja de estilo para teléfono
         'printer'   => '/css/base_printer.css'  // hoja de estilo para impresora    
@@ -132,7 +132,7 @@ class Base implements TemplateInterface{
             <header>
                 <figure>
                     <a href='/'>
-                        <img alt='Biblioteca CIFO 2025' src=''>
+                        <img alt='Biblioteca CIFO 2025' src='/images/template/BWStamp.png'>
                     </a>
                 </figure>
                 <hgroup>
